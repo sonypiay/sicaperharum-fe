@@ -1,0 +1,14 @@
+$fontFamily: "Open Sans", sans-serif;
+
+$color-1: #05668D;
+$color-2: #028090;
+$color-3: #00A896;
+$color-4: #02C39A;
+$color-5: #F0F3BD;
+
+@mixin fontStyling($family, $size, $weight, $color) {
+    font-family: $family;
+    font-weight: $weight;
+    color: $color;
+    font-size: $size;
+}

@@ -1,0 +1,30 @@
+@use 'variables' as vars;
+
+.login-section-left {
+    .login-form {
+        .login-heading {
+            margin-bottom: 10px;
+            @include vars.fontStyling(vars.$fontFamily !important, 36px, 600, black);
+        }
+
+        .login-intro {
+            margin-top: 10px;
+            @include vars.fontStyling(vars.$fontFamily !important, 16px, 400, #999999);
+        }
+    }
+}
+
+.login-section-right {
+    background-color: vars.$color-3;
+}
+
+.login-section-right .login-cover-img {
+    background-image: url(../../assets/images/cover-login.png);
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+    position: relative;
+    right: 35%;
+}
