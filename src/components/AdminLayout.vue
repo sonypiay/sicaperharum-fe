@@ -7,7 +7,7 @@ import HeaderNavbar from "./HeaderNavbar.vue";
 <template>
     <div>
         <div class="uk-grid-collapse" uk-grid>
-            <div class="uk-width-1-6">
+            <div class="uk-width-1-6 uk-grid-item-match">
                 <SideNavbar />
             </div>
             <div class="uk-width-expand">

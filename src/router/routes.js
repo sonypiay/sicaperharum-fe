@@ -11,6 +11,8 @@ import SpesimenEdit from "../pages/MasterData/Spesimen/SpesimenEdit.vue";
 import MetodePembayaranCreate from "../pages/MasterData/MetodePembayaran/MetodePembayaranCreate.vue";
 import MetodePembayaranEdit from "../pages/MasterData/MetodePembayaran/MetodePembayaranEdit.vue";
 import MetodePembayaranList from "../pages/MasterData/MetodePembayaran/MetodePembayaranList.vue";
+import UserCreate from "../pages/MasterData/User/UserCreate.vue";
+import UserEdit from "../pages/MasterData/User/UserEdit.vue";
 
 const routes = [
     {
@@ -31,8 +33,23 @@ const routes = [
                 children: [
                     {
                         path: 'user',
-                        name: 'user',
-                        component: UserList,
+                        children: [
+                            {
+                                path: '',
+                                name: 'list-user',
+                                component: UserList,
+                            },
+                            {
+                                path: 'create',
+                                name: 'create-user',
+                                component: UserCreate,
+                            },
+                            {
+                                path: 'edit/:id',
+                                name: 'edit-user',
+                                component: UserEdit
+                            }
+                        ]
                     },
                     {
                         path: 'klaster',

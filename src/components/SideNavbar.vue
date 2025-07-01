@@ -39,7 +39,7 @@
                 </a>
                 <ul class="uk-nav-sub">
                     <li>
-                        <router-link to="/admin/master/user">
+                        <router-link :to="{name: 'list-user'}">
                             User
                         </router-link>
                     </li>
