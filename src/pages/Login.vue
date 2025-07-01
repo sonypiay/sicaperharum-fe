@@ -1,18 +1,24 @@
 <script setup>
     import { reactive, ref } from 'vue';
-    import { alertFailed, alertSuccess } from '../utils/alerts';
+    import { alertFailed, alertSuccess, toastFailed, toastSuccess } from '../utils/alerts';
 import { authenticationApi } from '../utils/api/AuthApi';
+    import {useLocalStorage} from "@vueuse/core";
+    import {useRouter} from "vue-router";
 
     const user = reactive({
         email: '',
         password: '',
     });
 
+    const router = useRouter();
+
     const errorDetail = reactive({
         data: {},
         form: {},
         isError: false,
     });
+
+    const userSession = useLocalStorage("user_session", "");
 
     async function onSubmitLogin() {
         errorDetail.isError = false;
@@ -33,9 +39,11 @@ import { authenticationApi } from '../utils/api/AuthApi';
             const statusCode = response.statusCode;
 
             if( statusCode === 200 ) {
-                await alertSuccess('Berhasil', 'Login gagal');
+                userSession.value = JSON.stringify(responseBody.data);
+                await toastSuccess('Login berhasil');
+                await router.push('/dashboard');
             } else {
-                await alertFailed('Gagal', responseBody.message);
+                await toastFailed(responseBody.message);
             }
         }
     }

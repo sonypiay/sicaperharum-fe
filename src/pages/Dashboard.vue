@@ -1,5 +1,5 @@
 <template>
     <div>
-        Dashboard Page
+        Ini Halaman Dashboard
     </div>
 </template>

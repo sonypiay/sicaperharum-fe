@@ -1,0 +1,83 @@
+@use 'variables' as vars;
+
+.navbar-container {
+    background-color: #ffffff;
+    //border-bottom: 1px solid #dddddd;
+
+    .navbar-profile-container {
+        text-decoration: none;
+
+        .nav-avatar {
+            margin-top: 5px;
+        }
+
+        .nav-avatar > img {
+            border-radius: 100%;
+            width: 60px;
+        }
+
+        .navbar-profile-info {
+            .nav-profile-name {
+                color: black;
+                @include vars.fontStyling(vars.$fontFamily, 16px, 700, #333333);
+            }
+
+            .nav-profile-role {
+                @include vars.fontStyling(vars.$fontFamily, 14px, 400, #777777);
+            }
+        }
+
+        .navbar-icon-dropdown {
+            span {
+                margin-top: .7rem;
+                font-size: 20px;
+                color: black;
+            }
+        }
+    }
+
+    .navbar-dropdown {
+        box-shadow: none;
+        border-radius: 10px;
+        border: 1px solid #dddddd;
+
+        ul.nav-dropdown {
+            li > a {
+                @include vars.fontStyling(vars.$fontFamily, 14px, 500, #777777);
+            }
+        }
+    }
+}
+
+.sidebar-nav {
+    //border-right: 1px solid #dddddd;
+
+    ul.nav-list {
+        margin-top: 2rem;
+
+        li > a {
+            @include vars.fontStyling(vars.$fontFamily, 16px, 600, black);
+            padding-top: 15px;
+            padding-bottom: 15px;
+
+            span.las {
+                margin-right: 10px;
+            }
+
+            &:hover {
+                background-color: vars.$color-3;
+                color: #ffffff;
+            }
+        }
+
+        li.uk-parent > ul.uk-nav-sub {
+            li > a {
+
+                &:hover {
+                    background-color: transparent;
+                    color: vars.$color-3;
+                }
+            }
+        }
+    }
+}
