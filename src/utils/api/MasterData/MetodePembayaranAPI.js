@@ -43,8 +43,10 @@ const metodePembayaranAPI = {
             statusCode: fetchApi.status
         };
     },
-    getAll: async() => {
-        const endpoint = `${apis.backendApi}/master-data/metode-pembayaran`;
+    getAll: async(search) => {
+        const endpoint = new URL(`${apis.backendApi}/master-data/metode-pembayaran`);
+        if( search.title ) endpoint.searchParams.append('title', search.title);
+
         const fetchApi = await fetch(endpoint, {
             method: apis.method.get,
             headers: presetHeaders,

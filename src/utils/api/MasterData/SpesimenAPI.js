@@ -43,8 +43,10 @@ const spesimenAPI = {
             statusCode: fetchApi.status
         };
     },
-    getAll: async() => {
-        const endpoint = `${apis.backendApi}/master-data/spesimen`;
+    getAll: async(search) => {
+        const endpoint = new URL(`${apis.backendApi}/master-data/spesimen`);
+        if( search.title ) endpoint.searchParams.append('title', search.title);
+
         const fetchApi = await fetch(endpoint, {
             method: apis.method.get,
             headers: presetHeaders,

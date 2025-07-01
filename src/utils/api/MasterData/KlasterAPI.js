@@ -43,8 +43,10 @@ const klasterAPI = {
             statusCode: fetchApi.status
         };
     },
-    getAll: async() => {
-        const endpoint = `${apis.backendApi}/master-data/klaster`;
+    getAll: async(search) => {
+        const endpoint = new URL(`${apis.backendApi}/master-data/klaster`);
+        if( search.title ) endpoint.searchParams.append('title', search.title);
+
         const fetchApi = await fetch(endpoint, {
             method: apis.method.get,
             headers: presetHeaders,

@@ -35,6 +35,20 @@
     }
 }
 
+.label {
+    padding: 6px 12px;
+    border-radius: 6px;
+    color: white;
+}
+
+.label-green {
+    background-color: vars.$bg-success;
+}
+
+.label-red {
+    background-color: vars.$bg-danger;
+}
+
 .form-section {
     .form-header-title {
         @include vars.fontStyling(vars.$fontFamily !important, 32px, 600, black);
@@ -44,5 +58,48 @@
 
     .form-section-input {
         margin-top: 2rem;
+    }
+}
+
+.card-section {
+    .card-heading {
+        @include vars.fontStyling(vars.$fontFamily !important, 32px, 600, black);
+    }
+
+    .card-subheading {
+        @include vars.fontStyling(vars.$fontFamily !important, 24px, 600, black);
+
+        span {
+            font-size: 24px;
+        }
+    }
+
+    .card-body {
+        margin-top: 2rem;
+        border-radius: 20px;
+        box-shadow: none;
+        border: 1px solid #dddddd;
+        padding: 2rem;
+
+        .search-toggle-card {
+            font-size: 24px;
+            color: black;
+        }
+    }
+}
+
+.table {
+    th {
+        @include vars.fontStyling(vars.$fontFamily !important, 16px, 600, black);
+        text-transform: none;
+    }
+
+    td {
+        @include vars.fontStyling(vars.$fontFamily !important, 14px, 400, #333333);
+    }
+
+    .table-btn-action {
+        text-decoration: none;
+        color: black;
     }
 }

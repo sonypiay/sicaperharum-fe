@@ -25,7 +25,7 @@
 
 .form-label {
     margin-bottom: 1rem;
-    @include vars.fontStyling(vars.$fontFamily !important, 18px, 600, #333333);
+    @include vars.fontStyling(vars.$fontFamily !important, 16px, 600, #333333);
 }
 
 .form-input {
