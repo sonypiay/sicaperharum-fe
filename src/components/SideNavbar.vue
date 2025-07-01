@@ -10,9 +10,9 @@
 
         <ul class="uk-nav uk-nav-default nav-list" uk-nav>
             <li>
-                <a href="#">
+                <router-link to="/admin">
                     <span class="las la-home"></span> Dashboard
-                </a>
+                </router-link>
             </li>
 
             <li>
@@ -38,8 +38,26 @@
                     <span class="las la-database"></span> Master Data <span uk-nav-parent-icon></span>
                 </a>
                 <ul class="uk-nav-sub">
-                    <li><a href="#">Sub item</a></li>
-                    <li><a href="#">Sub item</a></li>
+                    <li>
+                        <router-link to="/admin/master/user">
+                            User
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link :to="{name: 'list-klaster'}">
+                            Klaster
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link :to="{name: 'list-spesimen'}">
+                            Spesimen
+                        </router-link>
+                    </li>
+                    <li>
+                        <router-link :to="{name: 'list-metode-pembayaran'}">
+                            Metode Pembayaran
+                        </router-link>
+                    </li>
                 </ul>
             </li>
         </ul>

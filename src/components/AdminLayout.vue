@@ -12,7 +12,13 @@ import HeaderNavbar from "./HeaderNavbar.vue";
             </div>
             <div class="uk-width-expand">
                 <HeaderNavbar />
-                <router-view />
+                <div class="uk-width-1-1 container">
+                    <div class="wrapper">
+                        <div class="uk-container-large">
+                            <router-view />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

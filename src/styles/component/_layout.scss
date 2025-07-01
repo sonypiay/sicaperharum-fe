@@ -28,3 +28,21 @@
     position: relative;
     right: 35%;
 }
+
+.container {
+    .wrapper {
+        padding: 5rem;
+    }
+}
+
+.form-section {
+    .form-header-title {
+        @include vars.fontStyling(vars.$fontFamily !important, 32px, 600, black);
+        border-bottom: 4px solid #E2E6F9;
+        padding-bottom: 20px;
+    }
+
+    .form-section-input {
+        margin-top: 2rem;
+    }
+}

@@ -3,48 +3,46 @@
 </script>
 
 <template>
-    <div>
-        <header>
-            <nav class="navbar-container">
-                <div class="uk-container">
-                    <div uk-navbar>
-                        <div class="uk-navbar-right">
-                            <a class="uk-navbar-item navbar-profile-container">
-                                <div class="uk-grid-small" uk-grid>
-                                    <div class="uk-width-1-5">
-                                        <div class="nav-avatar">
-                                            <img src="../assets/images/sample-avatar.jpeg" />
-                                        </div>
+    <header>
+        <nav class="navbar-container">
+            <div class="">
+                <div uk-navbar>
+                    <div class="uk-navbar-right">
+                        <a class="uk-navbar-item navbar-profile-container">
+                            <div class="uk-grid-small" uk-grid>
+                                <div class="uk-width-1-5">
+                                    <div class="nav-avatar">
+                                        <img src="../assets/images/sample-avatar.jpeg" />
                                     </div>
-                                    <div class="uk-width-expand">
-                                        <div uk-grid>
-                                            <div class="uk-width-3-4">
-                                                <div class="navbar-profile-info">
-                                                    <div class="nav-profile-name">Sony Darmawan</div>
-                                                    <div class="nav-profile-role">Superadmin</div>
-                                                </div>
+                                </div>
+                                <div class="uk-width-expand">
+                                    <div uk-grid>
+                                        <div class="uk-width-3-4">
+                                            <div class="navbar-profile-info">
+                                                <div class="nav-profile-name">Sony Darmawan</div>
+                                                <div class="nav-profile-role">Superadmin</div>
                                             </div>
-                                            <div class="uk-width-expand">
-                                                <div class="navbar-icon-dropdown">
-                                                    <span class="las la-angle-down"></span>
-                                                </div>
+                                        </div>
+                                        <div class="uk-width-expand">
+                                            <div class="navbar-icon-dropdown">
+                                                <span class="las la-angle-down"></span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </a>
-
-                            <div class="uk-navbar-dropdown navbar-dropdown">
-                                <ul class="uk-nav uk-dropdown-nav nav-dropdown">
-                                    <li><a href="#">Logout</a></li>
-                                </ul>
                             </div>
+                        </a>
+
+                        <div class="uk-navbar-dropdown navbar-dropdown">
+                            <ul class="uk-nav uk-dropdown-nav nav-dropdown">
+                                <li><a href="#">Logout</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </nav>
-        </header>
-    </div>
+            </div>
+        </nav>
+    </header>
 </template>
 
 <style scoped lang="scss">

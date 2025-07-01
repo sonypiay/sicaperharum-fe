@@ -2,7 +2,7 @@
 
 .navbar-container {
     background-color: #ffffff;
-    //border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
 
     .navbar-profile-container {
         text-decoration: none;
@@ -50,15 +50,15 @@
 }
 
 .sidebar-nav {
-    //border-right: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
 
     ul.nav-list {
         margin-top: 2rem;
 
         li > a {
             @include vars.fontStyling(vars.$fontFamily, 16px, 600, black);
-            padding-top: 15px;
-            padding-bottom: 15px;
+            padding-top: 10px;
+            padding-bottom: 10px;
 
             span.las {
                 margin-right: 10px;
@@ -70,12 +70,18 @@
             }
         }
 
-        li.uk-parent > ul.uk-nav-sub {
-            li > a {
+        li.uk-parent {
+            ul.uk-nav-sub {
+                li {
+                    padding-left: 30px;
 
-                &:hover {
-                    background-color: transparent;
-                    color: vars.$color-3;
+                    a {
+                        &:hover {
+                            background-color: transparent;
+                            color: vars.$color-3;
+                        }
+                    }
+
                 }
             }
         }
