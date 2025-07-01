@@ -1,7 +1,7 @@
 <script setup>
-    import { reactive, ref } from 'vue';
-    import { alertFailed, alertSuccess, toastFailed, toastSuccess } from '../utils/alerts';
-import { authenticationApi } from '../utils/api/AuthApi';
+    import { reactive } from 'vue';
+    import { toastFailed, toastSuccess } from '../utils/alerts';
+    import authAPI from "../utils/api/AuthAPI.js";
     import {useLocalStorage} from "@vueuse/core";
     import {useRouter} from "vue-router";
 
@@ -23,25 +23,25 @@ import { authenticationApi } from '../utils/api/AuthApi';
     async function onSubmitLogin() {
         errorDetail.isError = false;
 
-        if( user.email == '' ) {
+        if( user.email === '' ) {
             errorDetail.form.email = 'Email wajib diisi';
             errorDetail.isError = true;
         }
 
-        if( user.password == '' ) {
+        if( user.password === '' ) {
             errorDetail.form.password = 'Password wajib diisi';
             errorDetail.isError = true;
         }
 
         if( ! errorDetail.isError ) {
-            const response = await authenticationApi(user);
+            const response = await authAPI.login(user);
             const responseBody = response.data;
             const statusCode = response.statusCode;
 
             if( statusCode === 200 ) {
                 userSession.value = JSON.stringify(responseBody.data);
                 await toastSuccess('Login berhasil');
-                await router.push('/dashboard');
+                await router.push('/admin');
             } else {
                 await toastFailed(responseBody.message);
             }
@@ -70,7 +70,7 @@ import { authenticationApi } from '../utils/api/AuthApi';
                                         @keyup="errorDetail.form.email = ''" />
                                     </div>
 
-                                    <div v-if="errorDetail.form.hasOwnProperty('email') && errorDetail.form.email != ''" class="uk-alert-danger" uk-alert>
+                                    <div v-if="errorDetail.form.hasOwnProperty('email') && errorDetail.form.email !== ''" class="uk-alert-danger" uk-alert>
                                         <p>{{ errorDetail.form.email }}</p>
                                     </div>
                                 </div>
@@ -83,7 +83,7 @@ import { authenticationApi } from '../utils/api/AuthApi';
                                         @keyup="errorDetail.form.password = ''" />
                                     </div>
 
-                                    <div v-if="errorDetail.form.hasOwnProperty('password') && errorDetail.form.password != ''" class="uk-alert-danger" uk-alert>
+                                    <div v-if="errorDetail.form.hasOwnProperty('password') && errorDetail.form.password !== ''" class="uk-alert-danger" uk-alert>
                                         <p>{{ errorDetail.form.password }}</p>
                                     </div>
                                 </div>

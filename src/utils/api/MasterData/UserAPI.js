@@ -1,7 +1,7 @@
 import apis from '../api.js';
 
 const userSession = localStorage.getItem("user_session");
-const token = JSON.parse(userSession).token;
+const token = userSession ? JSON.parse(userSession).token : null;
 const presetHeaders = {
     'Authorization': `Bearer ${token}`
 };

@@ -1,5 +1,14 @@
-<script setup lang="ts">
+<script setup>
+import authAPI from "../utils/api/AuthAPI.js";
+import {useRouter} from "vue-router";
 
+const router = useRouter();
+
+async function handleLogout() {
+    await authAPI.logout();
+    localStorage.removeItem('user_session');
+    await router.push('/');
+}
 </script>
 
 <template>
@@ -35,7 +44,7 @@
 
                         <div class="uk-navbar-dropdown navbar-dropdown">
                             <ul class="uk-nav uk-dropdown-nav nav-dropdown">
-                                <li><a href="#">Logout</a></li>
+                                <li><a href="#" @click="handleLogout()">Logout</a></li>
                             </ul>
                         </div>
                     </div>
