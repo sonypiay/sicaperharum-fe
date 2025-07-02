@@ -6,6 +6,7 @@ const userAPI = {
         const endpoint = `${apis.backendApi}/users`;
 
         const formData = new FormData();
+        formData.append('username', request.username);
         formData.append('name', request.name);
         formData.append('email', request.email);
         formData.append('password', request.password);
@@ -32,6 +33,7 @@ const userAPI = {
         const endpoint = `${apis.backendApi}/users/${userId}`;
         const formData = new FormData();
 
+        formData.append('username', request.username);
         formData.append('name', request.name);
         formData.append('email', request.email);
         formData.append('password', request.password ?? null);
@@ -60,6 +62,7 @@ const userAPI = {
 
         if( search.name ) endpoint.searchParams.append('name', search.name);
         if( search.email ) endpoint.searchParams.append('email', search.email);
+        if( search.username ) endpoint.searchParams.append('username', search.username);
 
         const fetchApi = await fetch(endpoint, {
             method: apis.method.get,

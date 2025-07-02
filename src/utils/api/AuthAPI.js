@@ -1,7 +1,7 @@
 import apis from "./api";
 
 const authAPI = {
-    login: async({ email, password }) => {
+    login: async({ username, password }) => {
         const endpoint = `${apis.backendApi}/auth/login`;
         const fetchApi = await fetch(endpoint, {
             method: apis.method.post,
@@ -11,7 +11,7 @@ const authAPI = {
                 'X-Requested-With': 'XMLHttpRequest'
             },
             body: JSON.stringify({
-                email: email,
+                username: username,
                 password: password
             })
         });

@@ -5,6 +5,7 @@ import {useRouter} from "vue-router";
 import userAPI from "../../../utils/api/MasterData/UserAPI.js";
 
 const formsInput = reactive({
+    username: '',
     name: '',
     email: '',
     password: '',
@@ -16,11 +17,17 @@ const router = useRouter();
 const errorDetail = reactive({});
 
 function onValidationForm() {
+    errorDetail.username = '';
     errorDetail.name = '';
     errorDetail.email = '';
     errorDetail.password = '';
     errorDetail.image = '';
     errorDetail.isError = false;
+
+    if( formsInput.username === '' ) {
+        errorDetail.username = 'Username wajib diisi';
+        errorDetail.isError = true;
+    }
 
     if( formsInput.name === '' ) {
         errorDetail.name = 'Nama wajib diisi';
@@ -73,27 +80,36 @@ function handleGetFiles(event) {
         <div class="uk-form-stacked form-section-input">
             <form @submit.prevent="onHandleSubmit()">
                 <div class="uk-margin">
-                    <label for="input-nama" class="uk-form-label form-label">Nama</label>
+                    <label for="input-nama" class="uk-form-label form-label form-label-required">Username</label>
                     <div class="uk-form-controls">
-                        <input type="text" class="uk-width-1-1 uk-input form-input" v-model="formsInput.name"/>
+                        <input type="text" class="uk-width-1-1 uk-input form-input" v-model="formsInput.username" maxlength="100" />
                     </div>
 
-                    <div v-if="errorDetail.name !== ''" class="uk-text-danger">{{ errorDetail.name }}</div>
+                    <div v-if="errorDetail.username !== ''" class="uk-text-danger">{{ errorDetail.username }}</div>
                 </div>
 
                 <div class="uk-margin">
-                    <label for="input-email" class="uk-form-label form-label">Email</label>
+                    <label for="input-email" class="uk-form-label form-label form-label-required">Email</label>
                     <div class="uk-form-controls">
-                        <input type="email" class="uk-width-1-1 uk-input form-input" v-model="formsInput.email"/>
+                        <input type="email" class="uk-width-1-1 uk-input form-input" v-model="formsInput.email" maxlength="100" />
                     </div>
 
                     <div v-if="errorDetail.email !== ''" class="uk-text-danger">{{ errorDetail.email }}</div>
                 </div>
 
                 <div class="uk-margin">
-                    <label for="input-password" class="uk-form-label form-label">Password</label>
+                    <label for="input-nama" class="uk-form-label form-label form-label-required">Nama</label>
                     <div class="uk-form-controls">
-                        <input type="password" class="uk-width-1-1 uk-input form-input" v-model="formsInput.password"/>
+                        <input type="text" class="uk-width-1-1 uk-input form-input" v-model="formsInput.name" maxlength="100" />
+                    </div>
+
+                    <div v-if="errorDetail.name !== ''" class="uk-text-danger">{{ errorDetail.name }}</div>
+                </div>
+
+                <div class="uk-margin">
+                    <label for="input-password" class="uk-form-label form-label form-label-required">Password</label>
+                    <div class="uk-form-controls">
+                        <input type="password" class="uk-width-1-1 uk-input form-input" v-model="formsInput.password" minlength="8" />
                     </div>
 
                     <div v-if="errorDetail.password !== ''" class="uk-text-danger">{{ errorDetail.password }}</div>
@@ -109,7 +125,7 @@ function handleGetFiles(event) {
                 </div>
 
                 <div class="uk-margin">
-                    <label for="input-active" class="uk-form-label form-label">Status</label>
+                    <label for="input-active" class="uk-form-label form-label form-label-required">Status</label>
                     <div class="uk-form-controls">
                         <select class="uk-select form-select" v-model="formsInput.active" aria-label="Select">
                             <option value="1">Aktif</option>

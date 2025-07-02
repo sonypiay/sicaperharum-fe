@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 const router = useRouter();
 const searchField = reactive({
     name: '',
+    username: '',
     email: '',
     page: 1,
 });
@@ -106,6 +107,13 @@ onBeforeMount(async () => {
                     </div>
 
                     <div class="uk-margin">
+                        <label class="uk-form-label form-label">Username</label>
+                        <div class="uk-form-controls">
+                            <input type="text" class="uk-width-1-1 uk-input form-input" v-model="searchField.username" placeholder="Cari berdasarkan username" />
+                        </div>
+                    </div>
+
+                    <div class="uk-margin">
                         <button class="uk-button uk-button-primary button button-primary">Cari</button>
                     </div>
                 </form>
@@ -118,6 +126,7 @@ onBeforeMount(async () => {
                 <tr>
                     <th>Aksi</th>
                     <th>Nama</th>
+                    <th>Username</th>
                     <th>Email</th>
                     <th>Aktif</th>
                     <th>Terakhir diubah</th>
@@ -131,6 +140,7 @@ onBeforeMount(async () => {
                         </router-link>
                     </td>
                     <td>{{ data.name }}</td>
+                    <td>{{ data.username }}</td>
                     <td>{{ data.email }}</td>
                     <td>
                         <span v-if="data.active.value === 1" class="label label-green">{{ data.active.label }}</span>

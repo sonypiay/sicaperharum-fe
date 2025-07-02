@@ -6,7 +6,7 @@
     import {useRouter} from "vue-router";
 
     const user = reactive({
-        email: '',
+        username: '',
         password: '',
     });
 
@@ -24,8 +24,8 @@
     async function onSubmitLogin() {
         errorDetail.isError = false;
 
-        if( user.email === '' ) {
-            errorDetail.form.email = 'Email wajib diisi';
+        if( user.username === '' ) {
+            errorDetail.form.username = 'Username wajib diisi';
             errorDetail.isError = true;
         }
 
@@ -43,6 +43,7 @@
                 const user = responseBody.data.user;
                 userProfile.value = JSON.stringify({
                     id: user.id,
+                    username: user.username,
                     name: user.name,
                     email: user.email,
                     image: user.image
@@ -72,14 +73,14 @@
 
                             <form class="uk-form-stacked login-form-body" @submit.prevent="onSubmitLogin">
                                 <div class="uk-margin">
-                                    <label for="input-email" class="uk-form-label form-label-login">Email</label>
+                                    <label for="input-username" class="uk-form-label form-label-login">Username</label>
                                     <div class="uk-form-controls">
-                                        <input type="email" class="uk-width-1-1 uk-input form-input-login" id="input-email" placeholder="Masukkan email" v-model="user.email"
-                                        @keyup="errorDetail.form.email = ''" />
+                                        <input type="text" class="uk-width-1-1 uk-input form-input-login" id="input-username" placeholder="Masukkan username" v-model="user.username"
+                                        @keyup="errorDetail.form.username = ''" />
                                     </div>
 
-                                    <div v-if="errorDetail.form.hasOwnProperty('email') && errorDetail.form.email !== ''" class="uk-alert-danger" uk-alert>
-                                        <p>{{ errorDetail.form.email }}</p>
+                                    <div v-if="errorDetail.form.hasOwnProperty('username') && errorDetail.form.username !== ''" class="uk-alert-danger" uk-alert>
+                                        <p>{{ errorDetail.form.username }}</p>
                                     </div>
                                 </div>
 
