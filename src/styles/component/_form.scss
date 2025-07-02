@@ -28,6 +28,13 @@
     @include vars.fontStyling(vars.$fontFamily !important, 16px, 600, #333333);
 }
 
+.form-label-required {
+    &:after {
+        content: " *";
+        color: red;
+    }
+}
+
 .form-input {
     @include vars.fontStyling(vars.$fontFamily !important, 16px, 400, #333333);
     border-radius: 10px;

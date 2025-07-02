@@ -1,9 +1,193 @@
-<script setup lang="ts">
+<script setup>
+
+import {onBeforeMount, reactive, ref} from "vue";
+import patientAPI from "../../utils/api/Patient/PatientAPI.js";
+import dayjs from "dayjs";
+import {toastFailed} from "../../utils/alerts.js";
+
+const searchField = reactive({
+    medical_number: '',
+    name: '',
+    phone_number: '',
+    gender: '',
+    page: 1,
+});
+
+const dataPatient = reactive({
+    data: [],
+    pagination: {
+        first: 1,
+        prev_page: null,
+        next_page: null,
+        current_page: 1,
+        last: 1,
+        total: 0,
+        per_page: 1,
+        from: 1,
+        to: 1,
+    },
+});
+const isSearchEnable = ref(true);
+
+async function fetchPatient(page) {
+    const fetchApi = await patientAPI.getAll(searchField, page);
+    const responseBody = fetchApi.data;
+    const statusCode = fetchApi.statusCode;
+
+    if( statusCode === 200 ) {
+        dataPatient.data = responseBody.data;
+        dataPatient.pagination = responseBody.pagination;
+    } else {
+        toastFailed(responseBody.message);
+    }
+}
+
+function handleToggleSearch() {
+    isSearchEnable.value = !isSearchEnable.value;
+}
+
+async function handleSearch() {
+    await fetchPatient();
+}
+
+async function handlePageChange(page) {
+    await fetchPatient(page);
+}
+
+onBeforeMount(async () => {
+    await fetchPatient();
+});
 
 </script>
 
 <template>
+    <section class="card-section">
+        <div class="uk-grid-small" uk-grid>
+            <div class="uk-width-expand">
+                <div class="card-heading">Daftar Pasien</div>
+            </div>
+            <div class="uk-width-1-5">
+                <div class="uk-flex uk-flex-right">
+                    <router-link :to="{name: 'create-patient'}" class="uk-button uk-button-primary button button-primary">
+                        Tambah
+                    </router-link>
+                </div>
+            </div>
+        </div>
 
+        <div class="uk-card uk-card-default card-body">
+            <div class="uk-grid-small" uk-grid>
+                <div class="uk-width-1-6">
+                    <div class="card-subheading">
+                        <span class="las la-search"></span> Cari
+                    </div>
+                </div>
+                <div class="uk-width-expand">
+                    <div class="uk-text-right">
+                        <a href="#" @click="handleToggleSearch()">
+                            <span v-if="isSearchEnable" class="las la-angle-down search-toggle-card"></span>
+                            <span v-else class="las la-angle-up search-toggle-card"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-width-1-3" v-if="isSearchEnable === true">
+                <form class="uk-form-stacked uk-margin-top" @submit.prevent="handleSearch()">
+                    <div class="uk-margin">
+                        <label class="uk-form-label form-label">No. Rekam Medis</label>
+                        <div class="uk-form-controls">
+                            <input type="text" class="uk-width-1-1 uk-input form-input" v-model="searchField.medical_number" placeholder="Cari berdasarkan nomor rekam medis" />
+                        </div>
+                    </div>
+
+                    <div class="uk-margin">
+                        <label class="uk-form-label form-label">Nama</label>
+                        <div class="uk-form-controls">
+                            <input type="text" class="uk-width-1-1 uk-input form-input" v-model="searchField.name" placeholder="Cari berdasarkan nama" />
+                        </div>
+                    </div>
+
+                    <div class="uk-margin">
+                        <label class="uk-form-label form-label">No. Telepon</label>
+                        <div class="uk-form-controls">
+                            <input type="text" class="uk-width-1-1 uk-input form-input" v-model="searchField.phone_number" placeholder="Cari berdasarkan nomor telepon" />
+                        </div>
+                    </div>
+
+                    <div class="uk-margin">
+                        <label class="uk-form-label form-label">Jenis Kelamin</label>
+                        <div class="uk-form-controls">
+                            <select class="uk-width-1-1 uk-select form-select" v-model="searchField.gender">
+                                <option value="">Pilih</option>
+                                <option value="L">Laki - Laki</option>
+                                <option value="P">Perempuan</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="uk-margin">
+                        <button class="uk-button uk-button-primary button button-primary">Cari</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="uk-card uk-card-default card-body">
+            <table class="uk-table uk-table-divider uk-table-striped uk-table-small table">
+                <thead>
+                <tr>
+                    <th>Aksi</th>
+                    <th>No. Rekam Medis</th>
+                    <th>Nama</th>
+                    <th>Tanggal Lahir</th>
+                    <th>Jenis Kelamin</th>
+                    <th>No. Telepon</th>
+                    <th>Terakhir diubah</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="data in dataPatient.data" :key="data.id">
+                    <td>
+                        <router-link :to="{name: 'edit-patient', params: { id: data.id }}" class="uk-button uk-button-small uk-button-primary button button-primary">
+                            <span class="las la-edit"></span> Ubah
+                        </router-link>
+                    </td>
+                    <td>{{ data.medical_number }}</td>
+                    <td>{{ data.fullname }}</td>
+                    <td>{{ dayjs(data.dob).format('DD MMMM YYYY') }}</td>
+                    <td>{{ data.gender.name }}</td>
+                    <td>{{ data.phone_number }}</td>
+                    <td>
+                        {{ dayjs(data.updated_at).format('DD MMMM YYYY HH:mm') }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="uk-flex uk-flex-center">
+                <ul class="uk-pagination nav-pagination">
+                    <li :class="{
+                            'disabled': dataPatient.pagination.prev_page === null
+                        }">
+                        <a @click="handlePageChange(dataPatient.pagination.prev_page)">
+                            <span class="las la-arrow-left"></span> Previous Page
+                        </a>
+                    </li>
+                    <li class="uk-disabled">
+                        <span>Page {{ dataPatient.pagination.current_page  }} of {{ dataPatient.pagination.last }}</span>
+                    </li>
+                    <li :class="{
+                            'disabled': dataPatient.pagination.next_page === null
+                        }">
+                        <a @click="handlePageChange(dataPatient.pagination.next_page)">
+                            Next Page <span class="las la-arrow-right"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
 </template>
 
 <style scoped>

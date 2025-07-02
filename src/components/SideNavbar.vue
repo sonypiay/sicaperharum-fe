@@ -22,9 +22,9 @@
             </li>
 
             <li>
-                <a href="#">
+                <router-link :to="{name: 'list-patients'}">
                     <span class="las la-user"></span> Data Pasien
-                </a>
+                </router-link>
             </li>
 
             <li>

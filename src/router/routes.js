@@ -13,6 +13,9 @@ import MetodePembayaranEdit from "../pages/MasterData/MetodePembayaran/MetodePem
 import MetodePembayaranList from "../pages/MasterData/MetodePembayaran/MetodePembayaranList.vue";
 import UserCreate from "../pages/MasterData/User/UserCreate.vue";
 import UserEdit from "../pages/MasterData/User/UserEdit.vue";
+import PatientList from "../pages/Patient/PatientList.vue";
+import PatientCreate from "../pages/Patient/PatientCreate.vue";
+import PatientEdit from "../pages/Patient/PatientEdit.vue";
 
 const routes = [
     {
@@ -27,6 +30,26 @@ const routes = [
                 path: '',
                 name: 'dashboard',
                 component: Dashboard,
+            },
+            {
+                path: 'patients',
+                children: [
+                    {
+                        path: '',
+                        name: 'list-patients',
+                        component: PatientList,
+                    },
+                    {
+                        path: 'create',
+                        name: 'create-patient',
+                        component: PatientCreate
+                    },
+                    {
+                        path: 'edit/:id',
+                        name: 'edit-patient',
+                        component: PatientEdit
+                    }
+                ],
             },
             {
                 path: 'master',
