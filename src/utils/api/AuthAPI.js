@@ -8,6 +8,7 @@ const authAPI = {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
             },
             body: JSON.stringify({
                 email: email,
@@ -21,16 +22,15 @@ const authAPI = {
         };
     },
     logout: async() => {
-        const userSession = localStorage.getItem("user_session");
-        const token = JSON.parse(userSession).token;
-
+        const userToken = localStorage.getItem('user_token') ?? null;
         const endpoint = `${apis.backendApi}/auth/logout`;
         const fetchApi = await fetch(endpoint, {
-            method: apis.method.post,
+            method: apis.method.delete,
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization': `Bearer ${userToken}`
             }
         });
 

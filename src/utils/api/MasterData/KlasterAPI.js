@@ -1,20 +1,18 @@
 import apis from '../api.js';
 
-const userSession = localStorage.getItem("user_session");
-const token = userSession ? JSON.parse(userSession).token : null;
-const presetHeaders = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    'Authorization': `Bearer ${token}`
-};
-
 const klasterAPI = {
     create: async ({nama, active}) => {
+        const userToken = localStorage.getItem('user_token') ?? null;
         const endpoint = `${apis.backendApi}/master-data/klaster`;
 
         const fetchApi = await fetch(endpoint, {
             method: apis.method.post,
-            headers: presetHeaders,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization': `Bearer ${userToken}`
+            },
             body: JSON.stringify({
                 title: nama,
                 active: active
@@ -27,11 +25,17 @@ const klasterAPI = {
         };
     },
     update: async({ id, nama, active }) => {
+        const userToken = localStorage.getItem('user_token') ?? null;
         const endpoint = `${apis.backendApi}/master-data/klaster/${id}`;
 
         const fetchApi = await fetch(endpoint, {
             method: apis.method.put,
-            headers: presetHeaders,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization': `Bearer ${userToken}`
+            },
             body: JSON.stringify({
                 title: nama,
                 active: active
@@ -44,12 +48,18 @@ const klasterAPI = {
         };
     },
     getAll: async(search) => {
+        const userToken = localStorage.getItem('user_token') ?? null;
         const endpoint = new URL(`${apis.backendApi}/master-data/klaster`);
         if( search.title ) endpoint.searchParams.append('title', search.title);
 
         const fetchApi = await fetch(endpoint, {
             method: apis.method.get,
-            headers: presetHeaders,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization': `Bearer ${userToken}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
         });
 
         return {
@@ -58,10 +68,16 @@ const klasterAPI = {
         };
     },
     detail: async(id) => {
+        const userToken = localStorage.getItem('user_token') ?? null;
         const endpoint = `${apis.backendApi}/master-data/klaster/${id}`;
         const fetchApi = await fetch(endpoint, {
             method: apis.method.get,
-            headers: presetHeaders,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization': `Bearer ${userToken}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
         });
 
         return {

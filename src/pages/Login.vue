@@ -18,7 +18,8 @@
         isError: false,
     });
 
-    const userSession = useLocalStorage("user_session", "");
+    const userProfile = useLocalStorage("user_profile", "");
+    const userToken = useLocalStorage("user_token", "");
 
     async function onSubmitLogin() {
         errorDetail.isError = false;
@@ -39,7 +40,14 @@
             const statusCode = response.statusCode;
 
             if( statusCode === 200 ) {
-                userSession.value = JSON.stringify(responseBody.data);
+                const user = responseBody.data.user;
+                userProfile.value = JSON.stringify({
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    image: user.image
+                });
+                userToken.value = responseBody.data.token;
                 await toastSuccess('Login berhasil');
                 await router.push('/admin');
             } else {

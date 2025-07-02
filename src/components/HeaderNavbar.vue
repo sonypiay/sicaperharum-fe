@@ -1,12 +1,17 @@
 <script setup>
 import authAPI from "../utils/api/AuthAPI.js";
 import {useRouter} from "vue-router";
+import {useLocalStorage} from "@vueuse/core";
 
 const router = useRouter();
 
 async function handleLogout() {
     await authAPI.logout();
-    localStorage.removeItem('user_session');
+    const userProfile = useLocalStorage('user_profile', '');
+    const userToken = useLocalStorage('user_token', '');
+
+    userProfile.value = '';
+    userToken.value = '';
     await router.push('/');
 }
 </script>
