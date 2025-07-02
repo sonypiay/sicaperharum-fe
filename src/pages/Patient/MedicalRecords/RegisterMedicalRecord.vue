@@ -1,8 +1,14 @@
 <script setup>
 
 import {useSessionStorage} from "@vueuse/core";
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
 import FormHematologi from "./FormHematologi.vue";
+import FormKimiaKlinik from "./FormKimiaKlinik.vue";
+import FormUrinalisa from "./FormUrinalisa.vue";
+import FormImunoserologi from "./FormImunoserologi.vue";
+import FormMikroskopis from "./FormMikroskopis.vue";
+import FormTCM from "./FormTCM.vue";
+import FormLainnya from "./FormLainnya.vue";
 
 const formPatient = useSessionStorage('form-patient');
 const navTabList = reactive({
@@ -45,10 +51,14 @@ const navTabList = reactive({
     ],
 });
 
-function onHandleTabClick(value, index) {
-    navTabList.list.forEach((tab, i) => {
+const currentNavTab = ref('hematologi');
+
+function onHandleTabClick(value) {
+    navTabList.list.forEach((tab) => {
         tab.active = value === tab.value;
     });
+
+    currentNavTab.value = value;
 }
 </script>
 
@@ -64,13 +74,19 @@ function onHandleTabClick(value, index) {
         </div>
 
         <nav class="form-nav-tab uk-flex uk-flex-center">
-            <a v-for="(tab, index) in navTabList.list" class="uk-width-1-2@l uk-width-1-1@m nav-btn" :key="tab.title" :class="{ 'nav-btn-active': tab.active }" @click="onHandleTabClick(tab.value)">
+            <a v-for="tab in navTabList.list" class="uk-width-1-2@l uk-width-1-1@m nav-btn" :key="tab.title" :class="{ 'nav-btn-active': tab.active }" @click="onHandleTabClick(tab.value)">
                 {{ tab.title }}
             </a>
         </nav>
 
         <div class="uk-form-stacked form-section-input">
-            <FormHematologi />
+            <FormHematologi v-if="currentNavTab === 'hematologi'" />
+            <FormKimiaKlinik v-if="currentNavTab === 'kimia_klinik'" />
+            <FormUrinalisa v-if="currentNavTab === 'urinalisa'" />
+            <FormImunoserologi v-if="currentNavTab === 'imunoserologi'" />
+            <FormMikroskopis v-if="currentNavTab === 'mikroskopis'" />
+            <FormTCM v-if="currentNavTab === 'tcm'" />
+            <FormLainnya v-if="currentNavTab === 'lainnya'" />
         </div>
     </section>
 </template>
