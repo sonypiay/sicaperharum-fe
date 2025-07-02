@@ -16,9 +16,9 @@
             </li>
 
             <li>
-                <a href="#">
+                <router-link :to="{name: 'form-register-medical-record'}">
                     <span class="las la-clipboard"></span> Pendaftaran
-                </a>
+                </router-link>
             </li>
 
             <li>

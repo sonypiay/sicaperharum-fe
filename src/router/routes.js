@@ -16,6 +16,7 @@ import UserEdit from "../pages/MasterData/User/UserEdit.vue";
 import PatientList from "../pages/Patient/PatientList.vue";
 import PatientCreate from "../pages/Patient/PatientCreate.vue";
 import PatientEdit from "../pages/Patient/PatientEdit.vue";
+import FormRegisterComponent from "../pages/Patient/MedicalRecords/FormRegisterComponent.vue";
 
 const routes = [
     {
@@ -52,6 +53,11 @@ const routes = [
                         path: 'edit/:id',
                         name: 'edit-patient',
                         component: PatientEdit
+                    },
+                    {
+                        path: 'medical-record',
+                        name: 'form-register-medical-record',
+                        component: FormRegisterComponent,
                     }
                 ],
             },

@@ -54,6 +54,11 @@
         @include vars.fontStyling(vars.$fontFamily !important, 32px, 600, black);
         border-bottom: 4px solid #E2E6F9;
         padding-bottom: 20px;
+
+        .form-sub-title {
+            @include vars.fontStyling(vars.$fontFamily !important, 24px, 500, black);
+            span { color: vars.$color-2 }
+        }
     }
 
     .form-section-input {
@@ -101,5 +106,43 @@
     .table-btn-action {
         text-decoration: none;
         color: black;
+    }
+}
+
+.autocomplete-dropdown {
+    border-radius: 10px;
+    border: 1px solid #dddddd;
+    margin-top: 10px;
+
+    .autocomplete-container {
+        height: 150px;
+        overflow-y: auto;
+
+        ul.autocomplete-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+                padding: 15px 15px;
+                @include vars.fontStyling(vars.$fontFamily !important, 13px, 500, #333333);
+                border-bottom: 1px solid #dddddd;
+
+                &:first-child {
+                    border-radius: 10px 10px 0 0;
+                }
+
+                &:last-child {
+                    border-bottom: none;
+                    border-radius: 0 0 10px 10px;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: vars.$color-3;
+                    color: #ffffff;
+                }
+            }
+        }
     }
 }
