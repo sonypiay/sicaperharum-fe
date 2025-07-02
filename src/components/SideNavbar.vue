@@ -16,7 +16,7 @@
             </li>
 
             <li>
-                <router-link :to="{name: 'form-register-medical-record'}">
+                <router-link :to="{name: 'form-register-patient'}">
                     <span class="las la-clipboard"></span> Pendaftaran
                 </router-link>
             </li>

@@ -7,6 +7,12 @@ import {datePicker} from "../../../utils/datePickerUtil.js";
 import klasterAPI from "../../../utils/api/MasterData/KlasterAPI.js";
 import spesimenAPI from "../../../utils/api/MasterData/SpesimenAPI.js";
 import {useSessionStorage} from "@vueuse/core";
+import metodePembayaranAPI from "../../../utils/api/MasterData/MetodePembayaranAPI.js";
+
+const eventEmitter = defineEmits([
+    'update-form-step',
+    'update-step-title'
+]);
 
 const formsInput = reactive({
     medical_number: '',
@@ -18,6 +24,7 @@ const formsInput = reactive({
     klaster: '',
     spesimen: '',
     pickup_datetime: '',
+    metode_pembayaran: [],
 });
 
 const router = useRouter();
@@ -25,10 +32,11 @@ const errorDetail = reactive({});
 
 const dataPatient = ref([]);
 const dataKlaster = ref([]);
-const dataSpesimen = ref([]);
+const dataSpesimen = ref([])
+const dataMetodePembayaran = ref([]);
 const isFindPatient = ref(false);
 const isFetchDataPatient = ref(false);
-const selectedPatient = useSessionStorage("patient", "");
+const formPatient = useSessionStorage("form-patient", "");
 
 function onValidationForm() {
     errorDetail.medical_number = '';
@@ -38,6 +46,7 @@ function onValidationForm() {
     errorDetail.klaster = '';
     errorDetail.spesimen = '';
     errorDetail.pickup_datetime = '';
+    errorDetail.metode_pembayaran = '';
     errorDetail.isError = false;
 
     if( formsInput.fullname === '' ) {
@@ -74,6 +83,11 @@ function onValidationForm() {
         errorDetail.pickup_datetime = 'Tanggal pengambilan wajib diisi';
         errorDetail.isError = true;
     }
+
+    if( formsInput.metode_pembayaran.length === 0 ) {
+        errorDetail.metode_pembayaran = 'Metode pembayaran wajib diisi ';
+        errorDetail.isError = true;
+    }
 }
 
 async function fetchDataKlaster() {
@@ -106,6 +120,21 @@ async function fetchDataSpesimen() {
     }
 }
 
+async function fetchDataMetodePembayaran() {
+    const fetchApi = await metodePembayaranAPI.getAll();
+    const responseBody = fetchApi.data;
+    const statusCode = fetchApi.statusCode;
+
+    errorDetail.metode_pembayaran = '';
+
+    if( statusCode === 200 ) {
+        dataMetodePembayaran.value = responseBody;
+    } else {
+        errorDetail.metode_pembayaran = 'Gagal mengambil data metode pembayaran';
+        toastFailed(fetchApi.data.message);
+    }
+}
+
 async function onHandleFindPatient(value) {
     if( value.length >= 3 ) {
         isFetchDataPatient.value = true;
@@ -122,7 +151,7 @@ async function onHandleFindPatient(value) {
             isFindPatient.value = false;
         }
     } else {
-        errorDetail.medical_number = 'Nomor rekam medis tidak boleh kosong';
+        errorDetail.medical_number = '';
         dataPatient.value = [];
         isFindPatient.value = false;
     }
@@ -164,17 +193,22 @@ function onHandleRenderPickupDatetime() {
         altFormat: "F j, Y H:i",
         altInput: true,
         enableTime: true,
-        time_24hr: true
+        time_24hr: true,
+        minDate: "today",
     };
 
     datePicker("#input-tanggal-pickup", optionDatePickerPickup);
 }
 
-function onHandleSubmitForm() {
+async function onHandleSubmitForm() {
     onValidationForm();
 
     if( errorDetail.isError === false ) {
-        selectedPatient.value = JSON.stringify(formsInput);
+        formPatient.value = JSON.stringify(formsInput);
+        eventEmitter('update-form-step', 2);
+        eventEmitter('update-step-title', 'Hasil Lab');
+
+        await router.push({ name: 'form-register-medical-record' });
     }
 }
 
@@ -184,6 +218,7 @@ onMounted(async() => {
 
     await fetchDataKlaster();
     await fetchDataSpesimen();
+    await fetchDataMetodePembayaran();
 });
 </script>
 
@@ -308,6 +343,19 @@ onMounted(async() => {
                         </div>
 
                         <div v-if="errorDetail.pickup_datetime !== ''" class="uk-text-danger">{{ errorDetail.pickup_datetime }}</div>
+                    </div>
+
+                    <div class="uk-width-1-2">
+                        <label class="uk-form-label form-label form-label-required">Metode Pembayaran</label>
+                        <div class="uk-form-controls">
+                            <div class="uk-grid-small" uk-grid>
+                                <label v-for="item in dataMetodePembayaran" :key="item.id" class="uk-form-label" :for="`mp-${item.id}`">
+                                    <input type="checkbox" class="uk-checkbox" :id="`mp-${item.id}`" :value="item.id" v-model="formsInput.metode_pembayaran" />
+                                    {{ item.title }}
+                                </label>
+                            </div>
+                        </div>
+                        <div v-if="errorDetail.metode_pembayaran !== ''" class="uk-text-danger">{{ errorDetail.metode_pembayaran }}</div>
                     </div>
                 </div>
 

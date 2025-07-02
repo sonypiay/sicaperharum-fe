@@ -17,6 +17,8 @@ import PatientList from "../pages/Patient/PatientList.vue";
 import PatientCreate from "../pages/Patient/PatientCreate.vue";
 import PatientEdit from "../pages/Patient/PatientEdit.vue";
 import FormRegisterComponent from "../pages/Patient/MedicalRecords/FormRegisterComponent.vue";
+import RegisterMedicalRecord from "../pages/Patient/MedicalRecords/RegisterMedicalRecord.vue";
+import RegisterPatient from "../pages/Patient/MedicalRecords/RegisterPatient.vue";
 
 const routes = [
     {
@@ -54,10 +56,20 @@ const routes = [
                         name: 'edit-patient',
                         component: PatientEdit
                     },
+                ],
+            },
+            {
+                path: 'form',
+                children: [
+                    {
+                        path: 'patient',
+                        name: 'form-register-patient',
+                        component: RegisterPatient,
+                    },
                     {
                         path: 'medical-record',
                         name: 'form-register-medical-record',
-                        component: FormRegisterComponent,
+                        component: RegisterMedicalRecord,
                     }
                 ],
             },
