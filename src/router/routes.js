@@ -20,11 +20,15 @@ import PatientEdit from "../pages/Patient/PatientEdit.vue";
 const routes = [
     {
         path: '/',
+        name: 'login',
         component: Login,
     },
     {
         path: '/admin',
         component: AdminLayout,
+        meta: {
+            requiresAuth: true,
+        },
         children: [
             {
                 path: '',
