@@ -96,7 +96,7 @@ onMounted(async () => {
                 <div class="uk-margin">
                     <label for="input-medical-number" class="uk-form-label form-label form-label-required">Nomor Rekam Medis</label>
                     <div class="uk-form-controls">
-                        <input type="text" class="uk-width-1-1 uk-input form-input" disabled />
+                        <input type="text" class="uk-width-1-1 uk-input form-input" v-model="formsInput.medical_number" disabled />
                     </div>
                 </div>
 
