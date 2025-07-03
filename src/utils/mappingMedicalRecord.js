@@ -713,8 +713,9 @@ mappingMedicalRecord.mikroskopis = {
     }
 };
 
-mappingMedicalRecord.tcm = {
-    mtb_rif: {
+mappingMedicalRecord.tcm = [
+    {
+        label: 'MTB-Rif',
         hasil: '',
         option: [
             "Terdeteksi",
@@ -723,7 +724,8 @@ mappingMedicalRecord.tcm = {
         nilai_normal: "Tidak Terdeteksi",
         note: '',
     },
-    viralLoadHiv1_2: {
+    {
+        label: 'Viral Load HIV 1/2',
         hasil: '',
         option: [
             "Terdeteksi",
@@ -732,15 +734,17 @@ mappingMedicalRecord.tcm = {
         nilai_normal: "Tidak Terdeteksi",
         note: '',
     }
-};
+];
 
-mappingMedicalRecord.lainnya = {
-    hba1c: {
+mappingMedicalRecord.lainnya = [
+    {
+        label: 'HbA1c',
         hasil: '',
         satuan: '%',
         nilai_normal: '5,6 - 7,1'
     },
-    hcg: {
+    {
+        label: 'HCG (Tes Kehamilan)',
         hasil: '',
         option: [
             "Negatif",
@@ -748,7 +752,8 @@ mappingMedicalRecord.lainnya = {
         ],
         nilai_normal: "Negatif"
     },
-    dengue_ng1: {
+    {
+        label: 'Dengue NS1',
         hasil: '',
         option: [
             "Negatif",
@@ -756,7 +761,8 @@ mappingMedicalRecord.lainnya = {
         ],
         nilai_normal: "Negatif"
     },
-    dengue_lgg: {
+    {
+        label: 'Dengue IgG ',
         hasil: '',
         option: [
             "Negatif",
@@ -764,7 +770,8 @@ mappingMedicalRecord.lainnya = {
         ],
         nilai_normal: "Negatif",
     },
-    dengue_lgm: {
+    {
+        label: 'Dengue IgM',
         hasil: '',
         option: [
             "Negatif",
@@ -772,7 +779,8 @@ mappingMedicalRecord.lainnya = {
         ],
         nilai_normal: "Negatif"
     },
-    malaria: {
+    {
+        label: 'Malaria',
         hasil: '',
         option: [
             "Negatif",
@@ -780,7 +788,8 @@ mappingMedicalRecord.lainnya = {
         ],
         nilai_normal: "Negatif"
     },
-    chikungunya: {
+    {
+        label: 'Chikungunya',
         hasil: '',
         option: [
             "Negatif",
@@ -788,7 +797,8 @@ mappingMedicalRecord.lainnya = {
         ],
         nilai_normal: "Negatif"
     },
-    antigen_covid19: {
+    {
+        label: 'Antigen Covid-19',
         hasil: '',
         option: [
             "Negatif",
@@ -796,7 +806,8 @@ mappingMedicalRecord.lainnya = {
         ],
         nilai_normal: "Negatif"
     },
-    darahSamar: {
+    {
+        label: 'Darah Samar',
         hasil: '',
         option: [
             "Negatif",
@@ -804,7 +815,18 @@ mappingMedicalRecord.lainnya = {
         ],
         nilai_normal: "Negatif"
     },
-    other_values: [],
-};
+    {
+        label: 'Lainnya',
+        hasil: '',
+        satuan: '',
+        nilai_normal: ''
+    },
+    {
+        label: 'Lainnya',
+        hasil: '',
+        satuan: '',
+        nilai_normal: ''
+    },
+];
 
 export default mappingMedicalRecord;
