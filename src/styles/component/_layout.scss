@@ -109,6 +109,19 @@
     }
 }
 
+.table-input-lab {
+    th {
+        @include vars.fontStyling(vars.$fontFamily !important, 16px, 600, black);
+        text-transform: none;
+        text-align: center;
+    }
+
+    td {
+        @include vars.fontStyling(vars.$fontFamily !important, 16px, 400, #333333);
+        text-align: center;
+    }
+}
+
 .autocomplete-dropdown {
     border-radius: 10px;
     border: 1px solid #dddddd;
@@ -144,5 +157,14 @@
                 }
             }
         }
+    }
+}
+
+.lab-diagnose-container {
+    .lab-header-title {
+        text-align: center;
+        padding: 10px;
+        border-bottom: 2px solid #dddddd;
+        @include vars.fontStyling(vars.$fontFamily !important, 14px, 600, black);
     }
 }

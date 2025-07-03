@@ -8,23 +8,32 @@ import klasterAPI from "../../../utils/api/MasterData/KlasterAPI.js";
 import spesimenAPI from "../../../utils/api/MasterData/SpesimenAPI.js";
 import {useSessionStorage} from "@vueuse/core";
 import metodePembayaranAPI from "../../../utils/api/MasterData/MetodePembayaranAPI.js";
-
-const eventEmitter = defineEmits([
-    'update-form-step',
-    'update-step-title'
-]);
+import patientMedicalRecordAPI from "../../../utils/api/Patient/PatientMedicalRecordAPI.js";
+import dayjs from "dayjs";
 
 const formsInput = reactive({
+    register_number: '',
     medical_number: '',
     fullname: '',
     address: '',
     dob: '',
     gender: 'L',
     phone_number: '',
-    klaster: '',
-    spesimen: '',
+    klaster: {
+        value: '',
+        label: '',
+    },
+    spesimen: {
+        value: '',
+        label: '',
+    },
     pickup_datetime: '',
-    metode_pembayaran: [],
+    metode_pembayaran: {
+        value: [],
+        label: [],
+    },
+    age: 0,
+    patientType: 'child',
 });
 
 const router = useRouter();
@@ -69,12 +78,12 @@ function onValidationForm() {
         errorDetail.isError = true;
     }
 
-    if( formsInput.klaster === '' ) {
+    if( formsInput.klaster.value === '' ) {
         errorDetail.klaster = 'Klaster wajib diisi';
         errorDetail.isError = true;
     }
 
-    if( formsInput.spesimen === '' ) {
+    if( formsInput.spesimen.value === '' ) {
         errorDetail.spesimen = 'Spesimen wajib diisi';
         errorDetail.isError = true;
     }
@@ -84,7 +93,7 @@ function onValidationForm() {
         errorDetail.isError = true;
     }
 
-    if( formsInput.metode_pembayaran.length === 0 ) {
+    if( formsInput.metode_pembayaran.value.length === 0 ) {
         errorDetail.metode_pembayaran = 'Metode pembayaran wajib diisi ';
         errorDetail.isError = true;
     }
@@ -133,6 +142,13 @@ async function fetchDataMetodePembayaran() {
         errorDetail.metode_pembayaran = 'Gagal mengambil data metode pembayaran';
         toastFailed(fetchApi.data.message);
     }
+}
+
+async function fetchGenerateRegisterNumber() {
+    const fetchApi = await patientMedicalRecordAPI.getRegisterNumber();
+    const responseBody = fetchApi.data;
+
+    formsInput.register_number = responseBody.register_number;
 }
 
 async function onHandleFindPatient(value) {
@@ -203,10 +219,35 @@ function onHandleRenderPickupDatetime() {
 async function onHandleSubmitForm() {
     onValidationForm();
 
+    formsInput.age = dayjs(dayjs()).diff(formsInput.dob, 'years');
+    formsInput.patientType = formsInput.age >= 17 ? 'adult' : 'child';
+
+    if( formsInput.klaster.value !== '' ) {
+        const getDataKlaster = dataKlaster.value.filter(item => {
+            return item.id === formsInput.klaster.value;
+        });
+
+        formsInput.klaster.label = getDataKlaster[0].title;
+    }
+
+    if( formsInput.spesimen.value !== '' ) {
+        const getDataSpesimen = dataSpesimen.value.filter(item => {
+            return item.id === formsInput.spesimen.value;
+        });
+
+        formsInput.spesimen.label = getDataSpesimen[0].title;
+    }
+
+    if( formsInput.metode_pembayaran.value.length > 0 ) {
+        const getDataMetodePembayaran = dataMetodePembayaran.value.filter(item => {
+            return formsInput.metode_pembayaran.value.includes(item.id);
+        });
+
+        formsInput.metode_pembayaran.label = getDataMetodePembayaran.map(item => item.title);
+    }
+
     if( errorDetail.isError === false ) {
         formPatient.value = JSON.stringify(formsInput);
-        eventEmitter('update-form-step', 2);
-        eventEmitter('update-step-title', 'Hasil Lab');
 
         await router.push({ name: 'form-register-medical-record' });
     }
@@ -216,6 +257,7 @@ onMounted(async() => {
     onHandleRenderDOB();
     onHandleRenderPickupDatetime();
 
+    await fetchGenerateRegisterNumber();
     await fetchDataKlaster();
     await fetchDataSpesimen();
     await fetchDataMetodePembayaran();
@@ -240,14 +282,14 @@ onMounted(async() => {
                         <div class="uk-width-1-3">
                             <label class="uk-form-label form-label">No. Register Lab</label>
                             <div class="uk-form-controls">
-                                <input type="text" class="uk-width-1-1 uk-input form-input" disabled />
+                                <input type="text" class="uk-width-1-1 uk-input form-input" v-model="formsInput.register_number" disabled />
                             </div>
                         </div>
 
                         <div class="uk-width-1-3">
                             <label class="uk-form-label form-label form-label-required">Klaster</label>
                             <div class="uk-form-controls">
-                                <select class="uk-width-1-1 uk-select form-select" v-model="formsInput.klaster" aria-label="Select">
+                                <select class="uk-width-1-1 uk-select form-select" v-model="formsInput.klaster.value" aria-label="Select">
                                     <option value="">Pilih Klaster</option>
                                     <option v-for="item in dataKlaster" :key="item.id" :value="item.id">{{ item.title }}</option>
                                 </select>
@@ -258,7 +300,7 @@ onMounted(async() => {
                         <div class="uk-width-1-3">
                             <label class="uk-form-label form-label form-label-required">Jenis Spesimen</label>
                             <div class="uk-form-controls">
-                                <select class="uk-width-1-1 uk-select form-select" v-model="formsInput.spesimen" aria-label="Select">
+                                <select class="uk-width-1-1 uk-select form-select" v-model="formsInput.spesimen.value" aria-label="Select">
                                     <option value="">Pilih Spesimen</option>
                                     <option v-for="item in dataSpesimen" :key="item.id" :value="item.id">{{ item.title }}</option>
                                 </select>
@@ -350,7 +392,7 @@ onMounted(async() => {
                         <div class="uk-form-controls">
                             <div class="uk-grid-small" uk-grid>
                                 <label v-for="item in dataMetodePembayaran" :key="item.id" class="uk-form-label" :for="`mp-${item.id}`">
-                                    <input type="checkbox" class="uk-checkbox" :id="`mp-${item.id}`" :value="item.id" v-model="formsInput.metode_pembayaran" />
+                                    <input type="checkbox" class="uk-checkbox" :id="`mp-${item.id}`" :value="item.id" v-model="formsInput.metode_pembayaran.value" />
                                     {{ item.title }}
                                 </label>
                             </div>

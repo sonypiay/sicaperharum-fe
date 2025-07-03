@@ -48,6 +48,11 @@
     }
 }
 
+.form-input-small {
+    padding: .5rem 1rem;
+    @include vars.fontStyling(vars.$fontFamily !important, 12px, 400, black);
+}
+
 .form-select {
     @include vars.fontStyling(vars.$fontFamily !important, 16px, 400, black);
     border-radius: 10px;

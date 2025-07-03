@@ -2,8 +2,10 @@
 import authAPI from "../utils/api/AuthAPI.js";
 import {useRouter} from "vue-router";
 import {useLocalStorage} from "@vueuse/core";
+import {onMounted, ref} from "vue";
 
 const router = useRouter();
+const userProfile = ref({});
 
 async function handleLogout() {
     await authAPI.logout();
@@ -14,6 +16,11 @@ async function handleLogout() {
     userToken.value = '';
     await router.push('/');
 }
+
+onMounted(() => {
+    userProfile.value = JSON.parse(useLocalStorage('user_profile').value ?? "{}");
+});
+
 </script>
 
 <template>
@@ -25,7 +32,10 @@ async function handleLogout() {
                         <a class="uk-navbar-item navbar-profile-container">
                             <div class="uk-grid-small" uk-grid>
                                 <div class="uk-width-1-5">
-                                    <div class="nav-avatar">
+                                    <div v-if="userProfile.image" class="nav-avatar">
+                                        <img :src="userProfile.image.url" alt="Avatar" />
+                                    </div>
+                                    <div v-else class="nav-avatar">
                                         <img src="../assets/images/sample-avatar.jpeg" />
                                     </div>
                                 </div>
@@ -33,7 +43,7 @@ async function handleLogout() {
                                     <div uk-grid>
                                         <div class="uk-width-3-4">
                                             <div class="navbar-profile-info">
-                                                <div class="nav-profile-name">Sony Darmawan</div>
+                                                <div class="nav-profile-name">{{ userProfile.name }}</div>
                                                 <div class="nav-profile-role">Superadmin</div>
                                             </div>
                                         </div>
