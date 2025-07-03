@@ -20,38 +20,16 @@ const props = defineProps({
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>AMP</td>
+                <tr v-for="(column, index) in props.formInput" :key="`napza-${index}`">
+                    <td>{{ column.label }}</td>
                     <td>
-                        <select class="uk-width-1-1 uk-select form-select form-select-small" v-model="props.formInput.amp.hasil">
+                        <select class="uk-width-1-1 uk-select form-select form-select-small" v-model="column.hasil">
                             <option value="">Pilih Nilai</option>
-                            <option v-for="item in props.formInput.amp.option" :key="item" :value="item">{{ item }}</option>
+                            <option v-for="item in column.option" :key="item" :value="item">{{ item }}</option>
                         </select>
                     </td>
                     <td></td>
-                    <td>{{ props.formInput.amp.nilai_normal }}</td>
-                </tr>
-                <tr>
-                    <td>MOP</td>
-                    <td>
-                        <select class="uk-width-1-1 uk-select form-select form-select-small" v-model="props.formInput.mop.hasil">
-                            <option value="">Pilih Nilai</option>
-                            <option v-for="item in props.formInput.mop.option" :key="item" :value="item">{{ item }}</option>
-                        </select>
-                    </td>
-                    <td></td>
-                    <td>{{ props.formInput.mop.nilai_normal }}</td>
-                </tr>
-                <tr>
-                    <td>THC</td>
-                    <td>
-                        <select class="uk-width-1-1 uk-select form-select form-select-small" v-model="props.formInput.thc.hasil">
-                            <option value="">Pilih Nilai</option>
-                            <option v-for="item in props.formInput.thc.option" :key="item" :value="item">{{ item }}</option>
-                        </select>
-                    </td>
-                    <td></td>
-                    <td>{{ props.formInput.thc.nilai_normal }}</td>
+                    <td>{{ column.nilai_normal }}</td>
                 </tr>
             </tbody>
         </table>
