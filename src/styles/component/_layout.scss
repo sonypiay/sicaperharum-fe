@@ -63,6 +63,12 @@
 
     .form-section-input {
         margin-top: 2rem;
+
+        .form-section-divider {
+            border-bottom: 2px solid #dddddd;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
     }
 }
 

@@ -10,6 +10,10 @@ import FormMikroskopis from "./FormMikroskopis.vue";
 import FormTCM from "./FormTCM.vue";
 import FormLainnya from "./FormLainnya.vue";
 import dayjs from "dayjs";
+import mappingMedicalRecord from "../../../utils/mappingMedicalRecord.js";
+
+const formInputHematologi = reactive(mappingMedicalRecord.hematologi);
+const formInputKimiaKlinik = reactive(mappingMedicalRecord.kimiaKlinik);
 
 const navTabList = reactive({
     list: [
@@ -65,6 +69,10 @@ const dataPatient = ref({});
 onMounted(() => {
     dataPatient.value = JSON.parse(useSessionStorage('form-patient').value ?? "{}");
 });
+
+function handleReceiveFormMedicalRecord(data) {
+    console.log(data);
+}
 </script>
 
 <template>
@@ -126,13 +134,15 @@ onMounted(() => {
                 </tbody>
             </table>
 
-            <FormHematologi v-if="currentNavTab === 'hematologi'" :form-data-patient="dataPatient" />
-            <FormKimiaKlinik v-if="currentNavTab === 'kimia_klinik'" :form-data-patient="dataPatient" />
-            <FormUrinalisa v-if="currentNavTab === 'urinalisa'" :form-data-patient="dataPatient" />
-            <FormImunoserologi v-if="currentNavTab === 'imunoserologi'" :form-data-patient="dataPatient" />
-            <FormMikroskopis v-if="currentNavTab === 'mikroskopis'" :form-data-patient="dataPatient" />
-            <FormTCM v-if="currentNavTab === 'tcm'" :form-data-patient="dataPatient" />
-            <FormLainnya v-if="currentNavTab === 'lainnya'" :form-data-patient="dataPatient" />
+            <form class="uk-form-stacked" @submit.prevent="false">
+                <FormHematologi v-if="currentNavTab === 'hematologi'" :form-data-patient="dataPatient" :formInput="formInputHematologi" />
+                <FormKimiaKlinik v-if="currentNavTab === 'kimia_klinik'" :form-data-patient="dataPatient" />
+                <FormUrinalisa v-if="currentNavTab === 'urinalisa'" :form-data-patient="dataPatient" />
+                <FormImunoserologi v-if="currentNavTab === 'imunoserologi'" :form-data-patient="dataPatient" />
+                <FormMikroskopis v-if="currentNavTab === 'mikroskopis'" :form-data-patient="dataPatient" />
+                <FormTCM v-if="currentNavTab === 'tcm'" :form-data-patient="dataPatient" />
+                <FormLainnya v-if="currentNavTab === 'lainnya'" :form-data-patient="dataPatient" />
+            </form>
         </div>
     </section>
 </template>
