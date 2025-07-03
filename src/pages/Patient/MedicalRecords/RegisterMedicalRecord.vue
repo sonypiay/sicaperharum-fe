@@ -12,6 +12,9 @@ import FormLainnya from "./FormLainnya.vue";
 import dayjs from "dayjs";
 import mappingMedicalRecord from "../../../utils/mappingMedicalRecord.js";
 import FormNapza from "./FormNapza.vue";
+import patientMedicalRecordAPI from "../../../utils/api/Patient/PatientMedicalRecordAPI.js";
+import {toastFailed, toastSuccess} from "../../../utils/alerts.js";
+import router from "../../../router/index.js";
 
 const formInputHematologi = reactive(mappingMedicalRecord.hematologi);
 const formInputKimiaKlinik = reactive(mappingMedicalRecord.kimiaKlinik);
@@ -68,6 +71,7 @@ const navTabList = reactive({
 });
 
 const currentNavTab = ref('hematologi');
+const formsInput = ref({});
 
 function onHandleTabClick(value) {
     navTabList.list.forEach((tab) => {
@@ -75,6 +79,96 @@ function onHandleTabClick(value) {
     });
 
     currentNavTab.value = value;
+}
+
+function onHandleMappingFormMedicalRecord(data) {
+    const filteredData = data.filter((item) => {
+        return item.hasil !== '' && item.hasil !== null;
+    }).map((item) => {
+        return {
+            label: item.label,
+            hasil: item.hasil,
+            satuan: item.satuan ?? null,
+            nilai_normal: item.nilai_normal ?? null,
+        };
+    });
+
+    return filteredData.length > 0 ? filteredData : null;
+}
+
+async function onHandleSubmitForm() {
+    const formPatient = JSON.parse(useSessionStorage('form-patient').value ?? "{}");
+    formPatient.klaster = formPatient.klaster.value;
+    formPatient.spesimen = formPatient.spesimen.value;
+    formPatient.metode_pembayaran = formPatient.metode_pembayaran.label;
+
+    const mappingHematologi = {
+        hematologi_rutin: onHandleMappingFormMedicalRecord(formInputHematologi.hematologiRutin),
+        index_eritrosit: onHandleMappingFormMedicalRecord(formInputHematologi.indexEritrosit),
+        laju_endap_darah: formInputHematologi.lajuEndapDarah.hasil ?? null,
+        jenis_leukosit: onHandleMappingFormMedicalRecord(formInputHematologi.jenisLeukosit),
+    };
+
+    const mappingKimiaKlinik = {
+        diabetes: onHandleMappingFormMedicalRecord(formInputKimiaKlinik.diabetes),
+        lipid: onHandleMappingFormMedicalRecord(formInputKimiaKlinik.lipid),
+        fungsi_ginjal: onHandleMappingFormMedicalRecord(formInputKimiaKlinik.fungsiGinjal),
+        fungsi_hati: onHandleMappingFormMedicalRecord(formInputKimiaKlinik.fungsiHati),
+    };
+
+    const mappingUrinalisa = {
+        makroskopis_kimia: onHandleMappingFormMedicalRecord(formInputUrinalisa.makroskopis_kimia),
+        sedimen: onHandleMappingFormMedicalRecord(formInputUrinalisa.sedimen),
+    };
+
+    const mappingNapza = onHandleMappingFormMedicalRecord(formInputNapza);
+    const mappingImunoserologi = {
+        hiv: onHandleMappingFormMedicalRecord(formInputImunoserologi.hiv),
+        widal: onHandleMappingFormMedicalRecord(formInputImunoserologi.widal),
+        golongan_darah: formInputImunoserologi.golonganDarah.hasil ?? null,
+        rhesus: formInputImunoserologi.rhesus.hasil ?? null,
+    };
+
+    const mappingMikroskopis = {
+        feses: formInputMikroskopis.feses ?? null,
+        makroskopis: onHandleMappingFormMedicalRecord(formInputMikroskopis.makroskopis),
+        mikroskopis: onHandleMappingFormMedicalRecord(formInputMikroskopis.mikroskopis),
+        ims: {
+            laki: onHandleMappingFormMedicalRecord(formInputMikroskopis.ims.laki),
+            perempuan: onHandleMappingFormMedicalRecord(formInputMikroskopis.ims.perempuan)
+        },
+        bta: formInputMikroskopis.bta.hasil ?? null,
+    };
+
+    const mappingTCM = onHandleMappingFormMedicalRecord(formInputTcm);
+    const mappingLainnya = onHandleMappingFormMedicalRecord(formInputLainnya);
+
+    formsInput.value = {
+        medical_result: {
+            hematologi: mappingHematologi,
+            kimia_klinik: mappingKimiaKlinik,
+            urinalisa: mappingUrinalisa,
+            napza: mappingNapza,
+            imunoserologi: mappingImunoserologi,
+            mikroskopis: mappingMikroskopis,
+            tcm: mappingTCM,
+            lainnya: mappingLainnya,
+        },
+        ...formPatient,
+    };
+
+    const fetchApi = await patientMedicalRecordAPI.create(formsInput.value);
+    const responseBody = fetchApi.data;
+    const statusCode = fetchApi.statusCode;
+
+    if( statusCode === 201 ) {
+        useSessionStorage('form-patient', '');
+        toastSuccess(`Hasil lab untuk pasien dengan nomor rekam medis ${formPatient.medical_number} berhasil dibuat.`);
+
+        await router.push({name: 'form-register-patient'});
+    } else {
+        toastFailed(responseBody.message);
+    }
 }
 
 const dataPatient = ref({});
@@ -142,7 +236,7 @@ onMounted(() => {
                 </tbody>
             </table>
 
-            <form class="uk-form-stacked" @submit.prevent="false">
+            <form class="uk-form-stacked" @submit.prevent="onHandleSubmitForm()">
                 <FormHematologi v-if="currentNavTab === 'hematologi'" :form-data-patient="dataPatient" :formInput="formInputHematologi" />
                 <FormKimiaKlinik v-if="currentNavTab === 'kimia_klinik'" :form-data-patient="dataPatient" :formInput="formInputKimiaKlinik" />
                 <FormUrinalisa v-if="currentNavTab === 'urinalisa'" :form-data-patient="dataPatient" :formInput="formInputUrinalisa" />
@@ -151,6 +245,11 @@ onMounted(() => {
                 <FormMikroskopis v-if="currentNavTab === 'mikroskopis'" :form-data-patient="dataPatient" :formInput="formInputMikroskopis" />
                 <FormTCM v-if="currentNavTab === 'tcm'" :form-data-patient="dataPatient" :formInput="formInputTcm" />
                 <FormLainnya v-if="currentNavTab === 'lainnya'" :form-data-patient="dataPatient" :formInput="formInputLainnya" />
+
+                <router-link :to="{name: 'form-register-patient'}">
+                    Kembali
+                </router-link>
+                <button class="uk-button uk-button-primary button button-primary">Submit</button>
             </form>
         </div>
     </section>
