@@ -397,7 +397,7 @@ mappingMedicalRecord.imunoserologi = {
         ],
         nilai_normal: ""
     },
-    phesus: {
+    rhesus: {
         hasil: '',
         option: [
             "Negatif",
@@ -515,8 +515,9 @@ mappingMedicalRecord.mikroskopis = {
         satuan: '',
         nilai_normal: '',
     },
-    makroskopis: {
-        warna: {
+    makroskopis: [
+        {
+            label: 'Warna',
             hasil: '',
             option: [
                 "Kuning",
@@ -525,7 +526,8 @@ mappingMedicalRecord.mikroskopis = {
             ],
             nilai_normal: "Kuning - Coklat"
         },
-        konsistensi: {
+        {
+            label: 'Konsistensi',
             hasil: '',
             option: [
                 "Lunak",
@@ -534,14 +536,16 @@ mappingMedicalRecord.mikroskopis = {
             ],
             nilai_normal: "Lunak"
         },
-        bau: {
+        {
+            label: 'Bau',
             hasil: '',
             option: [
                 "Khas",
             ],
             nilai_normal: "Khas"
         },
-        lendir: {
+        {
+            label: 'Lendir',
             hasil: '',
             option: [
                 "Negatif",
@@ -549,7 +553,8 @@ mappingMedicalRecord.mikroskopis = {
             ],
             nilai_normal: "Negatif"
         },
-        darah: {
+        {
+            label: 'Darah',
             hasil: '',
             option: [
                 "Negatif",
@@ -557,51 +562,8 @@ mappingMedicalRecord.mikroskopis = {
             ],
             nilai_normal: "Negatif"
         },
-        sisaMakanan: {
-            hasil: '',
-            option: [
-                "Negatif",
-                "Positif",
-            ],
-            nilai_normal: "Negatif"
-        }
-    },
-    mikroskopis: {
-        leukosit: {
-            hasil: '',
-            satuan: '/ LPB',
-            nilai_normal: 'Negatif'
-        },
-        eritrosit: {
-            hasil: '',
-            satuan: '/ LPB',
-            nilai_normal: 'Negatif'
-        },
-        parasit: {
-            hasil: '',
-            option: [
-                "Negatif",
-                "Positif",
-            ],
-            nilai_normal: "Negatif"
-        },
-        telurCacing: {
-            hasil: '',
-            option: [
-                "Negatif",
-                "Positif",
-            ],
-            nilai_normal: "Negatif"
-        },
-        jamur: {
-            hasil: '',
-            option: [
-                "Negatif",
-                "Positif",
-            ],
-            nilai_normal: "Negatif"
-        },
-        lainnya: {
+        {
+            label: 'Sisa Makanan',
             hasil: '',
             option: [
                 "Negatif",
@@ -609,7 +571,57 @@ mappingMedicalRecord.mikroskopis = {
             ],
             nilai_normal: "Negatif"
         }
-    },
+    ],
+    mikroskopis: [
+        {
+            label: 'Leukosit',
+            hasil: '',
+            satuan: '/ LPB',
+            nilai_normal: 'Negatif'
+        },
+        {
+            label: 'Eritrosit',
+            hasil: '',
+            satuan: '/ LPB',
+            nilai_normal: 'Negatif'
+        },
+        {
+            label: 'Parasit',
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        },
+        {
+            label: 'Telur Cacing',
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        },
+        {
+            label: 'Jamur',
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        },
+        {
+            label: 'Lainnya',
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        }
+    ],
     bta: {
         hasil: '',
         option: [
@@ -622,8 +634,9 @@ mappingMedicalRecord.mikroskopis = {
         nilai_normal: "Negatif"
     },
     ims: {
-        laki: {
-            pmn: {
+        laki: [
+            {
+                label: 'PMN',
                 hasil: '',
                 option: [
                     "Negatif",
@@ -631,7 +644,8 @@ mappingMedicalRecord.mikroskopis = {
                 ],
                 nilai_normal: "Negatif"
             },
-            diplocossus: {
+            {
+                label: 'Diplocossus',
                 hasil: '',
                 option: [
                     "Negatif",
@@ -639,9 +653,10 @@ mappingMedicalRecord.mikroskopis = {
                 ],
                 nilai_normal: "Negatif"
             }
-        },
-        perempuan: {
-            pmn: {
+        ],
+        perempuan: [
+            {
+                label: 'PMN',
                 hasil: '',
                 option: [
                     "Negatif",
@@ -649,7 +664,8 @@ mappingMedicalRecord.mikroskopis = {
                 ],
                 nilai_normal: "Negatif"
             },
-            diplocossus: {
+            {
+                label: 'Diplocossus',
                 hasil: '',
                 option: [
                     "Negatif",
@@ -657,7 +673,8 @@ mappingMedicalRecord.mikroskopis = {
                 ],
                 nilai_normal: "Negatif"
             },
-            t_vaginalis: {
+            {
+                label: 'T Vaginalis',
                 hasil: '',
                 option: [
                     "Negatif",
@@ -665,7 +682,8 @@ mappingMedicalRecord.mikroskopis = {
                 ],
                 nilai_normal: "Negatif"
             },
-            candida: {
+            {
+                label: 'Candida',
                 hasil: '',
                 option: [
                     "Negatif",
@@ -673,7 +691,8 @@ mappingMedicalRecord.mikroskopis = {
                 ],
                 nilai_normal: "Negatif"
             },
-            clueCell: {
+            {
+                label: 'Clue Cell',
                 hasil: '',
                 option: [
                     "Negatif",
@@ -681,7 +700,8 @@ mappingMedicalRecord.mikroskopis = {
                 ],
                 nilai_normal: "Negatif"
             },
-            bakterialVaginosis: {
+            {
+                label: 'Bakterial Vaginosis',
                 hasil: '',
                 option: [
                     "Negatif",
@@ -689,7 +709,7 @@ mappingMedicalRecord.mikroskopis = {
                 ],
                 nilai_normal: "Negatif"
             }
-        }
+        ]
     }
 };
 
