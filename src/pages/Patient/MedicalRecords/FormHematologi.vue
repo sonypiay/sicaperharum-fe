@@ -1,5 +1,5 @@
 <script setup>
-defineProps({
+const props = defineProps({
     formDataPatient: Object,
     formInput: Object,
 });
@@ -9,7 +9,7 @@ defineProps({
     <hr class="form-section-divider">
 
     <h3>Hematologi</h3>
-    <div class="form-section-input" v-if="formDataPatient">
+    <div class="form-section-input" v-if="props.formDataPatient">
         <!-- section input hematologi -->
         <table class="uk-table uk-table-small uk-table-divider table-input-lab">
             <thead>
@@ -24,64 +24,64 @@ defineProps({
                 <tr>
                     <td>Hemoglobin</td>
                     <td>
-                        <input type="number" class="uk-input form-input form-input-small" v-model="formInput.hematologiRutin.hemoglobin.hasil" />
+                        <input type="number" class="uk-input form-input form-input-small" v-model="props.formInput.hematologiRutin.hemoglobin.hasil" />
                     </td>
-                    <td>{{ formInput.hematologiRutin.hemoglobin.satuan }}</td>
+                    <td>{{ props.formInput.hematologiRutin.hemoglobin.satuan }}</td>
                     <td>
-                        <span v-if="formDataPatient.patientType === 'adult'">
-                            <span v-if="formDataPatient.gender === 'L'">{{ formInput.hematologiRutin.hemoglobin.nilai_normal.laki }}</span>
-                            <span v-else>{{ formInput.hematologiRutin.hemoglobin.nilai_normal.perempuan }}</span>
+                        <span v-if="props.formDataPatient.patientType === 'adult'">
+                            <span v-if="props.formDataPatient.gender === 'L'">{{ props.formInput.hematologiRutin.hemoglobin.nilai_normal.laki }}</span>
+                            <span v-else>{{ props.formInput.hematologiRutin.hemoglobin.nilai_normal.perempuan }}</span>
                         </span>
-                        <span v-else>{{ formInput.hematologiRutin.hemoglobin.nilai_normal.anak }}</span>
+                        <span v-else>{{ props.formInput.hematologiRutin.hemoglobin.nilai_normal.anak }}</span>
                     </td>
                 </tr>
                 <tr>
                     <td>Hematokrit</td>
                     <td>
-                        <input type="number" class="uk-input form-input form-input-small" v-model="formInput.hematologiRutin.hematokrit.hasil" />
+                        <input type="number" class="uk-input form-input form-input-small" v-model="props.formInput.hematologiRutin.hematokrit.hasil" />
                     </td>
-                    <td>{{ formInput.hematologiRutin.hematokrit.satuan }}</td>
+                    <td>{{ props.formInput.hematologiRutin.hematokrit.satuan }}</td>
                     <td>
-                        <span v-if="formDataPatient.patientType === 'adult'">
-                            <span v-if="formDataPatient.gender === 'L'">{{ formInput.hematologiRutin.hematokrit.nilai_normal.laki }}</span>
-                            <span v-else>{{ formInput.hematologiRutin.hematokrit.nilai_normal.perempuan }}</span>
+                        <span v-if="props.formDataPatient.patientType === 'adult'">
+                            <span v-if="props.formDataPatient.gender === 'L'">{{ props.formInput.hematologiRutin.hematokrit.nilai_normal.laki }}</span>
+                            <span v-else>{{ props.formInput.hematologiRutin.hematokrit.nilai_normal.perempuan }}</span>
                         </span>
-                        <span v-else>{{ formInput.hematologiRutin.hematokrit.nilai_normal.anak }}</span>
+                        <span v-else>{{ props.formInput.hematologiRutin.hematokrit.nilai_normal.anak }}</span>
                     </td>
                 </tr>
                 <tr>
                     <td>Leukosit</td>
                     <td>
-                        <input type="number" class="uk-input form-input form-input-small" v-model="formInput.hematologiRutin.leukosit.hasil" />
+                        <input type="number" class="uk-input form-input form-input-small" v-model="props.formInput.hematologiRutin.leukosit.hasil" />
                     </td>
-                    <td>{{ formInput.hematologiRutin.leukosit.satuan }}</td>
+                    <td>{{ props.formInput.hematologiRutin.leukosit.satuan }}</td>
                     <td>
-                        <span v-if="formDataPatient.patientType === 'adult'">
-                            <span>{{ formInput.hematologiRutin.leukosit.nilai_normal.dewasa }}</span>
+                        <span v-if="props.formDataPatient.patientType === 'adult'">
+                            <span>{{ props.formInput.hematologiRutin.leukosit.nilai_normal.dewasa }}</span>
                         </span>
-                        <span v-else>{{ formInput.hematologiRutin.hematokrit.nilai_normal.anak }}</span>
+                        <span v-else>{{ props.formInput.hematologiRutin.hematokrit.nilai_normal.anak }}</span>
                     </td>
                 </tr>
                 <tr>
                     <td>Trombosit</td>
                     <td>
-                        <input type="number" class="uk-input form-input form-input-small" v-model="formInput.hematologiRutin.trombosit.hasil" />
+                        <input type="number" class="uk-input form-input form-input-small" v-model="props.formInput.hematologiRutin.trombosit.hasil" />
                     </td>
-                    <td>{{ formInput.hematologiRutin.trombosit.satuan }}</td>
-                    <td>{{ formInput.hematologiRutin.trombosit.nilai_normal }}</td>
+                    <td>{{ props.formInput.hematologiRutin.trombosit.satuan }}</td>
+                    <td>{{ props.formInput.hematologiRutin.trombosit.nilai_normal }}</td>
                 </tr>
                 <tr>
                     <td>Eritrosit</td>
                     <td>
-                        <input type="number" class="uk-input form-input form-input-small" v-model="formInput.hematologiRutin.eritrosit.hasil" />
+                        <input type="number" class="uk-input form-input form-input-small" v-model="props.formInput.hematologiRutin.eritrosit.hasil" />
                     </td>
-                    <td>{{ formInput.hematologiRutin.eritrosit.satuan }}</td>
+                    <td>{{ props.formInput.hematologiRutin.eritrosit.satuan }}</td>
                     <td>
-                        <span v-if="formDataPatient.patientType === 'adult'">
-                            <span v-if="formDataPatient.gender === 'L'">{{ formInput.hematologiRutin.eritrosit.nilai_normal.laki }}</span>
-                            <span v-else>{{ formInput.hematologiRutin.eritrosit.nilai_normal.perempuan }}</span>
+                        <span v-if="props.formDataPatient.patientType === 'adult'">
+                            <span v-if="props.formDataPatient.gender === 'L'">{{ props.formInput.hematologiRutin.eritrosit.nilai_normal.laki }}</span>
+                            <span v-else>{{ props.formInput.hematologiRutin.eritrosit.nilai_normal.perempuan }}</span>
                         </span>
-                        <span v-else>{{ formInput.hematologiRutin.eritrosit.nilai_normal.anak }}</span>
+                        <span v-else>{{ props.formInput.hematologiRutin.eritrosit.nilai_normal.anak }}</span>
                     </td>
                 </tr>
             </tbody>
@@ -100,19 +100,19 @@ defineProps({
             <tbody>
             <tr>
                 <td>MCV</td>
-                <td><input type="number" class="uk-input form-input form-input-small" v-model="formInput.indexEritrosit.mcv.hasil" /></td>
+                <td><input type="number" class="uk-input form-input form-input-small" v-model="props.formInput.indexEritrosit.mcv.hasil" /></td>
             </tr>
             <tr>
                 <td>MCH</td>
-                <td><input type="number" class="uk-input form-input form-input-small" v-model="formInput.indexEritrosit.mch.hasil" /></td>
+                <td><input type="number" class="uk-input form-input form-input-small" v-model="props.formInput.indexEritrosit.mch.hasil" /></td>
             </tr>
             <tr>
                 <td>MCHC</td>
-                <td><input type="number" class="uk-input form-input form-input-small" v-model="formInput.indexEritrosit.mchc.hasil" /></td>
+                <td><input type="number" class="uk-input form-input form-input-small" v-model="props.formInput.indexEritrosit.mchc.hasil" /></td>
             </tr>
             <tr>
                 <td>RDW-SD</td>
-                <td><input type="number" class="uk-input form-input form-input-small" v-model="formInput.indexEritrosit.rdwsd.hasil" /></td>
+                <td><input type="number" class="uk-input form-input form-input-small" v-model="props.formInput.indexEritrosit.rdwsd.hasil" /></td>
             </tr>
             </tbody>
         </table>
@@ -129,17 +129,17 @@ defineProps({
             <tbody>
             <tr>
                 <th>Nilai</th>
-                <td><input type="number" class="uk-input form-input form-input-small" v-model="formInput.lajuEndapDarah.hasil" /></td>
+                <td><input type="number" class="uk-input form-input form-input-small" v-model="props.formInput.lajuEndapDarah.hasil" /></td>
             </tr>
             <tr>
                 <th>Satuan</th>
-                <td>{{ formInput.lajuEndapDarah.satuan }}</td>
+                <td>{{ props.formInput.lajuEndapDarah.satuan }}</td>
             </tr>
             <tr>
                 <th>Nilai Normal</th>
                 <td>
-                    <span v-if="formDataPatient.gender === 'L'">{{ formInput.lajuEndapDarah.nilai_normal.laki }}</span>
-                    <span v-else>{{ formInput.lajuEndapDarah.nilai_normal.perempuan }}</span>
+                    <span v-if="props.formDataPatient.gender === 'L'">{{ props.formInput.lajuEndapDarah.nilai_normal.laki }}</span>
+                    <span v-else>{{ props.formInput.lajuEndapDarah.nilai_normal.perempuan }}</span>
                 </td>
             </tr>
             </tbody>
@@ -160,39 +160,39 @@ defineProps({
             <tbody>
             <tr>
                 <td>Basofil</td>
-                <td><input type="number" class="uk-input form-input form-input-small" v-model="formInput.jenisLeukosit.basofil.hasil" /></td>
-                <td>{{ formInput.jenisLeukosit.basofil.satuan }}</td>
-                <td>{{ formInput.jenisLeukosit.basofil.nilai_normal }}</td>
+                <td><input type="number" class="uk-input form-input form-input-small" v-model="props.formInput.jenisLeukosit.basofil.hasil" /></td>
+                <td>{{ props.formInput.jenisLeukosit.basofil.satuan }}</td>
+                <td>{{ props.formInput.jenisLeukosit.basofil.nilai_normal }}</td>
             </tr>
             <tr>
                 <td>Eosinofil</td>
-                <td><input type="number" class="uk-input form-input form-input-small" v-model="formInput.jenisLeukosit.eosinofil.hasil" /></td>
-                <td>{{ formInput.jenisLeukosit.eosinofil.satuan }}</td>
-                <td>{{ formInput.jenisLeukosit.eosinofil.nilai_normal }}</td>
+                <td><input type="number" class="uk-input form-input form-input-small" v-model="props.formInput.jenisLeukosit.eosinofil.hasil" /></td>
+                <td>{{ props.formInput.jenisLeukosit.eosinofil.satuan }}</td>
+                <td>{{ props.formInput.jenisLeukosit.eosinofil.nilai_normal }}</td>
             </tr>
             <tr>
                 <td>Neutrofil Batang</td>
-                <td><input type="number" class="uk-input form-input form-input-small" v-model="formInput.jenisLeukosit.neutrofil_batang.hasil" /></td>
-                <td>{{ formInput.jenisLeukosit.neutrofil_batang.satuan }}</td>
-                <td>{{ formInput.jenisLeukosit.neutrofil_batang.nilai_normal }}</td>
+                <td><input type="number" class="uk-input form-input form-input-small" v-model="props.formInput.jenisLeukosit.neutrofil_batang.hasil" /></td>
+                <td>{{ props.formInput.jenisLeukosit.neutrofil_batang.satuan }}</td>
+                <td>{{ props.formInput.jenisLeukosit.neutrofil_batang.nilai_normal }}</td>
             </tr>
             <tr>
                 <td>Neutrofil Segmen</td>
-                <td><input type="number" class="uk-input form-input form-input-small" v-model="formInput.jenisLeukosit.neutrofil_segmen.hasil" /></td>
-                <td>{{ formInput.jenisLeukosit.neutrofil_segmen.satuan }}</td>
-                <td>{{ formInput.jenisLeukosit.neutrofil_segmen.nilai_normal }}</td>
+                <td><input type="number" class="uk-input form-input form-input-small" v-model="props.formInput.jenisLeukosit.neutrofil_segmen.hasil" /></td>
+                <td>{{ props.formInput.jenisLeukosit.neutrofil_segmen.satuan }}</td>
+                <td>{{ props.formInput.jenisLeukosit.neutrofil_segmen.nilai_normal }}</td>
             </tr>
             <tr>
                 <td>Limfosit</td>
-                <td><input type="number" class="uk-input form-input form-input-small" v-model="formInput.jenisLeukosit.limfosit.hasil" /></td>
-                <td>{{ formInput.jenisLeukosit.limfosit.satuan }}</td>
-                <td>{{ formInput.jenisLeukosit.limfosit.nilai_normal }}</td>
+                <td><input type="number" class="uk-input form-input form-input-small" v-model="props.formInput.jenisLeukosit.limfosit.hasil" /></td>
+                <td>{{ props.formInput.jenisLeukosit.limfosit.satuan }}</td>
+                <td>{{ props.formInput.jenisLeukosit.limfosit.nilai_normal }}</td>
             </tr>
             <tr>
                 <td>Monosit</td>
-                <td><input type="number" class="uk-input form-input form-input-small" v-model="formInput.jenisLeukosit.monosit.hasil" /></td>
-                <td>{{ formInput.jenisLeukosit.monosit.satuan }}</td>
-                <td>{{ formInput.jenisLeukosit.monosit.nilai_normal }}</td>
+                <td><input type="number" class="uk-input form-input form-input-small" v-model="props.formInput.jenisLeukosit.monosit.hasil" /></td>
+                <td>{{ props.formInput.jenisLeukosit.monosit.satuan }}</td>
+                <td>{{ props.formInput.jenisLeukosit.monosit.nilai_normal }}</td>
             </tr>
             </tbody>
         </table>
