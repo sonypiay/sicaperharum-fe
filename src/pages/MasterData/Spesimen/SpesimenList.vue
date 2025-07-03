@@ -11,7 +11,7 @@ const searchField = reactive({
 });
 
 const dataSpesimen = ref([]);
-const isSearchEnable = ref(true);
+const isSearchEnable = ref(false);
 
 async function fetchSpesimen() {
     const fetchApi = await spesimenAPI.getAll(searchField);

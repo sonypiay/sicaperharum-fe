@@ -27,7 +27,7 @@ const dataPatient = reactive({
         to: 1,
     },
 });
-const isSearchEnable = ref(true);
+const isSearchEnable = ref(false);
 
 async function fetchPatient(page) {
     const fetchApi = await patientAPI.getAll(searchField, page);

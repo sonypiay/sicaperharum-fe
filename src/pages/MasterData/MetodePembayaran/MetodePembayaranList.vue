@@ -11,7 +11,7 @@ const searchField = reactive({
 });
 
 const dataMetodePembayaran = ref([]);
-const isSearchEnable = ref(true);
+const isSearchEnable = ref(false);
 
 async function fetchMetodePembayaran() {
     const fetchApi = await metodePembayaranAPI.getAll(searchField);

@@ -11,7 +11,7 @@ const searchField = reactive({
 });
 
 const dataKlaster = ref([]);
-const isSearchEnable = ref(true);
+const isSearchEnable = ref(false);
 
 async function fetchKlaster() {
     const fetchApi = await klasterAPI.getAll(searchField);

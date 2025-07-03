@@ -27,7 +27,7 @@ const dataUser = reactive({
         to: 1,
     },
 });
-const isSearchEnable = ref(true);
+const isSearchEnable = ref(false);
 
 async function fetchUser(page) {
     const fetchApi = await userAPI.getAll(searchField, page);
