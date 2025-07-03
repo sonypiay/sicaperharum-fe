@@ -1,8 +1,9 @@
 const mappingMedicalRecord = {}
 
 mappingMedicalRecord.hematologi = {
-    hematologiRutin: {
-        hemoglobin: {
+    hematologiRutin: [
+        {
+            label: 'Hemoglobin',
             hasil: '',
             satuan: 'gr/dL',
             nilai_normal: {
@@ -11,7 +12,8 @@ mappingMedicalRecord.hematologi = {
                 anak: '12,0 - 16,0 ',
             },
         },
-        hematokrit: {
+        {
+            label: 'Hematokrit',
             hasil: '',
             satuan: '%',
             nilai_normal: {
@@ -20,7 +22,8 @@ mappingMedicalRecord.hematologi = {
                 anak: '35 - 49',
             },
         },
-        leukosit: {
+        {
+            label: 'Leukosit',
             hasil: '',
             satuan: 'sel/µl',
             nilai_normal: {
@@ -28,12 +31,14 @@ mappingMedicalRecord.hematologi = {
                 anak: '4.000 - 12.000',
             },
         },
-        trombosit: {
+        {
+            label: 'Trombosit',
             hasil: '',
             satuan: 'sel/µl',
             nilai_normal: '100.000 - 300.000'
         },
-        eritrosit: {
+        {
+            label: 'Eritrosit',
             hasil: '',
             satuan: 'juta sel/µl',
             nilai_normal: {
@@ -42,25 +47,29 @@ mappingMedicalRecord.hematologi = {
                 anak: '3,5 - 5,2',
             },
         }
-    },
-    indexEritrosit: {
-        mcv: {
+    ],
+    indexEritrosit: [
+        {
+            label: 'MCV',
             hasil: '',
             satuan: 'fL',
         },
-        mch: {
+        {
+            label: 'MCH',
             hasil: '',
-            satuan: 'fL',
+            satuan: 'pg',
         },
-        mchc: {
+        {
+            label: 'MCHC',
             hasil: '',
-            satuan: 'fL',
+            satuan: 'g/dL',
         },
-        rdwsd: {
+        {
+            label: 'RDW-SD',
             hasil: '',
             satuan: 'fL',
         }
-    },
+    ],
     lajuEndapDarah: {
         hasil: '',
         satuan: 'mmHg',
@@ -69,87 +78,102 @@ mappingMedicalRecord.hematologi = {
             perempuan: '0 - 20',
         },
     },
-    jenisLeukosit: {
-        basofil: {
+    jenisLeukosit: [
+        {
+            label: 'Basofil',
             hasil: '',
             satuan: '%',
             nilai_normal: '0 - 2'
         },
-        eosinofil: {
+        {
+            label: 'Eosinofil',
             hasil: '',
             satuan: '%',
             nilai_normal: '0 - 6'
         },
-        neutrofil_batang: {
+        {
+            label: 'Neutrofil Batang',
             hasil: '',
             satuan: '%',
             nilai_normal: '0 - 12'
         },
-        neutrofil_segmen: {
+        {
+            label: 'Neutrofil Segmen',
             hasil: '',
             satuan: '%',
             nilai_normal: '50 - 70'
         },
-        limfosit: {
+        {
+            label: 'Limfosit',
             hasil: '',
             satuan: '%',
             nilai_normal: '20 - 40'
         },
-        monosit: {
+        {
+            label: 'Monosit',
             hasil: '',
             satuan: '%',
             nilai_normal: '3 - 15'
         }
-    }
+    ]
 };
 
 mappingMedicalRecord.kimiaKlinik = {
-    diabetes: {
-        gulaDarahPuasa: {
+    diabetes: [
+        {
+            label: 'Gula Darah Puasa',
             hasil: '',
             satuan: 'mg/L',
             nilai_normal: "70 - 115"
         },
-        gulaDarah2jamPP: {
+        {
+            label: 'Gula Darah 2 Jam PP',
             hasil: '',
             satuan: 'mg/L',
             nilai_normal: "<= 200"
         },
-        gulaDarahSewaktu: {
+        {
+            label: 'Gula Darah Sewaktu',
             hasil: '',
             satuan: 'mg/L',
             nilai_normal: "<= 200"
         }
-    },
-    lipid: {
-        kolestrol: {
+    ],
+    lipid: [
+        {
+            label: 'Kolestrol',
             hasil: '',
             satuan: 'mg/dL',
             nilai_normal: "<= 200"
         },
-        hdlKolestrol: {
+        {
+            label: 'HDL Kolestrol',
             hasil: '',
             satuan: 'mg/dL',
             nilai_normal: "> 35"
         },
-        ldlKolestrol: {
+        {
+            label: 'LDL Kolestrol',
             hasil: '',
             satuan: 'mg/dL',
             nilai_normal: "< 115"
         },
-        trigliserida: {
+        {
+            label: 'Trigliserida',
             hasil: '',
             satuan: 'mg/dL',
             nilai_normal: '< 200'
         },
-    },
-    fungsiGinjal: {
-        ureum: {
+    ],
+    fungsiGinjal: [
+        {
+            label: 'Ureum',
             hasil: '',
             satuan: 'mg/dL',
             nilai_normal: "17 - 43"
         },
-        creatinin: {
+        {
+            label: 'Creatinin',
             hasil: '',
             satuan: 'mg/dL',
             nilai_normal: {
@@ -157,7 +181,8 @@ mappingMedicalRecord.kimiaKlinik = {
                 perempuan: "0,6 - 1,1",
             }
         },
-        asamUrat: {
+        {
+            label: 'Asam Urat',
             hasil: '',
             satuan: 'mg/dL',
             nilai_normal: {
@@ -165,9 +190,10 @@ mappingMedicalRecord.kimiaKlinik = {
                 perempuan: "2,6 - 6,0",
             }
         }
-    },
-    fungsiHati: {
-        sgot: {
+    ],
+    fungsiHati: [
+        {
+            label: 'SGOT',
             hasil: '',
             satuan: 'U/L',
             nilai_normal: {
@@ -175,7 +201,8 @@ mappingMedicalRecord.kimiaKlinik = {
                 perempuan: "< 31",
             }
         },
-        sgpt: {
+        {
+            label: 'SGPT',
             hasil: '',
             satuan: 'U/L',
             nilai_normal: {
@@ -183,12 +210,13 @@ mappingMedicalRecord.kimiaKlinik = {
                 perempuan: "< 31"
             }
         }
-    }
+    ]
 };
 
 mappingMedicalRecord.urinalisa = {
-    makroskopis_kimia: {
-        warna: {
+    makroskopis_kimia: [
+        {
+            label: 'Warna',
             hasil: '',
             option: [
                 "Kuning Muda",
@@ -198,7 +226,8 @@ mappingMedicalRecord.urinalisa = {
             ],
             nilai_normal: "Kuning"
         },
-        kejernihan: {
+        {
+            label: 'Kejernihan',
             hasil: '',
             option: [
                 "Jernih",
@@ -208,15 +237,18 @@ mappingMedicalRecord.urinalisa = {
             ],
             nilai_normal: "Jernih"
         },
-        beratJenis: {
+        {
+            label: 'Berat Jenis',
             hasil: '',
             nilai_normal: '1.002 - 1.030'
         },
-        ph: {
+        {
+            label: 'pH',
             hasil: '',
             nilai_normal: '5,0 - 8,0'
         },
-        glucosa: {
+        {
+            label: 'Glucosa',
             hasil: '',
             option: [
                 "Negatif",
@@ -227,7 +259,8 @@ mappingMedicalRecord.urinalisa = {
             ],
             nilai_normal: "Negatif"
         },
-        protein: {
+        {
+            label: 'Protein',
             hasil: '',
             option: [
                 "Negatif",
@@ -238,7 +271,8 @@ mappingMedicalRecord.urinalisa = {
             ],
             nilai_normal: "Negatif"
         },
-        bilirubin: {
+        {
+            label: 'Bilirubin',
             hasil: '',
             option: [
                 "Negatif",
@@ -246,7 +280,8 @@ mappingMedicalRecord.urinalisa = {
             ],
             nilai_normal: "Negatif"
         },
-        urobilinogen: {
+        {
+            label: 'Urobilinogen',
             hasil: '',
             option: [
                 "Normal",
@@ -254,7 +289,8 @@ mappingMedicalRecord.urinalisa = {
             ],
             nilai_normal: "Negatif"
         },
-        nitrit: {
+        {
+            label: 'Nitrit',
             hasil: '',
             option: [
                 "Negatif",
@@ -262,7 +298,8 @@ mappingMedicalRecord.urinalisa = {
             ],
             nilai_normal: "Negatif"
         },
-        keton: {
+        {
+            label: 'Keton',
             hasil: '',
             option: [
                 "Negatif",
@@ -270,7 +307,8 @@ mappingMedicalRecord.urinalisa = {
             ],
             nilai_normal: "Negatif"
         },
-        eritrosit: {
+        {
+            label: 'Eritrosit',
             hasil: '',
             option: [
                 "Negatif",
@@ -280,7 +318,8 @@ mappingMedicalRecord.urinalisa = {
             ],
             nilai_normal: "Negatif"
         },
-        leukosit: {
+        {
+            label: 'Leukosit',
             hasil: '',
             option: [
                 "Negatif",
@@ -289,20 +328,22 @@ mappingMedicalRecord.urinalisa = {
             ],
             nilai_normal: "Negatif"
         },
-
-    },
-    sedimen: {
-        leukosit: {
+    ],
+    sedimen: [
+        {
+            label: 'Leukosit',
             hasil: '',
             satuan: '/ LPB',
             nilai_normal: '0 - 2'
         },
-        eritrosit: {
+        {
+            label: 'Eritrosit',
             hasil: '',
             satuan: '/ LPB',
             nilai_normal: '0 - 1'
         },
-        epitel: {
+        {
+            label: 'Epitel',
             hasil: '',
             satuan: '/ LPK',
             option: [
@@ -311,7 +352,8 @@ mappingMedicalRecord.urinalisa = {
             ],
             nilai_normal: "5 - 6"
         },
-        silinder: {
+        {
+            label: 'Silinder',
             hasil: '',
             satuan: '/ LPK',
             option: [
@@ -320,7 +362,8 @@ mappingMedicalRecord.urinalisa = {
             ],
             nilai_normal: "Negatif"
         },
-        kristal: {
+        {
+            label: 'Kristal',
             hasil: '',
             satuan: '/ LPK',
             option: [
@@ -329,7 +372,8 @@ mappingMedicalRecord.urinalisa = {
             ],
             nilai_normal: "Negatif"
         },
-        bakteri: {
+        {
+            label: 'Bakteri',
             hasil: '',
             option: [
                 "Negatif",
@@ -340,7 +384,8 @@ mappingMedicalRecord.urinalisa = {
             satuan: "/ LPB",
             nilai_normal: "Negatif"
         },
-        jamur: {
+        {
+            label: 'Jamur',
             hasil: '',
             satuan: '/ LPB',
             option: [
@@ -349,19 +394,24 @@ mappingMedicalRecord.urinalisa = {
             ],
             nilai_normal: "Negatif"
         },
-        other_values: [
-            {
-                hasil: '',
-            },
-            {
-                hasil: '',
-            }
-        ],
-    }
+        {
+            label: 'Lainnya',
+            hasil: '',
+            satuan: '',
+            nilai_normal: '',
+        },
+        {
+            label: 'Lainnya',
+            hasil: '',
+            satuan: '',
+            nilai_normal: '',
+        }
+    ]
 };
 
-mappingMedicalRecord.napza = {
-    amp: {
+mappingMedicalRecord.napza = [
+    {
+        labele: 'AMP',
         hasil: '',
         option: [
             "Negatif",
@@ -369,7 +419,8 @@ mappingMedicalRecord.napza = {
         ],
         nilai_normal: "Negatif"
     },
-    mop: {
+    {
+        labele: 'MOP',
         hasil: '',
         option: [
             "Negatif",
@@ -377,7 +428,8 @@ mappingMedicalRecord.napza = {
         ],
         nilai_normal: "Negatif"
     },
-    thc: {
+    {
+        labele: 'THC',
         hasil: '',
         option: [
             "Negatif",
@@ -385,7 +437,7 @@ mappingMedicalRecord.napza = {
         ],
         nilai_normal: "Negatif"
     }
-};
+];
 
 mappingMedicalRecord.imunoserologi = {
     golonganDarah: {
@@ -405,8 +457,9 @@ mappingMedicalRecord.imunoserologi = {
         ],
         nilai_normal: ""
     },
-    hiv: {
-        r1: {
+    hiv: [
+        {
+            label: 'HIV R1',
             hasil: '',
             option: [
                 "Non Reaktif",
@@ -414,7 +467,8 @@ mappingMedicalRecord.imunoserologi = {
             ],
             nilai_normal: "Non Reaktif"
         },
-        r2: {
+        {
+            label: 'HIV R2',
             hasil: '',
             option: [
                 "Non Reaktif",
@@ -422,7 +476,8 @@ mappingMedicalRecord.imunoserologi = {
             ],
             nilai_normal: "Non Reaktif"
         },
-        r3: {
+        {
+            label: 'HIV R3',
             hasil: '',
             option: [
                 "Non Reaktif",
@@ -430,7 +485,8 @@ mappingMedicalRecord.imunoserologi = {
             ],
             nilai_normal: "Non Reaktif"
         },
-        tpha: {
+        {
+            label: 'TPHA',
             hasil: '',
             option: [
                 "Negatif",
@@ -438,7 +494,8 @@ mappingMedicalRecord.imunoserologi = {
             ],
             nilai_normal: "Negatif"
         },
-        vdrl: {
+        {
+            label: 'VDRL',
             hasil: '',
             option: [
                 "Non Reaktif",
@@ -446,7 +503,8 @@ mappingMedicalRecord.imunoserologi = {
             ],
             nilai_normal: "Non Reaktif"
         },
-        hbsag: {
+        {
+            label: 'HBsAG',
             hasil: '',
             option: [
                 "Negatif",
@@ -454,7 +512,8 @@ mappingMedicalRecord.imunoserologi = {
             ],
             nilai_normal: "Negatif"
         },
-        antiHbs: {
+        {
+            label: 'Anti HBs',
             hasil: '',
             option: [
                 "Negatif",
@@ -462,7 +521,8 @@ mappingMedicalRecord.imunoserologi = {
             ],
             nilai_normal: "Negatif"
         },
-        hcv: {
+        {
+            label: 'HCV',
             hasil: '',
             option: [
                 "Negatif",
@@ -470,43 +530,45 @@ mappingMedicalRecord.imunoserologi = {
             ],
             nilai_normal: "Negatif"
         }
-    },
-    widal: {
-        salmonella: {
-            typhi_O: {
-                hasil: '',
-                option: [
-                    "Negatif",
-                    "Positif",
-                ],
-                nilai_normal: "Negatif"
-            },
-            typhi_H: {
-                hasil: '',
-                option: [
-                    "Negatif",
-                    "Positif",
-                ],
-                nilai_normal: "Negatif"
-            },
-            paratyphi_AO: {
-                hasil: '',
-                option: [
-                    "Negatif",
-                    "Positif",
-                ],
-                nilai_normal: "Negatif"
-            },
-            paratyphi_AH: {
-                hasil: '',
-                option: [
-                    "Negatif",
-                    "Positif",
-                ],
-                nilai_normal: "Negatif"
-            }
+    ],
+    widal: [
+        {
+            label: 'Salmonella Typhi O',
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        },
+        {
+            label: 'Salmonella Typhi H',
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        },
+        {
+            label: 'Salmonella Paratyphi A0',
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        },
+        {
+            label: 'Salmonella Paratyphi AH',
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
         }
-    }
+    ]
 };
 
 mappingMedicalRecord.mikroskopis = {
