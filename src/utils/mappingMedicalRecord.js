@@ -187,7 +187,7 @@ mappingMedicalRecord.kimiaKlinik = {
 };
 
 mappingMedicalRecord.urinalisa = {
-    makrosopis_kimia: {
+    makroskopis_kimia: {
         warna: {
             hasil: '',
             option: [
@@ -340,7 +340,23 @@ mappingMedicalRecord.urinalisa = {
             satuan: "/ LPB",
             nilai_normal: "Negatif"
         },
-        other: '',
+        jamur: {
+            hasil: '',
+            satuan: '/ LPB',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        },
+        other_values: [
+            {
+                hasil: '',
+            },
+            {
+                hasil: '',
+            }
+        ],
     }
 };
 

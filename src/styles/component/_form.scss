@@ -65,3 +65,8 @@
         color: black;
     }
 }
+
+.form-select-small {
+    @include vars.fontStyling(vars.$fontFamily !important, 13px, 400, black);
+    height: 45px !important;
+}

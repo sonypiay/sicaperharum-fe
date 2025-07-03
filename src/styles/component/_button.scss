@@ -31,3 +31,12 @@
         background-color: vars.$color-3;
     }
 }
+
+.button-danger {
+    color: white;
+    background-color: vars.$bg-danger;
+
+    &:hover {
+        background-color: vars.$bg-danger;
+    }
+}
