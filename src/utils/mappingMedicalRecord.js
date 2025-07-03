@@ -253,8 +253,522 @@ mappingMedicalRecord.urinalisa = {
                 "Abnormal",
             ],
             nilai_normal: "Negatif"
+        },
+        nitrit: {
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        },
+        keton: {
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        },
+        eritrosit: {
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif 1",
+                "Positif 2",
+                "Positif 3",
+            ],
+            nilai_normal: "Negatif"
+        },
+        leukosit: {
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif 1",
+                "Positif 2",
+            ],
+            nilai_normal: "Negatif"
+        },
+
+    },
+    sedimen: {
+        leukosit: {
+            hasil: '',
+            satuan: '/ LPB',
+            nilai_normal: '0 - 2'
+        },
+        eritrosit: {
+            hasil: '',
+            satuan: '/ LPB',
+            nilai_normal: '0 - 1'
+        },
+        epitel: {
+            hasil: '',
+            satuan: '/ LPK',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "5 - 6"
+        },
+        silinder: {
+            hasil: '',
+            satuan: '/ LPK',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        },
+        kristal: {
+            hasil: '',
+            satuan: '/ LPK',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        },
+        bakteri: {
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif 1",
+                "Positif 2",
+                "Positif 3",
+            ],
+            satuan: "/ LPB",
+            nilai_normal: "Negatif"
+        },
+        other: '',
+    }
+};
+
+mappingMedicalRecord.napza = {
+    amp: {
+        hasil: '',
+        option: [
+            "Negatif",
+            "Positif",
+        ],
+        nilai_normal: "Negatif"
+    },
+    mop: {
+        hasil: '',
+        option: [
+            "Negatif",
+            "Positif",
+        ],
+        nilai_normal: "Negatif"
+    },
+    thc: {
+        hasil: '',
+        option: [
+            "Negatif",
+            "Positif",
+        ],
+        nilai_normal: "Negatif"
+    }
+};
+
+mappingMedicalRecord.imunoserologi = {
+    golonganDarah: {
+        hasil: '',
+        option: [
+            "A/B",
+            "AB",
+            "O",
+        ],
+        nilai_normal: ""
+    },
+    phesus: {
+        hasil: '',
+        option: [
+            "Negatif",
+            "Positif",
+        ],
+        nilai_normal: ""
+    },
+    hiv: {
+        r1: {
+            hasil: '',
+            option: [
+                "Non Reaktif",
+                "Reaktif",
+            ],
+            nilai_normal: "Non Reaktif"
+        },
+        r2: {
+            hasil: '',
+            option: [
+                "Non Reaktif",
+                "Reaktif",
+            ],
+            nilai_normal: "Non Reaktif"
+        },
+        r3: {
+            hasil: '',
+            option: [
+                "Non Reaktif",
+                "Reaktif",
+            ],
+            nilai_normal: "Non Reaktif"
+        },
+        tpha: {
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        },
+        vdrl: {
+            hasil: '',
+            option: [
+                "Non Reaktif",
+                "Reaktif",
+            ],
+            nilai_normal: "Non Reaktif"
+        },
+        hbsag: {
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        },
+        antiHbs: {
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        },
+        hcv: {
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
         }
     },
+    widal: {
+        salmonella: {
+            typhi_O: {
+                hasil: '',
+                option: [
+                    "Negatif",
+                    "Positif",
+                ],
+                nilai_normal: "Negatif"
+            },
+            typhi_H: {
+                hasil: '',
+                option: [
+                    "Negatif",
+                    "Positif",
+                ],
+                nilai_normal: "Negatif"
+            },
+            paratyphi_AO: {
+                hasil: '',
+                option: [
+                    "Negatif",
+                    "Positif",
+                ],
+                nilai_normal: "Negatif"
+            },
+            paratyphi_AH: {
+                hasil: '',
+                option: [
+                    "Negatif",
+                    "Positif",
+                ],
+                nilai_normal: "Negatif"
+            }
+        }
+    }
+};
+
+mappingMedicalRecord.mikroskopis = {
+    feses: {
+        hasil: '',
+        satuan: '',
+        nilai_normal: '',
+    },
+    makroskopis: {
+        warna: {
+            hasil: '',
+            option: [
+                "Kuning",
+                "Coklat",
+                "Hitam",
+            ],
+            nilai_normal: "Kuning - Coklat"
+        },
+        konsistensi: {
+            hasil: '',
+            option: [
+                "Lunak",
+                "Cair",
+                "Keras",
+            ],
+            nilai_normal: "Lunak"
+        },
+        bau: {
+            hasil: '',
+            option: [
+                "Khas",
+            ],
+            nilai_normal: "Khas"
+        },
+        lendir: {
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        },
+        darah: {
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        },
+        sisaMakanan: {
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        }
+    },
+    mikroskopis: {
+        leukosit: {
+            hasil: '',
+            satuan: '/ LPB',
+            nilai_normal: 'Negatif'
+        },
+        eritrosit: {
+            hasil: '',
+            satuan: '/ LPB',
+            nilai_normal: 'Negatif'
+        },
+        parasit: {
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        },
+        telurCacing: {
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        },
+        jamur: {
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        },
+        lainnya: {
+            hasil: '',
+            option: [
+                "Negatif",
+                "Positif",
+            ],
+            nilai_normal: "Negatif"
+        }
+    },
+    bta: {
+        hasil: '',
+        option: [
+            "Negatif",
+            "Scanty",
+            "Positif 1",
+            "Positif 2",
+            "Positif 3",
+        ],
+        nilai_normal: "Negatif"
+    },
+    ims: {
+        laki: {
+            pmn: {
+                hasil: '',
+                option: [
+                    "Negatif",
+                    "Positif",
+                ],
+                nilai_normal: "Negatif"
+            },
+            diplocossus: {
+                hasil: '',
+                option: [
+                    "Negatif",
+                    "Positif",
+                ],
+                nilai_normal: "Negatif"
+            }
+        },
+        perempuan: {
+            pmn: {
+                hasil: '',
+                option: [
+                    "Negatif",
+                    "Positif",
+                ],
+                nilai_normal: "Negatif"
+            },
+            diplocossus: {
+                hasil: '',
+                option: [
+                    "Negatif",
+                    "Positif",
+                ],
+                nilai_normal: "Negatif"
+            },
+            t_vaginalis: {
+                hasil: '',
+                option: [
+                    "Negatif",
+                    "Positif",
+                ],
+                nilai_normal: "Negatif"
+            },
+            candida: {
+                hasil: '',
+                option: [
+                    "Negatif",
+                    "Positif",
+                ],
+                nilai_normal: "Negatif"
+            },
+            clueCell: {
+                hasil: '',
+                option: [
+                    "Negatif",
+                    "Positif",
+                ],
+                nilai_normal: "Negatif"
+            },
+            bakterialVaginosis: {
+                hasil: '',
+                option: [
+                    "Negatif",
+                    "Positif",
+                ],
+                nilai_normal: "Negatif"
+            }
+        }
+    }
+};
+
+mappingMedicalRecord.tcm = {
+    mtb_rif: {
+        hasil: '',
+        option: [
+            "Terdeteksi",
+            "Tidak Terdeteksi",
+        ],
+        nilai_normal: "Tidak Terdeteksi",
+        note: '',
+    },
+    viralLoadHiv1_2: {
+        hasil: '',
+        option: [
+            "Terdeteksi",
+            "Tidak Terdeteksi",
+        ],
+        nilai_normal: "Tidak Terdeteksi",
+        note: '',
+    }
+};
+
+mappingMedicalRecord.lainnya = {
+    hba1c: {
+        hasil: '',
+        satuan: '%',
+        nilai_normal: '5,6 - 7,1'
+    },
+    hcg: {
+        hasil: '',
+        option: [
+            "Negatif",
+            "Positif",
+        ],
+        nilai_normal: "Negatif"
+    },
+    dengue_ng1: {
+        hasil: '',
+        option: [
+            "Negatif",
+            "Positif",
+        ],
+        nilai_normal: "Negatif"
+    },
+    dengue_lgg: {
+        hasil: '',
+        option: [
+            "Negatif",
+            "Positif",
+        ],
+        nilai_normal: "Negatif",
+    },
+    dengue_lgm: {
+        hasil: '',
+        option: [
+            "Negatif",
+            "Positif",
+        ],
+        nilai_normal: "Negatif"
+    },
+    malaria: {
+        hasil: '',
+        option: [
+            "Negatif",
+            "Positif",
+        ],
+        nilai_normal: "Negatif"
+    },
+    chikungunya: {
+        hasil: '',
+        option: [
+            "Negatif",
+            "Positif",
+        ],
+        nilai_normal: "Negatif"
+    },
+    antigen_covid19: {
+        hasil: '',
+        option: [
+            "Negatif",
+            "Positif",
+        ],
+        nilai_normal: "Negatif"
+    },
+    darahSamar: {
+        hasil: '',
+        option: [
+            "Negatif",
+            "Positif",
+        ],
+        nilai_normal: "Negatif"
+    },
+    other_values: [],
 }
 
 export default mappingMedicalRecord;
