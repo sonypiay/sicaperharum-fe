@@ -11,6 +11,7 @@ import FormTCM from "./FormTCM.vue";
 import FormLainnya from "./FormLainnya.vue";
 import dayjs from "dayjs";
 import mappingMedicalRecord from "../../../utils/mappingMedicalRecord.js";
+import FormNapza from "./FormNapza.vue";
 
 const formInputHematologi = reactive(mappingMedicalRecord.hematologi);
 const formInputKimiaKlinik = reactive(mappingMedicalRecord.kimiaKlinik);
@@ -145,6 +146,7 @@ onMounted(() => {
                 <FormHematologi v-if="currentNavTab === 'hematologi'" :form-data-patient="dataPatient" :formInput="formInputHematologi" />
                 <FormKimiaKlinik v-if="currentNavTab === 'kimia_klinik'" :form-data-patient="dataPatient" :formInput="formInputKimiaKlinik" />
                 <FormUrinalisa v-if="currentNavTab === 'urinalisa'" :form-data-patient="dataPatient" :formInput="formInputUrinalisa" />
+                <FormNapza v-if="currentNavTab === 'napza'" :form-data-patient="dataPatient" :formInput="formInputNapza" />
                 <FormImunoserologi v-if="currentNavTab === 'imunoserologi'" :form-data-patient="dataPatient" :formInput="formInputImunoserologi" />
                 <FormMikroskopis v-if="currentNavTab === 'mikroskopis'" :form-data-patient="dataPatient" :formInput="formInputMikroskopis" />
                 <FormTCM v-if="currentNavTab === 'tcm'" :form-data-patient="dataPatient" :formInput="formInputTcm" />
