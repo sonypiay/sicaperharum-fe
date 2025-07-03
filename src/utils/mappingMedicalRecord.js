@@ -411,7 +411,7 @@ mappingMedicalRecord.urinalisa = {
 
 mappingMedicalRecord.napza = [
     {
-        labele: 'AMP',
+        label: 'AMP',
         hasil: '',
         option: [
             "Negatif",
@@ -420,7 +420,7 @@ mappingMedicalRecord.napza = [
         nilai_normal: "Negatif"
     },
     {
-        labele: 'MOP',
+        label: 'MOP',
         hasil: '',
         option: [
             "Negatif",
@@ -429,7 +429,7 @@ mappingMedicalRecord.napza = [
         nilai_normal: "Negatif"
     },
     {
-        labele: 'THC',
+        label: 'THC',
         hasil: '',
         option: [
             "Negatif",

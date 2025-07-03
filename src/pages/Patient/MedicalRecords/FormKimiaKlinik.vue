@@ -90,10 +90,10 @@ const props = defineProps({
                 <tr v-for="(column, index) in props.formInput.fungsiHati" :key="`fungsiHati-${index}`">
                     <td>{{ column.label }}</td>
                     <td><input type="number" class="uk-input form-input form-input-small" v-model="column.hasil" /></td>
-                    <td>{{ props.formInput.fungsiHati.sgot.satuan }}</td>
+                    <td>{{ column.satuan }}</td>
                     <td>
-                        <span v-if="props.formDataPatient.gender === 'L'">{{ props.formInput.fungsiHati.sgot.nilai_normal.laki }}</span>
-                        <span v-else>{{ props.formInput.fungsiHati.sgot.nilai_normal.perempuan }}</span>
+                        <span v-if="props.formDataPatient.gender === 'L'">{{ column.nilai_normal.laki }}</span>
+                        <span v-else>{{ column.nilai_normal.perempuan }}</span>
                     </td>
                 </tr>
             </tbody>

@@ -24,16 +24,16 @@ const props = defineProps({
                 <tr v-for="(column, index) in props.formInput.makroskopis_kimia" :key="`makroskopis_kimia_${index}`">
                     <td>{{ column.label }}</td>
                     <td v-if="column.hasOwnProperty('option')">
-                        <select class="uk-width-1-1 uk-select form-select form-select-small" v-model="props.formInput.makroskopis_kimia.warna.hasil">
+                        <select class="uk-width-1-1 uk-select form-select form-select-small" v-model="column.hasil">
                             <option value="">Pilih Nilai</option>
-                            <option v-for="item in props.formInput.makroskopis_kimia.warna.option" :key="item" :value="item">{{ item }}</option>
+                            <option v-for="item in column.option" :key="item" :value="item">{{ item }}</option>
                         </select>
                     </td>
                     <td v-else>
                         <input type="number" class="uk-width-1-1 uk-input form-input form-input-small" v-model="column.hasil" />
                     </td>
                     <td></td>
-                    <td>{{ props.formInput.makroskopis_kimia.warna.nilai_normal }}</td>
+                    <td>{{ column.nilai_normal }}</td>
                 </tr>
             </tbody>
         </table>

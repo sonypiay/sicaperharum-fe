@@ -29,11 +29,11 @@ const props = defineProps({
                     <td>{{ column.satuan }}</td>
                     <td v-if="column.label === 'Leukosit'">
                         <span v-if="props.formDataPatient.patientType === 'adult'">
-                            <span>{{ props.formInput.hematologiRutin.leukosit.nilai_normal.dewasa }}</span>
+                            <span>{{ column.nilai_normal.dewasa }}</span>
                         </span>
-                        <span v-else>{{ props.formInput.hematologiRutin.hematokrit.nilai_normal.anak }}</span>
+                        <span v-else>{{ column.nilai_normal.anak }}</span>
                     </td>
-                    <td v-else-if="column.label === 'Trombosit'">{{ props.formInput.hematologiRutin.trombosit.nilai_normal }}</td>
+                    <td v-else-if="column.label === 'Trombosit'">{{ column.nilai_normal }}</td>
                     <td v-else>
                         <span v-if="props.formDataPatient.patientType === 'adult'">
                             <span v-if="props.formDataPatient.gender === 'L'">{{ column.nilai_normal.laki }}</span>
