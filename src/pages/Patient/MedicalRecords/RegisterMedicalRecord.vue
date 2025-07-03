@@ -14,6 +14,12 @@ import mappingMedicalRecord from "../../../utils/mappingMedicalRecord.js";
 
 const formInputHematologi = reactive(mappingMedicalRecord.hematologi);
 const formInputKimiaKlinik = reactive(mappingMedicalRecord.kimiaKlinik);
+const formInputUrinalisa = reactive(mappingMedicalRecord.urinalisa);
+const formInputNapza = reactive(mappingMedicalRecord.napza);
+const formInputImunoserologi = reactive(mappingMedicalRecord.imunoserologi);
+const formInputMikroskopis = reactive(mappingMedicalRecord.mikroskopis);
+const formInputTcm = reactive(mappingMedicalRecord.tcm);
+const formInputLainnya = reactive(mappingMedicalRecord.lainnya);
 
 const navTabList = reactive({
     list: [
@@ -30,6 +36,11 @@ const navTabList = reactive({
         {
             title: 'Urinalisa',
             value: 'urinalisa',
+            active: false
+        },
+        {
+            title: 'Napza',
+            value: 'napza',
             active: false
         },
         {
@@ -69,10 +80,6 @@ const dataPatient = ref({});
 onMounted(() => {
     dataPatient.value = JSON.parse(useSessionStorage('form-patient').value ?? "{}");
 });
-
-function handleReceiveFormMedicalRecord(data) {
-    console.log(data);
-}
 </script>
 
 <template>
@@ -136,12 +143,12 @@ function handleReceiveFormMedicalRecord(data) {
 
             <form class="uk-form-stacked" @submit.prevent="false">
                 <FormHematologi v-if="currentNavTab === 'hematologi'" :form-data-patient="dataPatient" :formInput="formInputHematologi" />
-                <FormKimiaKlinik v-if="currentNavTab === 'kimia_klinik'" :form-data-patient="dataPatient" />
-                <FormUrinalisa v-if="currentNavTab === 'urinalisa'" :form-data-patient="dataPatient" />
-                <FormImunoserologi v-if="currentNavTab === 'imunoserologi'" :form-data-patient="dataPatient" />
-                <FormMikroskopis v-if="currentNavTab === 'mikroskopis'" :form-data-patient="dataPatient" />
-                <FormTCM v-if="currentNavTab === 'tcm'" :form-data-patient="dataPatient" />
-                <FormLainnya v-if="currentNavTab === 'lainnya'" :form-data-patient="dataPatient" />
+                <FormKimiaKlinik v-if="currentNavTab === 'kimia_klinik'" :form-data-patient="dataPatient" :formInput="formInputKimiaKlinik" />
+                <FormUrinalisa v-if="currentNavTab === 'urinalisa'" :form-data-patient="dataPatient" :formInput="formInputUrinalisa" />
+                <FormImunoserologi v-if="currentNavTab === 'imunoserologi'" :form-data-patient="dataPatient" :formInput="formInputImunoserologi" />
+                <FormMikroskopis v-if="currentNavTab === 'mikroskopis'" :form-data-patient="dataPatient" :formInput="formInputMikroskopis" />
+                <FormTCM v-if="currentNavTab === 'tcm'" :form-data-patient="dataPatient" :formInput="formInputTcm" />
+                <FormLainnya v-if="currentNavTab === 'lainnya'" :form-data-patient="dataPatient" :formInput="formInputLainnya" />
             </form>
         </div>
     </section>

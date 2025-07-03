@@ -1,23 +1,15 @@
 <script setup>
-import {onMounted, reactive, ref} from "vue";
-import {useSessionStorage} from "@vueuse/core";
-
 defineProps({
     formDataPatient: Object,
     formInput: Object,
 });
-
-const dataPatient = ref({});
-
-onMounted(() => {
-    dataPatient.value = JSON.parse(useSessionStorage('form-patient').value ?? "{}");
-});
 </script>
 
 <template>
+    <hr class="form-section-divider">
+
     <h3>Hematologi</h3>
     <div class="form-section-input" v-if="formDataPatient">
-        <pre>{{ formInput }}</pre>
         <!-- section input hematologi -->
         <table class="uk-table uk-table-small uk-table-divider table-input-lab">
             <thead>

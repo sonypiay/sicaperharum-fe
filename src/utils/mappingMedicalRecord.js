@@ -769,6 +769,6 @@ mappingMedicalRecord.lainnya = {
         nilai_normal: "Negatif"
     },
     other_values: [],
-}
+};
 
 export default mappingMedicalRecord;
