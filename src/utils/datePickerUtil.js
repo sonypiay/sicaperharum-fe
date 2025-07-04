@@ -44,5 +44,5 @@ export const datePickerWithDateAndTime = (selector, selectedDate) => {
 }
 
 export const datePicker = (selector, option) => {
-    flatpickr(selector, option);
+    return flatpickr(selector, option);
 }

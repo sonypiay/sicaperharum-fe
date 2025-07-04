@@ -162,8 +162,18 @@ async function onHandleSubmitForm() {
     const statusCode = fetchApi.statusCode;
 
     if( statusCode === 201 ) {
-        useSessionStorage('form-patient', '');
         toastSuccess(`Hasil lab untuk pasien dengan nomor rekam medis ${formPatient.medical_number} berhasil dibuat.`);
+
+        // reset form
+        Object.assign(formInputHematologi, mappingMedicalRecord.hematologi);
+        Object.assign(formInputKimiaKlinik, mappingMedicalRecord.kimiaKlinik);
+        Object.assign(formInputUrinalisa, mappingMedicalRecord.urinalisa);
+        Object.assign(formInputNapza, mappingMedicalRecord.napza);
+        Object.assign(formInputImunoserologi, mappingMedicalRecord.imunoserologi);
+        Object.assign(formInputMikroskopis, mappingMedicalRecord.mikroskopis);
+        Object.assign(formInputTcm, mappingMedicalRecord.tcm);
+        Object.assign(formInputLainnya, mappingMedicalRecord.lainnya);
+        sessionStorage.removeItem('form-patient');
 
         await router.push({name: 'form-register-patient'});
     } else {

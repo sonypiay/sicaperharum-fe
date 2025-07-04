@@ -16,14 +16,14 @@
             </li>
 
             <li>
-                <router-link :to="{name: 'form-register-patient'}">
-                    <span class="las la-clipboard"></span> Pendaftaran
+                <router-link :to="{name: 'list-visitor-patient'}">
+                    <span class="las la-clipboard"></span> Daftar Kunjungan Pasien
                 </router-link>
             </li>
 
             <li>
                 <router-link :to="{name: 'list-patients'}">
-                    <span class="las la-user"></span> Data Pasien
+                    <span class="las la-user"></span> Daftar Pasien
                 </router-link>
             </li>
 
