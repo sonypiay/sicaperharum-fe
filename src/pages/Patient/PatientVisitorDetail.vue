@@ -103,9 +103,14 @@ onMounted(async () => {
 
 <template>
     <section class="card-section" v-if="dataPatientMedicalRecord.patient">
-        <div class="card-heading uk-text-center">Data Hasil Pemeriksaan Pasien</div>
+        <div class="card-heading">Data Hasil Pemeriksaan Pasien</div>
 
         <div class="uk-card uk-margin-top">
+            <div class="uk-flex uk-flex-right uk-margin-large-bottom">
+                <button class="uk-button uk-button-primary button button-primary">Download PDF</button>
+                <button class="uk-margin-small-left uk-button uk-button-primary button button-primary">Send WhatsApp</button>
+            </div>
+
             <div class="uk-grid-small uk-grid-divider card-information-detail" uk-grid>
                 <div class="uk-width-1-2@l uk-width-1-1@s">
                     <table class="uk-table uk-table-small uk-table-middle uk-table-divider table">
