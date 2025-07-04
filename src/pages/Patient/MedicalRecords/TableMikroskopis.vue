@@ -39,12 +39,12 @@ const props = defineProps({
         </tr>
     </tbody>
 
-    <tbody v-if="props.medicalRecord.hasOwnProperty('bta') && props.medicalRecord.bta !== null">
+    <tbody v-if="props.medicalRecord.hasOwnProperty('bta') && props.medicalRecord.bta.hasil !== null">
         <tr>
             <th>BTA</th>
-            <td>{{ props.medicalRecord.bta }}</td>
-            <td></td>
-            <td></td>
+            <td>{{ props.medicalRecord.bta.hasil }}</td>
+            <td>{{ props.medicalRecord.bta.satuan }}</td>
+            <td>{{ props.medicalRecord.bta.nilai_normal }}</td>
         </tr>
     </tbody>
 

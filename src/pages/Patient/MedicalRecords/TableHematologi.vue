@@ -26,7 +26,7 @@ const props = defineProps({
             <td v-else-if="column.label === 'Trombosit'">{{ column.nilai_normal }}</td>
             <td v-else>
                 <span v-if="props.dataPatient.category === 'adult'">
-                    <span v-if="props.dataPatient.gender.label === 'L'">{{ column.nilai_normal.laki }}</span>
+                    <span v-if="props.dataPatient.gender.value === 'L'">{{ column.nilai_normal.laki }}</span>
                     <span v-else>{{ column.nilai_normal.perempuan }}</span>
                 </span>
                 <span v-else>{{ column.nilai_normal.anak }}</span>
@@ -49,7 +49,12 @@ const props = defineProps({
     <tbody v-if="props.medicalRecord.hasOwnProperty('laju_endap_darah') && props.medicalRecord.laju_endap_darah !== null">
         <tr>
             <th>Laju Endap Darah</th>
-            <td colspan="3">{{ props.medicalRecord.laju_endap_darah }}</td>
+            <td>{{ props.medicalRecord.laju_endap_darah.hasil }}</td>
+            <td>{{ props.medicalRecord.laju_endap_darah.satuan }}</td>
+            <td>
+                <span v-if="props.dataPatient.gender.value === 'P'">{{ props.medicalRecord.laju_endap_darah.perempuan }}</span>
+                <span v-else>{{ props.medicalRecord.laju_endap_darah.laki }}</span>
+            </td>
         </tr>
     </tbody>
 

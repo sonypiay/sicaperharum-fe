@@ -8,21 +8,21 @@ const props = defineProps({
     <tbody>
         <tr><th colspan="4">Imunoserologi</th></tr>
     </tbody>
-    <tbody v-if="props.medicalRecord.golongan_darah !== null">
+    <tbody v-if="props.medicalRecord.golongan_darah.hasil !== null">
         <tr>
             <td>Golongan Darah</td>
-            <td>{{ props.medicalRecord.golongan_darah }}</td>
-            <td></td>
-            <td></td>
+            <td>{{ props.medicalRecord.golongan_darah.hasil }}</td>
+            <td>{{ props.medicalRecord.golongan_darah.satuan }}</td>
+            <td>{{ props.medicalRecord.golongan_darah.nilai_normal }}</td>
         </tr>
     </tbody>
 
-    <tbody v-if="props.medicalRecord.rhesus !== null">
+    <tbody v-if="props.medicalRecord.rhesus.hasil !== null">
         <tr>
             <td>Rhesus</td>
-            <td>{{ props.medicalRecord.rhesus }}</td>
-            <td></td>
-            <td></td>
+            <td>{{ props.medicalRecord.rhesus.hasil }}</td>
+            <td>{{ props.medicalRecord.rhesus.satuan }}</td>
+            <td>{{ props.medicalRecord.rhesus.nilai_normal }}</td>
         </tr>
     </tbody>
 

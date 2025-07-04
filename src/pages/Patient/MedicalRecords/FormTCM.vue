@@ -31,7 +31,7 @@ const props = defineProps({
                     </td>
                     <td>{{ column.satuan }}</td>
                     <td>
-                        <input type="text" class="uk-input form-input form-input-small" v-model="column.keterangan" :disabled="column.hasil !== 'Terdeteksi'" />
+                        <input type="text" class="uk-input form-input form-input-small" v-model="column.note" :disabled="column.hasil !== 'Terdeteksi'" />
                     </td>
                     <td>{{ column.nilai_normal }}</td>
                 </tr>

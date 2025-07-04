@@ -105,7 +105,7 @@ async function onHandleSubmitForm() {
     const mappingHematologi = {
         hematologi_rutin: onHandleMappingFormMedicalRecord(formInputHematologi.hematologiRutin),
         index_eritrosit: onHandleMappingFormMedicalRecord(formInputHematologi.indexEritrosit),
-        laju_endap_darah: formInputHematologi.lajuEndapDarah.hasil ?? null,
+        laju_endap_darah: formInputHematologi.lajuEndapDarah,
         jenis_leukosit: onHandleMappingFormMedicalRecord(formInputHematologi.jenisLeukosit),
     };
 
@@ -125,19 +125,19 @@ async function onHandleSubmitForm() {
     const mappingImunoserologi = {
         hiv: onHandleMappingFormMedicalRecord(formInputImunoserologi.hiv),
         widal: onHandleMappingFormMedicalRecord(formInputImunoserologi.widal),
-        golongan_darah: formInputImunoserologi.golonganDarah.hasil ?? null,
-        rhesus: formInputImunoserologi.rhesus.hasil ?? null,
+        golongan_darah: formInputImunoserologi.golonganDarah,
+        rhesus: formInputImunoserologi.rhesus,
     };
 
     const mappingMikroskopis = {
-        feses: formInputMikroskopis.feses ?? null,
+        feses: formInputMikroskopis.feses,
         makroskopis: onHandleMappingFormMedicalRecord(formInputMikroskopis.makroskopis),
         mikroskopis: onHandleMappingFormMedicalRecord(formInputMikroskopis.mikroskopis),
         ims: {
             laki: onHandleMappingFormMedicalRecord(formInputMikroskopis.ims.laki),
             perempuan: onHandleMappingFormMedicalRecord(formInputMikroskopis.ims.perempuan)
         },
-        bta: formInputMikroskopis.bta.hasil ?? null,
+        bta: formInputMikroskopis.bta,
     };
 
     const mappingTCM = onHandleMappingFormMedicalRecord(formInputTcm);

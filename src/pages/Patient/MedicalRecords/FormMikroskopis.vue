@@ -100,7 +100,7 @@ const props = defineProps({
 
         <hr class="form-section-divider">
 
-        <table class="uk-table uk-table-small uk-table-divider table-input-lab">
+        <table class="uk-table uk-table-small uk-table-divider table-input-lab" v-if="props.formDataPatient.gender === 'L'">
             <thead>
                 <tr>
                     <th colspan="4">IMS</th>
@@ -129,7 +129,8 @@ const props = defineProps({
                 </tr>
             </tbody>
         </table>
-        <table class="uk-table uk-table-small uk-table-divider table-input-lab">
+
+        <table class="uk-table uk-table-small uk-table-divider table-input-lab" v-if="props.formDataPatient.gender === 'P'">
             <thead>
                 <tr>
                     <th class="uk-width-medium">Perempuan</th>
