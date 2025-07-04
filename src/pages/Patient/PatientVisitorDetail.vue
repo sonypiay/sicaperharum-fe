@@ -10,6 +10,7 @@ import TableKimiaKlinik from "./MedicalRecords/TableKimiaKlinik.vue";
 import TableUrinalisa from "./MedicalRecords/TableUrinalisa.vue";
 import TableNapza from "./MedicalRecords/TableNapza.vue";
 import TableImunoserologi from "./MedicalRecords/TableImunoserologi.vue";
+import TableMikroskopis from "./MedicalRecords/TableMikroskopis.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -172,6 +173,11 @@ onMounted(async () => {
             <TableImunoserologi
                 v-if="dataPatientMedicalRecord.medicalResult.hasOwnProperty('imunoserologi')"
                 :medical-record="dataPatientMedicalRecord.medicalResult.imunoserologi"
+            />
+
+            <TableMikroskopis
+                v-if="dataPatientMedicalRecord.medicalResult.hasOwnProperty('mikroskopis')"
+                :medical-record="dataPatientMedicalRecord.medicalResult.mikroskopis"
             />
         </table>
     </section>
