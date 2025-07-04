@@ -1,6 +1,6 @@
 <script setup>
 
-import {onBeforeMount, onMounted, reactive, ref} from "vue";
+import {onMounted, reactive} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import patientMedicalRecordAPI from "../../utils/api/Patient/PatientMedicalRecordAPI.js";
 import {toastFailed} from "../../utils/alerts.js";
