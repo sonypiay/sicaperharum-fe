@@ -402,7 +402,10 @@ onMounted(async() => {
                 </div>
 
                 <div class="uk-margin">
-                    <button class="uk-button uk-button-primary button button-primary">
+                    <router-link :to="{name: 'list-visitor-patient'}" class="uk-button uk-button-default button button-default">
+                        Kembali
+                    </router-link>
+                    <button class="uk-margin-small-left uk-button uk-button-primary button button-primary">
                         Selanjutnya
                     </button>
                 </div>

@@ -246,7 +246,14 @@ onMounted(() => {
                 </tbody>
             </table>
 
-            <form class="uk-form-stacked" @submit.prevent="onHandleSubmitForm()">
+            <form class="uk-form-stacked" @submit.prevent="false">
+                <div class="uk-text-right">
+                    <router-link :to="{name: 'form-register-patient'}" class="uk-button uk-button-default button button-default">
+                        Kembali
+                    </router-link>
+                    <button @click="onHandleSubmitForm()" class="uk-margin-small-left uk-button uk-button-primary button button-primary">Submit</button>
+                </div>
+
                 <FormHematologi v-if="currentNavTab === 'hematologi'" :form-data-patient="dataPatient" :formInput="formInputHematologi" />
                 <FormKimiaKlinik v-if="currentNavTab === 'kimia_klinik'" :form-data-patient="dataPatient" :formInput="formInputKimiaKlinik" />
                 <FormUrinalisa v-if="currentNavTab === 'urinalisa'" :form-data-patient="dataPatient" :formInput="formInputUrinalisa" />
@@ -256,10 +263,12 @@ onMounted(() => {
                 <FormTCM v-if="currentNavTab === 'tcm'" :form-data-patient="dataPatient" :formInput="formInputTcm" />
                 <FormLainnya v-if="currentNavTab === 'lainnya'" :form-data-patient="dataPatient" :formInput="formInputLainnya" />
 
-                <router-link :to="{name: 'form-register-patient'}">
-                    Kembali
-                </router-link>
-                <button class="uk-button uk-button-primary button button-primary">Submit</button>
+                <div class="uk-text-right">
+                    <router-link :to="{name: 'form-register-patient'}" class="uk-button uk-button-default button button-default">
+                        Kembali
+                    </router-link>
+                    <button @click="onHandleSubmitForm()" class="uk-margin-small-left uk-button uk-button-primary button button-primary">Submit</button>
+                </div>
             </form>
         </div>
     </section>

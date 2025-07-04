@@ -25,6 +25,16 @@ const dataPatientMedicalRecord = reactive({
     metode_pembayaran: [],
 });
 const registerNumber = route.params.registerNumber;
+const isDataMedicalRecordEmpty = reactive({
+    hematologi: true,
+    kimia_klinik: true,
+    urinalisa: true,
+    napza: true,
+    imunoserologi: true,
+    mikroskopis: true,
+    tcm: true,
+    lainnya: true,
+});
 
 async function getPatientMedicalRecord() {
     const fetchApi = await patientMedicalRecordAPI.detailMedicalRecord(registerNumber);
@@ -44,14 +54,56 @@ async function getPatientMedicalRecord() {
     }
 }
 
+function checkIfMedicalResultIsEmpty() {
+    const medicalResult = dataPatientMedicalRecord.medicalResult;
+
+    isDataMedicalRecordEmpty.hematologi = (
+        medicalResult.hematologi.hematologi_rutin === null &&
+        medicalResult.hematologi.index_eritrosit === null &&
+        medicalResult.hematologi.jenis_leukosit === null &&
+        medicalResult.hematologi.laju_endap_darah.hasil === null
+    );
+
+    isDataMedicalRecordEmpty.kimia_klinik = (
+        medicalResult.kimia_klinik.diabetes === null &&
+        medicalResult.kimia_klinik.lipid === null &&
+        medicalResult.kimia_klinik.fungsi_ginjal === null &&
+        medicalResult.kimia_klinik.fungsi_hati === null
+    );
+
+    isDataMedicalRecordEmpty.urinalisa = (
+        medicalResult.urinalisa.makroskopis_kimia === null &&
+        medicalResult.urinalisa.sedimen === null
+    );
+
+    isDataMedicalRecordEmpty.napza = medicalResult.napza === null;
+    isDataMedicalRecordEmpty.tcm = medicalResult.tcm === null;
+    isDataMedicalRecordEmpty.imunoserologi = (
+        medicalResult.imunoserologi.golongan_darah.hasil === null &&
+        medicalResult.imunoserologi.rhesus.hasil === null &&
+        medicalResult.imunoserologi.hiv === null &&
+        medicalResult.imunoserologi.widal === null
+    );
+    isDataMedicalRecordEmpty.lainnya = medicalResult.lainnya === null;
+    isDataMedicalRecordEmpty.mikroskopis = (
+        medicalResult.bta.hasil === null &&
+        medicalResult.feses.hasil === null &&
+        medicalResult.ims.laki === null &&
+        medicalResult.ims.perempuan === null &&
+        medicalResult.makroskopis === null &&
+        medicalResult.mikroskopis === null
+    );
+}
+
 onMounted(async () => {
     await getPatientMedicalRecord();
-})
+    checkIfMedicalResultIsEmpty();
+});
 </script>
 
 <template>
     <section class="card-section" v-if="dataPatientMedicalRecord.patient">
-        <div class="card-heading">Data Kunjungan Pasien</div>
+        <div class="card-heading uk-text-center">Data Hasil Pemeriksaan Pasien</div>
 
         <div class="uk-card uk-margin-top">
             <div class="uk-grid-small uk-grid-divider card-information-detail" uk-grid>
@@ -138,8 +190,6 @@ onMounted(async () => {
         </div>
 
         <hr>
-
-        <div class="uk-text-center card-heading">Data Hasil Pemeriksaan Lab</div>
         <table class="uk-table uk-table-small uk-table-divider uk-table-middle table" v-if="dataPatientMedicalRecord.medicalResult">
             <thead>
                 <tr>
@@ -151,44 +201,44 @@ onMounted(async () => {
             </thead>
 
             <TableHematologi
-                v-if="dataPatientMedicalRecord.medicalResult.hasOwnProperty('hematologi')"
+                v-if="!isDataMedicalRecordEmpty.hematologi"
                 :medical-record="dataPatientMedicalRecord.medicalResult.hematologi"
                 :data-patient="dataPatientMedicalRecord.patient"
             />
 
             <TableKimiaKlinik
-                v-if="dataPatientMedicalRecord.medicalResult.hasOwnProperty('kimia_klinik')"
+                v-if="!isDataMedicalRecordEmpty.kimia_klinik"
                 :medical-record="dataPatientMedicalRecord.medicalResult.kimia_klinik"
                 :data-patient="dataPatientMedicalRecord.patient"
             />
 
             <TableUrinalisa
-                v-if="dataPatientMedicalRecord.medicalResult.hasOwnProperty('urinalisa')"
+                v-if="!isDataMedicalRecordEmpty.urinalisa"
                 :medical-record="dataPatientMedicalRecord.medicalResult.urinalisa"
             />
 
             <TableNapza
-                v-if="dataPatientMedicalRecord.medicalResult.hasOwnProperty('napza')"
+                v-if="!isDataMedicalRecordEmpty.napza"
                 :medical-record="dataPatientMedicalRecord.medicalResult.napza"
             />
 
             <TableImunoserologi
-                v-if="dataPatientMedicalRecord.medicalResult.hasOwnProperty('imunoserologi')"
+                v-if="!isDataMedicalRecordEmpty.imunoserologi"
                 :medical-record="dataPatientMedicalRecord.medicalResult.imunoserologi"
             />
 
             <TableMikroskopis
-                v-if="dataPatientMedicalRecord.medicalResult.hasOwnProperty('mikroskopis')"
+                v-if="!isDataMedicalRecordEmpty.mikroskopis"
                 :medical-record="dataPatientMedicalRecord.medicalResult.mikroskopis"
             />
 
             <TableTCM
-                v-if="dataPatientMedicalRecord.medicalResult.hasOwnProperty('tcm')"
+                v-if="!isDataMedicalRecordEmpty.tcm"
                 :medical-record="dataPatientMedicalRecord.medicalResult.tcm"
             />
 
             <TableLainnya
-                v-if="dataPatientMedicalRecord.medicalResult.hasOwnProperty('lainnya')"
+                v-if="!isDataMedicalRecordEmpty.lainnya"
                 :medical-record="dataPatientMedicalRecord.medicalResult.lainnya"
             />
         </table>
