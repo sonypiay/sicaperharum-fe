@@ -5,6 +5,11 @@ import {useRoute, useRouter} from "vue-router";
 import patientMedicalRecordAPI from "../../utils/api/Patient/PatientMedicalRecordAPI.js";
 import {toastFailed} from "../../utils/alerts.js";
 import dayjs from "dayjs";
+import TableHematologi from "./MedicalRecords/TableHematologi.vue";
+import TableKimiaKlinik from "./MedicalRecords/TableKimiaKlinik.vue";
+import TableUrinalisa from "./MedicalRecords/TableUrinalisa.vue";
+import TableNapza from "./MedicalRecords/TableNapza.vue";
+import TableImunoserologi from "./MedicalRecords/TableImunoserologi.vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -132,7 +137,7 @@ onMounted(async () => {
         <hr>
 
         <div class="uk-text-center card-heading">Data Hasil Pemeriksaan Lab</div>
-        <table class="uk-table uk-table-small uk-table-striped uk-table-divider uk-table-middle table" v-if="dataPatientMedicalRecord.medicalResult">
+        <table class="uk-table uk-table-small uk-table-divider uk-table-middle table" v-if="dataPatientMedicalRecord.medicalResult">
             <thead>
                 <tr>
                     <th>Pemeriksaan</th>
@@ -141,30 +146,33 @@ onMounted(async () => {
                     <th>Nilai Normal</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr v-if="dataPatientMedicalRecord.medicalResult.hematologi">
-                    <th colspan="4">Hematologi</th>
-                </tr>
-                <tr v-if="dataPatientMedicalRecord.medicalResult.hematologi" v-for="(column, index) in dataPatientMedicalRecord.medicalResult.hematologi.hematologi_rutin">
-                    <td>{{ column.label }}</td>
-                    <td>{{ column.hasil }}</td>
-                    <td>{{ column.satuan }}</td>
-                    <td v-if="column.label === 'Leukosit'">
-                        <span v-if="dataPatientMedicalRecord.patient.category === 'adult'">
-                            <span>{{ column.nilai_normal.dewasa }}</span>
-                        </span>
-                        <span v-else>{{ column.nilai_normal.anak }}</span>
-                    </td>
-                    <td v-else-if="column.label === 'Trombosit'">{{ column.nilai_normal }}</td>
-                    <td v-else>
-                        <span v-if="dataPatientMedicalRecord.patient.category === 'adult'">
-                            <span v-if="dataPatientMedicalRecord.patient.gender.label === 'L'">{{ column.nilai_normal.laki }}</span>
-                            <span v-else>{{ column.nilai_normal.perempuan }}</span>
-                        </span>
-                        <span v-else>{{ column.nilai_normal.anak }}</span>
-                    </td>
-                </tr>
-            </tbody>
+
+            <TableHematologi
+                v-if="dataPatientMedicalRecord.medicalResult.hasOwnProperty('hematologi')"
+                :medical-record="dataPatientMedicalRecord.medicalResult.hematologi"
+                :data-patient="dataPatientMedicalRecord.patient"
+            />
+
+            <TableKimiaKlinik
+                v-if="dataPatientMedicalRecord.medicalResult.hasOwnProperty('kimia_klinik')"
+                :medical-record="dataPatientMedicalRecord.medicalResult.kimia_klinik"
+                :data-patient="dataPatientMedicalRecord.patient"
+            />
+
+            <TableUrinalisa
+                v-if="dataPatientMedicalRecord.medicalResult.hasOwnProperty('urinalisa')"
+                :medical-record="dataPatientMedicalRecord.medicalResult.urinalisa"
+            />
+
+            <TableNapza
+                v-if="dataPatientMedicalRecord.medicalResult.hasOwnProperty('napza')"
+                :medical-record="dataPatientMedicalRecord.medicalResult.napza"
+            />
+
+            <TableImunoserologi
+                v-if="dataPatientMedicalRecord.medicalResult.hasOwnProperty('imunoserologi')"
+                :medical-record="dataPatientMedicalRecord.medicalResult.imunoserologi"
+            />
         </table>
     </section>
 </template>
