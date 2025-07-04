@@ -5,7 +5,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <tbody v-if="props.medicalRecord">
+    <tbody v-if="props.medicalRecord !== null">
         <tr><th colspan="4">TCM</th></tr>
         <tr v-for="(column, index) in props.medicalRecord" :key="`tcm-${index}`">
             <td>{{ column.label }}</td>
