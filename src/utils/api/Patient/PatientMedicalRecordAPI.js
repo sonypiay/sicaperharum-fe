@@ -90,6 +90,24 @@ const patientMedicalRecordAPI = {
             data: await fetchApi.json(),
             statusCode: fetchApi.status
         };
+    },
+    downloadPdf: async (registerNumber) => {
+        const userToken = localStorage.getItem('user_token') ?? null;
+        const endpoint = `${apis.backendApi}/patients/medical-records/pdf/generate/${registerNumber}`;
+        const fetchApi = await fetch(endpoint, {
+            method: apis.method.get,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization': `Bearer ${userToken}`
+            }
+        });
+
+        return {
+            data: await fetchApi.json(),
+            statusCode: fetchApi.status
+        };
     }
 }
 

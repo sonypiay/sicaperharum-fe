@@ -95,6 +95,18 @@ function checkIfMedicalResultIsEmpty() {
     );
 }
 
+async function onHandleDownloadPDF() {
+    const fetchApi = await patientMedicalRecordAPI.downloadPdf(registerNumber);
+    const responseBody = fetchApi.data;
+    const statusCode = fetchApi.statusCode;
+
+    if( statusCode === 200 ) {
+        window.open(responseBody.url, '_blank');
+    } else {
+        toastFailed("Gagal mendownload PDF.");
+    }
+}
+
 onMounted(async () => {
     await getPatientMedicalRecord();
     checkIfMedicalResultIsEmpty();
@@ -107,7 +119,7 @@ onMounted(async () => {
 
         <div class="uk-card uk-margin-top">
             <div class="uk-flex uk-flex-right uk-margin-large-bottom">
-                <button class="uk-button uk-button-primary button button-primary">Download PDF</button>
+                <button @click="onHandleDownloadPDF()" class="uk-button uk-button-primary button button-primary">Download PDF</button>
                 <button class="uk-margin-small-left uk-button uk-button-primary button button-primary">Send WhatsApp</button>
             </div>
 
