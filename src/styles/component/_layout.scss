@@ -177,3 +177,35 @@
 
 .card-information-detail {
 }
+
+.dashboard-container {
+    .dashboard-header {
+        margin-bottom: 4rem;
+
+        .title {
+            @include vars.fontStyling(vars.$fontFamily !important, 24px, 700, black);
+        }
+
+        .subtitle {
+            @include vars.fontStyling(vars.$fontFamily !important, 16px, 400, #333333);
+        }
+    }
+
+    .card-summary-visitor {
+        .heading {
+            @include vars.fontStyling(vars.$fontFamily !important, 20px, 700, #333333);
+        }
+
+        .card-summary-item {
+            border-radius: 10px;
+
+            .title {
+                @include vars.fontStyling(vars.$fontFamily !important, 18px, 500, #333333);
+            }
+
+            .desc {
+                @include vars.fontStyling(vars.$fontFamily !important, 32px, 400, black);
+            }
+        }
+    }
+}
