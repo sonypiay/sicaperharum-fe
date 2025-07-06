@@ -8,6 +8,7 @@ const dataSummaryVisitor = reactive({
     total_harian: 0,
     total_bulanan: 0,
     total_tahunan: 0,
+    total_all: 0,
     date: '',
 });
 
@@ -20,6 +21,7 @@ async function fetchSummaryVisitor() {
         dataSummaryVisitor.total_harian = responseBody.total_harian;
         dataSummaryVisitor.total_bulanan = responseBody.total_bulanan;
         dataSummaryVisitor.total_tahunan = responseBody.total_tahunan;
+        dataSummaryVisitor.total_all = responseBody.total_all;
     } else {
         toastFailed("Gagal mengambil data summary visitor.");
     }
@@ -43,7 +45,7 @@ onMounted(async () => {
                 <div class="uk-width-1-4@m uk-width-1-2@s">
                     <div class="uk-card uk-card-body uk-card-small card-summary-item">
                         <div class="title">Total</div>
-                        <div class="desc">{{ dataSummaryVisitor.total_harian + dataSummaryVisitor.total_bulanan + dataSummaryVisitor.total_tahunan }}</div>
+                        <div class="desc">{{ dataSummaryVisitor.total_tahunan }}</div>
                     </div>
                 </div>
 
