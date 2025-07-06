@@ -28,7 +28,11 @@ onMounted(() => {
         <nav class="navbar-container">
             <div uk-navbar>
                 <div class="uk-navbar-left uk-hidden@s">
-                    <span uk-icon="icon: menu; ratio: 1.2"></span>
+                    <div class="uk-navbar-item">
+                        <div class="uk-margin-small-left" uk-toggle="target: #offcanvas-nav">
+                            <span uk-icon="icon: menu; ratio: 1.2"></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="uk-navbar-right">
                     <a class="uk-navbar-item navbar-profile-container">
