@@ -1,5 +1,7 @@
-<script setup lang="ts">
-
+<script setup>
+function offCanvasToggleHide() {
+    UIkit.offcanvas('#offcanvas-nav').hide();
+}
 </script>
 
 <template>
@@ -14,19 +16,19 @@
 
                 <ul class="uk-nav uk-nav-default offcanvas-nav-list" uk-nav>
                     <li>
-                        <router-link to="/admin">
+                        <router-link to="/admin" @click="offCanvasToggleHide()">
                             <span class="las la-home"></span> Dashboard
                         </router-link>
                     </li>
 
                     <li>
-                        <router-link :to="{name: 'list-visitor-patient'}">
+                        <router-link :to="{name: 'list-visitor-patient'}" @click="offCanvasToggleHide()">
                             <span class="las la-clipboard"></span> Kunjungan Pasien
                         </router-link>
                     </li>
 
                     <li>
-                        <router-link :to="{name: 'list-patients'}">
+                        <router-link :to="{name: 'list-patients'}" @click="offCanvasToggleHide()">
                             <span class="las la-user"></span> Daftar Pasien
                         </router-link>
                     </li>
@@ -43,22 +45,22 @@
                         </a>
                         <ul class="uk-nav-sub">
                             <li>
-                                <router-link :to="{name: 'list-user'}">
+                                <router-link :to="{name: 'list-user'}" @click="offCanvasToggleHide()">
                                     User
                                 </router-link>
                             </li>
                             <li>
-                                <router-link :to="{name: 'list-klaster'}">
+                                <router-link :to="{name: 'list-klaster'}" @click="offCanvasToggleHide()">
                                     Klaster
                                 </router-link>
                             </li>
                             <li>
-                                <router-link :to="{name: 'list-spesimen'}">
+                                <router-link :to="{name: 'list-spesimen'}" @click="offCanvasToggleHide()">
                                     Spesimen
                                 </router-link>
                             </li>
                             <li>
-                                <router-link :to="{name: 'list-metode-pembayaran'}">
+                                <router-link :to="{name: 'list-metode-pembayaran'}" @click="offCanvasToggleHide()">
                                     Metode Pembayaran
                                 </router-link>
                             </li>
