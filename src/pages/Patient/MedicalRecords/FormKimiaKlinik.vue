@@ -15,15 +15,15 @@ const props = defineProps({
             <thead>
                 <tr>
                     <th class="uk-width-medium">Diabetes</th>
-                    <th class="uk-width-small">Nilai</th>
+                    <th>Nilai</th>
                     <th class="uk-width-small">Satuan</th>
-                    <th>Nilai Normal</th>
+                    <th class="uk-width-small">Nilai Normal</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(column, index) in props.formInput.diabetes" :key="`diabetes-${index}`">
                     <td>{{ column.label }}</td>
-                    <td><input type="number" class="uk-input form-input form-input-small" v-model="column.hasil" /></td>
+                    <td><input type="text" class="uk-input form-input form-input-small" v-model="column.hasil" /></td>
                     <td>{{ column.satuan }}</td>
                     <td>{{ column.nilai_normal }}</td>
                 </tr>
@@ -35,15 +35,15 @@ const props = defineProps({
             <thead>
                 <tr>
                     <th class="uk-width-medium">Lipid</th>
-                    <th class="uk-width-small">Nilai</th>
+                    <th>Nilai</th>
                     <th class="uk-width-small">Satuan</th>
-                    <th>Nilai Normal</th>
+                    <th class="uk-width-small">Nilai Normal</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(column, index) in props.formInput.lipid" :key="`lipid-${index}`">
                     <td>{{ column.label }}</td>
-                    <td><input type="number" class="uk-input form-input form-input-small" v-model="column.hasil" /></td>
+                    <td><input type="text" class="uk-input form-input form-input-small" v-model="column.hasil" /></td>
                     <td>{{ column.satuan }}</td>
                     <td>{{ column.nilai_normal }}</td>
                 </tr>
@@ -55,16 +55,16 @@ const props = defineProps({
             <thead>
                 <tr>
                     <th class="uk-width-medium">Fungsi Ginjal</th>
-                    <th class="uk-width-small">Nilai</th>
+                    <th>Nilai</th>
                     <th class="uk-width-small">Satuan</th>
-                    <th>Nilai Normal</th>
+                    <th class="uk-width-small">Nilai Normal</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(column, index) in props.formInput.fungsiGinjal" :key="`fungsiGinjal-${index}`">
                     <td>{{ column.label }}</td>
                     <td>
-                        <input type="number" class="uk-input form-input form-input-small" v-model="column.hasil" />
+                        <input type="text" class="uk-input form-input form-input-small" v-model="column.hasil" />
                     </td>
                     <td>{{ column.satuan }}</td>
                     <td v-if="column.label === 'Creatinin' || column.label === 'Asam Urat'">
@@ -81,15 +81,15 @@ const props = defineProps({
             <thead>
                 <tr>
                     <th class="uk-width-medium">Fungsi Ginjal</th>
-                    <th class="uk-width-small">Nilai</th>
+                    <th>Nilai</th>
                     <th class="uk-width-small">Satuan</th>
-                    <th>Nilai Normal</th>
+                    <th class="uk-width-small">Nilai Normal</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(column, index) in props.formInput.fungsiHati" :key="`fungsiHati-${index}`">
                     <td>{{ column.label }}</td>
-                    <td><input type="number" class="uk-input form-input form-input-small" v-model="column.hasil" /></td>
+                    <td><input type="text" class="uk-input form-input form-input-small" v-model="column.hasil" /></td>
                     <td>{{ column.satuan }}</td>
                     <td>
                         <span v-if="props.formDataPatient.gender === 'L'">{{ column.nilai_normal.laki }}</span>

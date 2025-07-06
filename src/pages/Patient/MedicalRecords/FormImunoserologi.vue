@@ -15,9 +15,9 @@ const props = defineProps({
             <thead>
                 <tr>
                     <th class="uk-width-medium">Imunoserologi</th>
-                    <th class="uk-width-small">Nilai</th>
+                    <th>Nilai</th>
                     <th class="uk-width-small">Satuan</th>
-                    <th>Nilai Normal</th>
+                    <th class="uk-width-small">Nilai Normal</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,9 +54,9 @@ const props = defineProps({
             <thead>
                 <tr>
                     <th class="uk-width-medium">HIV</th>
-                    <th class="uk-width-small">Nilai</th>
+                    <th>Nilai</th>
                     <th class="uk-width-small">Satuan</th>
-                    <th>Nilai Normal</th>
+                    <th class="uk-width-small">Nilai Normal</th>
                 </tr>
             </thead>
             <tbody>
@@ -67,6 +67,11 @@ const props = defineProps({
                             <option value="">Pilih Nilai</option>
                             <option v-for="item in column.option" :key="item" :value="item">{{ item }}</option>
                         </select>
+
+                        <div v-if="column.hasil === 'Reaktif' && column.label === 'VDRL'" class="uk-margin-small-top">
+                            <!-- jika nilai reaktif, tampilkan input titer -->
+                            <input  type="text" class="uk-width-1-1 uk-input form-input form-input-small" v-model="column.titer" placeholder="Masukkan nilai titer" />
+                        </div>
                     </td>
                     <td></td>
                     <td>{{ column.nilai_normal }}</td>
@@ -81,9 +86,9 @@ const props = defineProps({
             <thead>
                 <tr>
                     <th class="uk-width-medium">Widal</th>
-                    <th class="uk-width-small">Nilai</th>
+                    <th>Nilai</th>
                     <th class="uk-width-small">Satuan</th>
-                    <th>Nilai Normal</th>
+                    <th class="uk-width-small">Nilai Normal</th>
                 </tr>
             </thead>
             <tbody>
@@ -94,6 +99,9 @@ const props = defineProps({
                             <option value="">Pilih Nilai</option>
                             <option v-for="item in column.option" :key="item" :value="item">{{ item }}</option>
                         </select>
+
+                        <!-- jika nilai reaktif, tampilkan input titer -->
+                        <input v-if="column.hasil === 'Positif'" type="text" class="uk-width-1-1 uk-margin-small-top uk-input form-input form-input-small" v-model="column.titer" placeholder="Masukkan nilai titer" />
                     </td>
                     <td></td>
                     <td>{{ column.nilai_normal }}</td>

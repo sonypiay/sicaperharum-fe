@@ -325,6 +325,7 @@ mappingMedicalRecord.urinalisa = {
                 "Negatif",
                 "Positif 1",
                 "Positif 2",
+                "Positif 3",
             ],
             nilai_normal: "Negatif"
         },
@@ -443,7 +444,8 @@ mappingMedicalRecord.imunoserologi = {
     golonganDarah: {
         hasil: '',
         option: [
-            "A/B",
+            "A",
+            "B",
             "AB",
             "O",
         ],
@@ -501,7 +503,8 @@ mappingMedicalRecord.imunoserologi = {
                 "Non Reaktif",
                 "Reaktif",
             ],
-            nilai_normal: "Non Reaktif"
+            nilai_normal: "Non Reaktif",
+            titer: "",
         },
         {
             label: 'HBsAG',
@@ -539,7 +542,8 @@ mappingMedicalRecord.imunoserologi = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            titer: '',
         },
         {
             label: 'Salmonella Typhi H',
@@ -548,7 +552,8 @@ mappingMedicalRecord.imunoserologi = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            titer: '',
         },
         {
             label: 'Salmonella Paratyphi A0',
@@ -557,7 +562,8 @@ mappingMedicalRecord.imunoserologi = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            titer: '',
         },
         {
             label: 'Salmonella Paratyphi AH',
@@ -566,17 +572,13 @@ mappingMedicalRecord.imunoserologi = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            titer: '',
         }
     ]
 };
 
 mappingMedicalRecord.mikroskopis = {
-    feses: {
-        hasil: '',
-        satuan: '',
-        nilai_normal: '',
-    },
     makroskopis: [
         {
             label: 'Warna',

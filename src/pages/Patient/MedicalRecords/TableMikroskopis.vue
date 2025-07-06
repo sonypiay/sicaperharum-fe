@@ -9,13 +9,8 @@ const props = defineProps({
         <tr>
             <th colspan="4">Mikroskopis</th>
         </tr>
-    </tbody>
-    <tbody v-if="props.medicalRecord.feses.hasOwnProperty('hasil') && props.medicalRecord.feses.hasil !== null">
         <tr>
-            <th>Feses</th>
-            <td>{{ props.medicalRecord.feses.hasil }}</td>
-            <td>{{ props.medicalRecord.feses.satuan }}</td>
-            <td>{{ props.medicalRecord.feses.nilai_normal }}</td>
+            <th colspan="4">Feses</th>
         </tr>
     </tbody>
 

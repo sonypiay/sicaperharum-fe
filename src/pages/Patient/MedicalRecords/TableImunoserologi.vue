@@ -30,7 +30,12 @@ const props = defineProps({
         <tr><th colspan="4">HIV</th></tr>
         <tr v-for="(column, index) in props.medicalRecord.hiv" :key="`hiv-${index}`">
             <td>{{ column.label }}</td>
-            <td>{{ column.hasil }}</td>
+            <td>
+                {{ column.hasil }}
+                <span v-if="column.hasOwnProperty('titer') && column.titer !== null">
+                    (Titer: {{ column.titer }})
+                </span>
+            </td>
             <td>{{ column.satuan }}</td>
             <td>{{ column.nilai_normal }}</td>
         </tr>
@@ -40,7 +45,12 @@ const props = defineProps({
         <tr><th colspan="4">Widal</th></tr>
         <tr v-for="(column, index) in props.medicalRecord.widal" :key="`widal-${index}`">
             <td>{{ column.label }}</td>
-            <td>{{ column.hasil }}</td>
+            <td>
+                {{ column.hasil }}
+                <span v-if="column.hasOwnProperty('titer') && column.titer !== null">
+                    (Titer: {{ column.titer }})
+                </span>
+            </td>
             <td>{{ column.satuan }}</td>
             <td>{{ column.nilai_normal }}</td>
         </tr>

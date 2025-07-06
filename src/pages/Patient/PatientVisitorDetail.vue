@@ -86,12 +86,11 @@ function checkIfMedicalResultIsEmpty() {
     );
     isDataMedicalRecordEmpty.lainnya = medicalResult.lainnya === null;
     isDataMedicalRecordEmpty.mikroskopis = (
-        medicalResult.bta.hasil === null &&
-        medicalResult.feses.hasil === null &&
-        medicalResult.ims.laki === null &&
-        medicalResult.ims.perempuan === null &&
-        medicalResult.makroskopis === null &&
-        medicalResult.mikroskopis === null
+        medicalResult.mikroskopis.bta.hasil === null &&
+        medicalResult.mikroskopis.feses.hasil === null &&
+        medicalResult.mikroskopis.ims.laki === null &&
+        medicalResult.mikroskopis.ims.perempuan === null &&
+        medicalResult.makroskopis === null
     );
 }
 

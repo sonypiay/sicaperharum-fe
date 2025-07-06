@@ -90,6 +90,8 @@ function onHandleMappingFormMedicalRecord(data) {
             hasil: item.hasil,
             satuan: item.satuan ?? null,
             nilai_normal: item.nilai_normal ?? null,
+            note: item.note ?? null,
+            titer: item.titer ?? null,
         };
     });
 
@@ -175,7 +177,7 @@ async function onHandleSubmitForm() {
         Object.assign(formInputLainnya, mappingMedicalRecord.lainnya);
         sessionStorage.removeItem('form-patient');
 
-        await router.push({name: 'form-register-patient'});
+        await router.push({name: 'visitor-detail', params: {registerNumber: responseBody.medical_records.register_number}});
     } else {
         toastFailed(responseBody.message);
     }

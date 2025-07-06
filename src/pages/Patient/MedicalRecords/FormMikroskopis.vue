@@ -10,19 +10,13 @@ const props = defineProps({
     <h3>Mikroskopis</h3>
 
     <div v-if="props.formDataPatient">
-        <table class="uk-table uk-table-small uk-table-divider table-input-lab">
-            <tbody>
-                <tr>
-                    <th>Feses</th>
-                    <td><input type="number" class="uk-input form-input form-input-small" v-model="props.formInput.feses.hasil" /></td>
-                </tr>
-            </tbody>
-        </table>
-
         <hr class="form-section-divider">
 
         <table class="uk-table uk-table-small uk-table-divider table-input-lab">
             <thead>
+                <tr>
+                    <th colspan="4">Feses</th>
+                </tr>
                 <tr>
                     <th class="uk-width-medium">Makroskopis</th>
                     <th class="uk-width-small">Nilai</th>

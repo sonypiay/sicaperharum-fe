@@ -220,7 +220,7 @@ async function onHandleSubmitForm() {
     onValidationForm();
 
     formsInput.age = dayjs(dayjs()).diff(formsInput.dob, 'years');
-    formsInput.patientType = formsInput.age >= 17 ? 'adult' : 'child';
+    formsInput.patientType = formsInput.age > 17 ? 'adult' : 'child';
 
     if( formsInput.klaster.value !== '' ) {
         const getDataKlaster = dataKlaster.value.filter(item => {

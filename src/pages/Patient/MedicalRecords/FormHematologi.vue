@@ -15,16 +15,16 @@ const props = defineProps({
             <thead>
                 <tr>
                     <th class="uk-width-medium">Hematologi Rutin</th>
-                    <th class="uk-width-small">Nilai</th>
+                    <th>Nilai</th>
                     <th class="uk-width-small">Satuan</th>
-                    <th>Nilai Normal</th>
+                    <th class="uk-width-small">Nilai Normal</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(column, index) in props.formInput.hematologiRutin" :key="`hematologi-rutin-${index}`">
                     <td>{{ column.label }}</td>
                     <td>
-                        <input type="number" class="uk-input form-input form-input-small" v-model="column.hasil" />
+                        <input type="text" class="uk-input form-input form-input-small" v-model="column.hasil" />
                     </td>
                     <td>{{ column.satuan }}</td>
                     <td v-if="column.label === 'Leukosit'">
@@ -52,13 +52,17 @@ const props = defineProps({
             <thead>
                 <tr>
                     <th class="uk-width-medium">Index Eritrosit</th>
-                    <th class="uk-width-small">Nilai</th>
+                    <th>Nilai</th>
+                    <th class="uk-width-small">Satuan</th>
+                    <th class="uk-width-small">Nilai Normal</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(column, index) in props.formInput.indexEritrosit" :key="`index-eritrosit-${index}`">
                     <td>{{ column.label }}</td>
-                    <td><input type="number" class="uk-input form-input form-input-small" v-model="column.hasil" /></td>
+                    <td><input type="text" class="uk-input form-input form-input-small" v-model="column.hasil" /></td>
+                    <td>{{ column.satuan }}</td>
+                    <td>{{ column.nilai_normal }}</td>
                 </tr>
             </tbody>
         </table>
@@ -75,7 +79,7 @@ const props = defineProps({
             <tbody>
                 <tr>
                     <th>Nilai</th>
-                    <td><input type="number" class="uk-input form-input form-input-small" v-model="props.formInput.lajuEndapDarah.hasil" /></td>
+                    <td><input type="text" class="uk-input form-input form-input-small" v-model="props.formInput.lajuEndapDarah.hasil" /></td>
                 </tr>
                 <tr>
                     <th>Satuan</th>
@@ -98,7 +102,7 @@ const props = defineProps({
             <thead>
                 <tr>
                     <th class="uk-width-medium">Jenis Leukosit</th>
-                    <th class="uk-width-small">Nilai</th>
+                    <th>Nilai</th>
                     <th class="uk-width-small">Satuan</th>
                     <th class="uk-width-small">Nilai Normal</th>
                 </tr>
@@ -106,7 +110,7 @@ const props = defineProps({
             <tbody>
                 <tr v-for="(column, index) in props.formInput.jenisLeukosit" :key="`jenis-leukosit-${index}`">
                     <td>{{ column.label }}</td>
-                    <td><input type="number" class="uk-input form-input form-input-small" v-model="column.hasil" /></td>
+                    <td><input type="text" class="uk-input form-input form-input-small" v-model="column.hasil" /></td>
                     <td>{{ column.satuan }}</td>
                     <td>{{ column.nilai_normal }}</td>
                 </tr>
