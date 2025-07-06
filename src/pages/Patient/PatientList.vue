@@ -62,60 +62,53 @@ onBeforeMount(async () => {
 
 <template>
     <section class="card-section">
-        <div class="uk-grid-small" uk-grid>
-            <div class="uk-width-expand">
-                <div class="card-heading">Daftar Pasien</div>
-            </div>
-            <div class="uk-width-1-5">
-                <div class="uk-flex uk-flex-right">
-                    <router-link :to="{name: 'create-patient'}" class="uk-button uk-button-primary button button-primary">
-                        Tambah
-                    </router-link>
-                </div>
+        <div class="uk-flex uk-flex-between">
+            <div class="card-heading">Daftar Pasien</div>
+            <div class="uk-flex uk-flex-right">
+                <router-link :to="{name: 'create-patient'}" class="uk-button uk-button-primary button button-primary">
+                    Tambah
+                </router-link>
             </div>
         </div>
 
         <div class="uk-card uk-card-default card-body">
-            <div class="uk-grid-small" uk-grid>
-                <div class="uk-width-1-6">
-                    <div class="card-subheading">
-                        <span class="las la-search"></span> Cari
-                    </div>
+            <div class="uk-flex uk-flex-between">
+                <div class="card-subheading">
+                    <span class="las la-search"></span> Cari
                 </div>
-                <div class="uk-width-expand">
-                    <div class="uk-text-right">
-                        <a href="#" @click="handleToggleSearch()">
-                            <span v-if="isSearchEnable" class="las la-angle-down search-toggle-card"></span>
-                            <span v-else class="las la-angle-up search-toggle-card"></span>
-                        </a>
-                    </div>
+
+                <div class="uk-text-right">
+                    <a href="#" @click="handleToggleSearch()">
+                        <span v-if="isSearchEnable" class="las la-angle-down search-toggle-card"></span>
+                        <span v-else class="las la-angle-up search-toggle-card"></span>
+                    </a>
                 </div>
             </div>
 
-            <div class="uk-width-1-3" v-if="isSearchEnable === true">
-                <form class="uk-form-stacked uk-margin-top" @submit.prevent="handleSearch()">
-                    <div class="uk-margin">
+            <form class="uk-form-stacked uk-margin-top" @submit.prevent="handleSearch()" v-if="isSearchEnable === true">
+                <div class="uk-grid-small" uk-grid>
+                    <div class="uk-width-1-3@m uk-width-1-1@s">
                         <label class="uk-form-label form-label">No. Rekam Medis</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" v-model="searchField.medical_number" placeholder="Cari berdasarkan nomor rekam medis" />
                         </div>
                     </div>
 
-                    <div class="uk-margin">
+                    <div class="uk-width-1-3@m uk-width-1-1@s">
                         <label class="uk-form-label form-label">Nama</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" v-model="searchField.name" placeholder="Cari berdasarkan nama" />
                         </div>
                     </div>
 
-                    <div class="uk-margin">
+                    <div class="uk-width-1-3@m uk-width-1-1@s">
                         <label class="uk-form-label form-label">No. Telepon</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" v-model="searchField.phone_number" placeholder="Cari berdasarkan nomor telepon" />
                         </div>
                     </div>
 
-                    <div class="uk-margin">
+                    <div class="uk-width-1-3@m uk-width-1-1@s">
                         <label class="uk-form-label form-label">Jenis Kelamin</label>
                         <div class="uk-form-controls">
                             <select class="uk-width-1-1 uk-select form-select" v-model="searchField.gender">
@@ -125,43 +118,43 @@ onBeforeMount(async () => {
                             </select>
                         </div>
                     </div>
+                </div>
 
-                    <div class="uk-margin">
-                        <button class="uk-button uk-button-primary button button-primary">Cari</button>
-                    </div>
-                </form>
-            </div>
+                <div class="uk-margin">
+                    <button class="uk-button uk-button-primary button button-primary">Cari</button>
+                </div>
+            </form>
         </div>
 
         <div class="uk-card uk-card-default card-body">
-            <table class="uk-table uk-table-divider uk-table-striped uk-table-small table">
+            <table class="uk-table uk-table-divider uk-table-striped uk-table-small uk-table-responsive uk-table-justify uk-table-middle table">
                 <thead>
-                <tr>
-                    <th>Aksi</th>
-                    <th>No. Rekam Medis</th>
-                    <th>Nama</th>
-                    <th>Tanggal Lahir</th>
-                    <th>Jenis Kelamin</th>
-                    <th>No. Telepon</th>
-                    <th>Terakhir diubah</th>
-                </tr>
+                    <tr>
+                        <th>Aksi</th>
+                        <th>No. Rekam Medis</th>
+                        <th>Nama</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Jenis Kelamin</th>
+                        <th>No. Telepon</th>
+                        <th>Terakhir diubah</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr v-for="data in dataPatient.data" :key="data.id">
-                    <td>
-                        <router-link :to="{name: 'edit-patient', params: { id: data.id }}" class="uk-button uk-button-small uk-button-primary button button-primary">
-                            <span class="las la-edit"></span> Ubah
-                        </router-link>
-                    </td>
-                    <td>{{ data.medical_number }}</td>
-                    <td>{{ data.fullname }}</td>
-                    <td>{{ dayjs(data.dob).format('DD MMMM YYYY') }}</td>
-                    <td>{{ data.gender.name }}</td>
-                    <td>{{ data.phone_number }}</td>
-                    <td>
-                        {{ dayjs(data.updated_at).format('DD MMMM YYYY HH:mm') }}
-                    </td>
-                </tr>
+                    <tr v-for="data in dataPatient.data" :key="data.id">
+                        <td>
+                            <router-link :to="{name: 'edit-patient', params: { id: data.id }}" class="uk-width-1-1@s uk-button uk-button-small uk-button-primary button button-primary">
+                                <span class="las la-edit"></span> Ubah
+                            </router-link>
+                        </td>
+                        <td>{{ data.medical_number }}</td>
+                        <td>{{ data.fullname }}</td>
+                        <td>{{ dayjs(data.dob).format('DD MMMM YYYY') }}</td>
+                        <td>{{ data.gender.name }}</td>
+                        <td>{{ data.phone_number }}</td>
+                        <td>
+                            {{ dayjs(data.updated_at).format('DD MMMM YYYY HH:mm') }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 

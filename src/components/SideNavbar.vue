@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <nav class="uk-card uk-card-body uk-height-viewport sidebar-nav">
+    <nav class="uk-visible@s uk-card uk-card-body uk-height-viewport sidebar-nav">
         <div class="nav-logo">
             <img src="../assets/images/logo_pkm_botim.png" />
         </div>
@@ -17,7 +17,7 @@
 
             <li>
                 <router-link :to="{name: 'list-visitor-patient'}">
-                    <span class="las la-clipboard"></span> Daftar Kunjungan Pasien
+                    <span class="las la-clipboard"></span> Kunjungan Pasien
                 </router-link>
             </li>
 

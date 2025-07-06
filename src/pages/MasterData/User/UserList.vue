@@ -60,96 +60,88 @@ onBeforeMount(async () => {
 
 <template>
     <section class="card-section">
-        <div class="uk-grid-small" uk-grid>
-            <div class="uk-width-expand">
-                <div class="card-heading">Daftar User</div>
-            </div>
-            <div class="uk-width-1-5">
-                <div class="uk-flex uk-flex-right">
-                    <router-link :to="{name: 'create-user'}" class="uk-button uk-button-primary button button-primary">
-                        Tambah
-                    </router-link>
-                </div>
+        <div class="uk-flex uk-flex-between">
+            <div class="card-heading">Daftar User</div>
+            <div class="uk-text-right">
+                <router-link :to="{name: 'create-user'}" class="uk-button uk-button-primary button button-primary">
+                    Tambah
+                </router-link>
             </div>
         </div>
 
         <div class="uk-card uk-card-default card-body">
-            <div class="uk-grid-small" uk-grid>
-                <div class="uk-width-1-6">
-                    <div class="card-subheading">
-                        <span class="las la-search"></span> Cari
-                    </div>
+            <div class="uk-flex uk-flex-between">
+                <div class="card-subheading">
+                    <span class="las la-search"></span> Cari
                 </div>
-                <div class="uk-width-expand">
-                    <div class="uk-text-right">
-                        <a href="#" @click="handleToggleSearch()">
-                            <span v-if="isSearchEnable" class="las la-angle-down search-toggle-card"></span>
-                            <span v-else class="las la-angle-up search-toggle-card"></span>
-                        </a>
-                    </div>
+                <div class="uk-text-right">
+                    <a href="#" @click="handleToggleSearch()">
+                        <span v-if="isSearchEnable" class="las la-angle-down search-toggle-card"></span>
+                        <span v-else class="las la-angle-up search-toggle-card"></span>
+                    </a>
                 </div>
             </div>
 
-            <div class="uk-width-1-3" v-if="isSearchEnable === true">
-                <form class="uk-form-stacked uk-margin-top" @submit.prevent="handleSearch()">
-                    <div class="uk-margin">
+            <form class="uk-form-stacked uk-margin-top" @submit.prevent="handleSearch()" v-if="isSearchEnable === true">
+                <div class="uk-grid-small" uk-grid>
+                    <div class="uk-width-1-3@m uk-width-1-1@s">
                         <label class="uk-form-label form-label">Nama</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" v-model="searchField.name" placeholder="Cari berdasarkan nama" />
                         </div>
                     </div>
 
-                    <div class="uk-margin">
+                    <div class="uk-width-1-3@m uk-width-1-1@s">
                         <label class="uk-form-label form-label">Email</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" v-model="searchField.email" placeholder="Cari berdasarkan email" />
                         </div>
                     </div>
 
-                    <div class="uk-margin">
+                    <div class="uk-width-1-3@m uk-width-1-1@s">
                         <label class="uk-form-label form-label">Username</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" v-model="searchField.username" placeholder="Cari berdasarkan username" />
                         </div>
                     </div>
+                </div>
 
-                    <div class="uk-margin">
-                        <button class="uk-button uk-button-primary button button-primary">Cari</button>
-                    </div>
-                </form>
-            </div>
+                <div class="uk-margin">
+                    <button class="uk-button uk-button-primary button button-primary">Cari</button>
+                </div>
+            </form>
         </div>
 
         <div class="uk-card uk-card-default card-body">
-            <table class="uk-table uk-table-divider uk-table-striped uk-table-small table">
+            <table class="uk-table uk-table-divider uk-table-striped uk-table-small uk-table-responsive uk-table-justify table">
                 <thead>
-                <tr>
-                    <th>Aksi</th>
-                    <th>Nama</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Aktif</th>
-                    <th>Terakhir diubah</th>
-                </tr>
+                    <tr>
+                        <th>Aksi</th>
+                        <th>Nama</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Aktif</th>
+                        <th>Terakhir diubah</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr v-for="data in dataUser.data" :key="data.id">
-                    <td>
-                        <router-link :to="{name: 'edit-user', params: { id: data.id }}" class="uk-button uk-button-small uk-button-primary button button-primary">
-                            <span class="las la-edit"></span> Ubah
-                        </router-link>
-                    </td>
-                    <td>{{ data.name }}</td>
-                    <td>{{ data.username }}</td>
-                    <td>{{ data.email }}</td>
-                    <td>
-                        <span v-if="data.active.value === 1" class="label label-green">{{ data.active.label }}</span>
-                        <span v-else class="label label-red">{{ data.active.label }}</span>
-                    </td>
-                    <td>
-                        {{ dayjs(data.updated_at).format('DD MMMM YYYY HH:mm') }}
-                    </td>
-                </tr>
+                    <tr v-for="data in dataUser.data" :key="data.id">
+                        <td>
+                            <router-link :to="{name: 'edit-user', params: { id: data.id }}" class="uk-width-1-1@s uk-button uk-button-small uk-button-primary button button-primary">
+                                <span class="las la-edit"></span> Ubah
+                            </router-link>
+                        </td>
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.username }}</td>
+                        <td>{{ data.email }}</td>
+                        <td>
+                            <span v-if="data.active.value === 1" class="label label-green">{{ data.active.label }}</span>
+                            <span v-else class="label label-red">{{ data.active.label }}</span>
+                        </td>
+                        <td>
+                            {{ dayjs(data.updated_at).format('DD MMMM YYYY HH:mm') }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 

@@ -1,6 +1,6 @@
 <script setup>
 
-import {nextTick, onBeforeMount, onMounted, reactive, ref, watch} from "vue";
+import {nextTick, onMounted, reactive, ref, watch} from "vue";
 import dayjs from "dayjs";
 import {toastFailed} from "../../utils/alerts.js";
 import patientMedicalRecordAPI from "../../utils/api/Patient/PatientMedicalRecordAPI.js";
@@ -149,53 +149,45 @@ watch(isSearchEnable, async (newVal) => {
 
 <template>
     <section class="card-section">
-        <div class="uk-grid-small" uk-grid>
-            <div class="uk-width-expand">
-                <div class="card-heading">Daftar Kunjungan Pasien</div>
-            </div>
-            <div class="uk-width-1-5@m">
-                <div class="uk-flex uk-flex-right">
-                    <router-link :to="{name: 'form-register-patient'}" class="uk-button uk-button-primary button button-primary">
-                        Tambah
-                    </router-link>
-                </div>
+        <div class="uk-flex uk-flex-between">
+            <div class="card-heading">Daftar Kunjungan Pasien</div>
+            <div class="uk-text-right">
+                <router-link :to="{name: 'form-register-patient'}" class="uk-button uk-button-primary button button-primary">
+                    Tambah
+                </router-link>
             </div>
         </div>
 
         <div class="uk-card uk-card-default card-body">
-            <div class="uk-grid-small" uk-grid>
-                <div class="uk-width-1-6">
-                    <div class="card-subheading">
-                        <span class="las la-search"></span> Cari
-                    </div>
+            <div class="uk-flex uk-flex-between">
+                <div class="card-subheading">
+                    <span class="las la-search"></span> Cari
                 </div>
-                <div class="uk-width-expand">
-                    <div class="uk-text-right">
-                        <a href="#" @click="handleToggleSearch()">
-                            <span v-if="isSearchEnable" class="las la-angle-down search-toggle-card"></span>
-                            <span v-else class="las la-angle-up search-toggle-card"></span>
-                        </a>
-                    </div>
+                <div class="uk-text-right">
+                    <a href="#" @click="handleToggleSearch()">
+                        <span v-if="isSearchEnable" class="las la-angle-down search-toggle-card"></span>
+                        <span v-else class="las la-angle-up search-toggle-card"></span>
+                    </a>
                 </div>
             </div>
 
-            <div class="uk-width-1-3" v-if="isSearchEnable === true">
-                <form class="uk-form-stacked uk-margin-top" @submit.prevent="false">
-                    <div class="uk-margin">
+            <form class="uk-form-stacked uk-margin-top uk-grid-small" @submit.prevent="false" v-if="isSearchEnable === true">
+                <div class="uk-grid-small" uk-grid>
+                    <div class="uk-width-1-3@m uk-width-1-1@s">
                         <label class="uk-form-label form-label">No. Rekam Medis</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" v-model="searchField.medical_number" placeholder="Cari berdasarkan nomor rekam medis" />
                         </div>
                     </div>
 
-                    <div class="uk-margin">
+                    <div class="uk-width-1-3@m uk-width-1-1@s">
                         <label class="uk-form-label form-label">Nomor Registrasi</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" v-model="searchField.register_number" placeholder="Cari berdasarkan nomor registrasi" />
                         </div>
                     </div>
 
-                    <div class="uk-margin">
+                    <div class="uk-width-1-3@m uk-width-1-1@s">
                         <label class="uk-form-label form-label">Klaster</label>
                         <div class="uk-form-controls">
                             <select class="uk-width-1-1 uk-select form-select" v-model="searchField.klaster" aria-label="Select">
@@ -205,7 +197,7 @@ watch(isSearchEnable, async (newVal) => {
                         </div>
                     </div>
 
-                    <div class="uk-margin">
+                    <div class="uk-width-1-3@m uk-width-1-1@s">
                         <label class="uk-form-label form-label">Jenis Spesimen</label>
                         <div class="uk-form-controls">
                             <select class="uk-width-1-1 uk-select form-select" v-model="searchField.spesimen" aria-label="Select">
@@ -215,58 +207,60 @@ watch(isSearchEnable, async (newVal) => {
                         </div>
                     </div>
 
-                    <div class="uk-margin">
+                    <div class="uk-width-1-3@m uk-width-1-1@s">
                         <label for="input-tanggal-pengambilan" class="uk-form-label form-label">Tanggal Pengambilan</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" id="input-tanggal-pengambilan" />
                         </div>
                     </div>
+                </div>
 
-                    <div class="uk-margin">
-                        <button @click="handleSearch()" class="uk-margin-small-right uk-button uk-button-primary button button-primary">Cari</button>
-                        <button @click="handleResetSearch()" class="uk-button uk-button-default button button-default">Reset</button>
+                <div class="uk-grid-small uk-child-width-1-4@m uk-child-width-1-2@s" uk-grid>
+                    <div>
+                        <button @click="handleSearch()" class="uk-width-1-1@s uk-button uk-button-primary button button-primary">Cari</button>
                     </div>
-                </form>
-            </div>
+                    <div>
+                        <button @click="handleResetSearch()" class="uk-width-1-1@s uk-button uk-button-default button button-default">Reset</button>
+                    </div>
+                </div>
+            </form>
         </div>
 
         <div class="uk-card uk-card-default card-body">
-            <table class="uk-table uk-table-divider uk-table-striped uk-table-small uk-table-responsive table">
-                <thead>
-                <tr>
-                    <th>Aksi</th>
-                    <th>No. Registrasi</th>
-                    <th>Klaster</th>
-                    <th>Spesimen</th>
-                    <th>No. RM</th>
-                    <th>Nama Pasien</th>
-                    <th>Tanggal Lahir</th>
-                    <th>Umur</th>
-                    <th>Jenis Kelamin</th>
-                    <th>Nomor Telepon</th>
-                    <th>Tanggal Pengambilan</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="data in dataPatientVisitor.data" :key="data.register_number">
-                    <td>
-                        <router-link :to="{name: 'visitor-detail', params: { registerNumber: data.register_number }}" class="uk-button uk-button-small uk-button-primary button button-primary">
-                            <span class="las la-eye"></span> Lihat
-                        </router-link>
-                    </td>
-                    <td>{{ data.register_number }}</td>
-                    <td>{{ data.klaster.title }}</td>
-                    <td>{{ data.spesimen.title }}</td>
-                    <td>{{ data.patient.medical_number }}</td>
-                    <td>{{ data.patient.fullname }}</td>
-                    <td>{{ dayjs(data.patient.dob).format('DD MMMM YYYY') }}</td>
-                    <td>{{ data.patient.age }} tahun</td>
-                    <td>{{ data.patient.gender.label }}</td>
-                    <td>{{ data.patient.phone_number }}</td>
-                    <td>{{ dayjs(data.pickup_datetime).format('DD MMMM YYYY HH:mm') }}</td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="uk-overflow-auto uk-margin">
+                <table class="uk-table uk-table-divider uk-table-striped uk-table-small uk-table-responsive uk-table-middle uk-table-justify table">
+                    <thead>
+                        <tr>
+                            <th>Aksi</th>
+                            <th>No. Registrasi</th>
+                            <th>No. RM</th>
+                            <th>Nama Pasien</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Umur</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Nomor Telepon</th>
+                            <th>Tanggal Pengambilan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="data in dataPatientVisitor.data" :key="data.register_number">
+                            <td>
+                                <router-link :to="{name: 'visitor-detail', params: { registerNumber: data.register_number }}" class="uk-width-1-1@s uk-button uk-button-small uk-button-primary button button-primary">
+                                    <span class="las la-eye"></span> Lihat
+                                </router-link>
+                            </td>
+                            <td>{{ data.register_number }}</td>
+                            <td>{{ data.patient.medical_number }}</td>
+                            <td>{{ data.patient.fullname }}</td>
+                            <td>{{ dayjs(data.patient.dob).format('DD MMMM YYYY') }}</td>
+                            <td>{{ data.patient.age }} tahun</td>
+                            <td>{{ data.patient.gender.label }}</td>
+                            <td>{{ data.patient.phone_number }}</td>
+                            <td>{{ dayjs(data.pickup_datetime).format('DD MMMM YYYY HH:mm') }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <div class="uk-flex uk-flex-center">
                 <ul class="uk-pagination nav-pagination">
