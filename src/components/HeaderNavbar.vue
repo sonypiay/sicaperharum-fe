@@ -34,7 +34,7 @@ onMounted(() => {
                         </div>
                     </div>
                 </div>
-                <div class="uk-navbar-right">
+                <div class="uk-navbar-right uk-margin-right">
                     <a class="uk-navbar-item navbar-profile-container">
                         <div class="uk-grid-small" uk-grid>
                             <div class="uk-width-1-5">
@@ -47,16 +47,15 @@ onMounted(() => {
                             </div>
                             <div class="uk-width-expand">
                                 <div class="uk-flex uk-flex-between uk-flex-middle">
-                                    <div class="uk-width-3-4">
-                                        <div class="navbar-profile-info">
-                                            <div class="nav-profile-name">{{ userProfile.name }}</div>
-                                            <div class="nav-profile-role">Superadmin</div>
+                                    <div class="navbar-profile-info">
+                                        <div class="nav-profile-name">
+                                            {{ userProfile.name }}
+                                            <span v-if="userProfile.gelar">({{ userProfile.gelar }})</span>
                                         </div>
+                                        <div class="nav-profile-role">Superadmin</div>
                                     </div>
-                                    <div class="uk-width-expand">
-                                        <div class="navbar-icon-dropdown">
-                                            <span class="las la-angle-down"></span>
-                                        </div>
+                                    <div class="navbar-icon-dropdown">
+                                        <span class="las la-angle-down"></span>
                                     </div>
                                 </div>
                             </div>

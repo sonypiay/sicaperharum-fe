@@ -9,9 +9,9 @@ const formsInput = reactive({
     name: '',
     email: '',
     password: '',
-    confirm_password: '',
     image: null,
-    active: "1"
+    active: "1",
+    gelar: '',
 });
 const router = useRouter();
 const errorDetail = reactive({});
@@ -22,6 +22,7 @@ function onValidationForm() {
     errorDetail.email = '';
     errorDetail.password = '';
     errorDetail.image = '';
+    errorDetail.gelar = '';
     errorDetail.isError = false;
 
     if( formsInput.username === '' ) {
@@ -49,6 +50,11 @@ function onValidationForm() {
             errorDetail.image = 'File harus berupa gambar dengan format PNG atau JPEG';
             errorDetail.isError = true;
         }
+    }
+
+    if( formsInput.gelar === '' ) {
+        errorDetail.gelar = 'Gelar wajib diisi';
+        errorDetail.isError = true;
     }
 }
 
@@ -104,6 +110,15 @@ function handleGetFiles(event) {
                     </div>
 
                     <div v-if="errorDetail.name !== ''" class="uk-text-danger">{{ errorDetail.name }}</div>
+                </div>
+
+                <div class="uk-margin">
+                    <label for="input-gelar" class="uk-form-label form-label form-label-required">Gelar</label>
+                    <div class="uk-form-controls">
+                        <input type="text" class="uk-width-1-1 uk-input form-input" v-model="formsInput.gelar" maxlength="100" />
+                    </div>
+
+                    <div v-if="errorDetail.gelar !== ''" class="uk-text-danger">{{ errorDetail.gelar }}</div>
                 </div>
 
                 <div class="uk-margin">

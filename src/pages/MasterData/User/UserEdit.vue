@@ -16,7 +16,8 @@ const formsInput = reactive({
     oldProfileImage: {
         file: null,
         url: ''
-    }
+    },
+    gelar: '',
 });
 const router = useRouter();
 const userId = useRoute().params.id;
@@ -28,6 +29,7 @@ function onValidationForm() {
     errorDetail.email = '';
     errorDetail.password = '';
     errorDetail.image = '';
+    errorDetail.gelar = '';
     errorDetail.isError = false;
 
     if( formsInput.username === '' ) {
@@ -51,20 +53,25 @@ function onValidationForm() {
             errorDetail.isError = true;
         }
     }
+
+    if( formsInput.gelar === '' ) {
+        errorDetail.gelar = 'Gelar wajib diisi';
+        errorDetail.isError = true;
+    }
 }
 
 async function fetchUser() {
     const fetchApi = await userAPI.detail(userId);
     const responseBody = fetchApi.data;
 
-    formsInput.username = responseBody.username;
-    formsInput.name = responseBody.name;
-    formsInput.email = responseBody.email;
+    formsInput.username = responseBody.username ?? '';
+    formsInput.name = responseBody.name ?? '';
+    formsInput.email = responseBody.email ?? '';
     formsInput.password = '';
-    formsInput.confirm_password = '';
     formsInput.image = null;
     formsInput.active = responseBody.active;
-    formsInput.oldProfileImage = responseBody.image;
+    formsInput.oldProfileImage = responseBody.image ?? '';
+    formsInput.gelar = responseBody.gelar ?? '';
 }
 
 async function onHandleSubmit() {
@@ -85,7 +92,8 @@ async function onHandleSubmit() {
                     username: responseBody.username,
                     name: responseBody.name,
                     email: responseBody.email,
-                    image: responseBody.image
+                    image: responseBody.image,
+                    gelar: responseBody.gelar,
                 }));
             }
 
@@ -138,6 +146,15 @@ onMounted(async () => {
                     </div>
 
                     <div v-if="errorDetail.name !== ''" class="uk-text-danger">{{ errorDetail.name }}</div>
+                </div>
+
+                <div class="uk-margin">
+                    <label for="input-gelar" class="uk-form-label form-label form-label-required">Gelar</label>
+                    <div class="uk-form-controls">
+                        <input type="text" class="uk-width-1-1 uk-input form-input" v-model="formsInput.gelar" maxlength="100" />
+                    </div>
+
+                    <div v-if="errorDetail.gelar !== ''" class="uk-text-danger">{{ errorDetail.gelar }}</div>
                 </div>
 
                 <div class="uk-margin">

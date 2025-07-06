@@ -11,6 +11,7 @@ const userAPI = {
         formData.append('email', request.email);
         formData.append('password', request.password);
         formData.append('active', request.active);
+        formData.append('gelar', request.gelar);
 
         if( request.image ) formData.append('profile_image', request.image);
 
@@ -39,6 +40,7 @@ const userAPI = {
         formData.append('password', request.password ?? null);
         formData.append('active', request.active);
         formData.append('old_profile_image', request.oldProfileImage.file);
+        formData.append('gelar', request.gelar);
 
         if( request.image ) formData.append('profile_image', request.image);
 
