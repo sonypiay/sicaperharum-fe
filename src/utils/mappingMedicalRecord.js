@@ -401,18 +401,6 @@ mappingMedicalRecord.urinalisa = {
                 "Positif",
             ],
             nilai_normal: "Negatif"
-        },
-        {
-            label: 'Lainnya',
-            hasil: '',
-            satuan: '',
-            nilai_normal: '',
-        },
-        {
-            label: 'Lainnya',
-            hasil: '',
-            satuan: '',
-            nilai_normal: '',
         }
     ]
 };
@@ -682,15 +670,6 @@ mappingMedicalRecord.mikroskopis = {
                 "Positif",
             ],
             nilai_normal: "Negatif"
-        },
-        {
-            label: 'Lainnya',
-            hasil: '',
-            option: [
-                "Negatif",
-                "Positif",
-            ],
-            nilai_normal: "Negatif"
         }
     ],
     bta: {
@@ -885,19 +864,7 @@ mappingMedicalRecord.lainnya = [
             "Positif",
         ],
         nilai_normal: "Negatif"
-    },
-    {
-        label: 'Lainnya',
-        hasil: '',
-        satuan: '',
-        nilai_normal: ''
-    },
-    {
-        label: 'Lainnya',
-        hasil: '',
-        satuan: '',
-        nilai_normal: ''
-    },
+    }
 ];
 
 export default mappingMedicalRecord;

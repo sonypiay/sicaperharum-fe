@@ -240,7 +240,7 @@ onMounted(() => {
         </nav>
 
         <div class="uk-form-stacked form-section-input">
-            <table class="uk-table uk-table-divider uk-table-small table">
+            <table class="uk-table uk-table-divider uk-table-small uk-table-responsive uk-table-middle uk-table-justify table">
                 <tbody>
                     <tr>
                         <th>No. Rekam Medis</th>
@@ -290,7 +290,7 @@ onMounted(() => {
             </table>
 
             <form class="uk-form-stacked" @submit.prevent="false">
-                <div class="uk-text-right">
+                <div class="uk-text-center">
                     <router-link :to="{name: 'form-register-patient'}" class="uk-button uk-button-default button button-default">
                         Kembali
                     </router-link>
@@ -299,14 +299,14 @@ onMounted(() => {
 
                 <FormHematologi v-if="currentNavTab === 'hematologi'" :form-data-patient="dataPatient" :formInput="formInputHematologi" />
                 <FormKimiaKlinik v-if="currentNavTab === 'kimia_klinik'" :form-data-patient="dataPatient" :formInput="formInputKimiaKlinik" />
-                <FormUrinalisa v-if="currentNavTab === 'urinalisa'" :form-data-patient="dataPatient" :formInput="formInputUrinalisa" />
-                <FormNapza v-if="currentNavTab === 'napza'" :form-data-patient="dataPatient" :formInput="formInputNapza" />
-                <FormImunoserologi v-if="currentNavTab === 'imunoserologi'" :form-data-patient="dataPatient" :formInput="formInputImunoserologi" />
+                <FormUrinalisa v-if="currentNavTab === 'urinalisa'" :formInput="formInputUrinalisa" />
+                <FormNapza v-if="currentNavTab === 'napza'" :formInput="formInputNapza" />
+                <FormImunoserologi v-if="currentNavTab === 'imunoserologi'" :formInput="formInputImunoserologi" />
                 <FormMikroskopis v-if="currentNavTab === 'mikroskopis'" :form-data-patient="dataPatient" :formInput="formInputMikroskopis" />
-                <FormTCM v-if="currentNavTab === 'tcm'" :form-data-patient="dataPatient" :formInput="formInputTcm" />
-                <FormLainnya v-if="currentNavTab === 'lainnya'" :form-data-patient="dataPatient" :formInput="formInputLainnya" />
+                <FormTCM v-if="currentNavTab === 'tcm'" :formInput="formInputTcm" />
+                <FormLainnya v-if="currentNavTab === 'lainnya'" :formInput="formInputLainnya" />
 
-                <div class="uk-text-right">
+                <div class="uk-margin-top uk-text-center">
                     <router-link :to="{name: 'form-register-patient'}" class="uk-button uk-button-default button button-default">
                         Kembali
                     </router-link>
