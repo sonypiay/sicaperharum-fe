@@ -93,7 +93,8 @@ const patientMedicalRecordAPI = {
     },
     downloadPdf: async (registerNumber) => {
         const userToken = localStorage.getItem('user_token') ?? null;
-        const endpoint = `${apis.backendApi}/patients/medical-records/pdf/generate/${registerNumber}`;
+        const userProfile = JSON.parse(localStorage.getItem('user_profile'));
+        const endpoint = `${apis.backendApi}/patients/medical-records/pdf/generate/${registerNumber}?user_id=${userProfile.id}`;
         const fetchApi = await fetch(endpoint, {
             method: apis.method.get,
             headers: {

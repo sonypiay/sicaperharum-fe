@@ -44,19 +44,19 @@ async function getPatientMedicalRecord() {
     if( statusCode === 200 ) {
         dataPatientMedicalRecord.patient = responseBody.patient;
         dataPatientMedicalRecord.klaster = responseBody.klaster;
-        dataPatientMedicalRecord.spesimen = responseBody.spesimen;
+        dataPatientMedicalRecord.spesimen = responseBody.spesimen.map(item => item.title).join(', ');
         dataPatientMedicalRecord.medicalResult = responseBody.medical_result;
         dataPatientMedicalRecord.pickup_datetime = responseBody.pickup_datetime;
-        dataPatientMedicalRecord.metode_pembayaran = responseBody.metode_pembayaran;
+        dataPatientMedicalRecord.metode_pembayaran = responseBody.metode_pembayaran.map(item => item.title).join(', ');
+
+        checkIfMedicalResultIsEmpty(dataPatientMedicalRecord.medicalResult);
     } else {
         toastFailed(responseBody.message);
         await router.push({name: 'list-visitor-patient'});
     }
 }
 
-function checkIfMedicalResultIsEmpty() {
-    const medicalResult = dataPatientMedicalRecord.medicalResult;
-
+function checkIfMedicalResultIsEmpty(medicalResult) {
     isDataMedicalRecordEmpty.hematologi = (
         medicalResult.hematologi.hematologi_rutin === null &&
         medicalResult.hematologi.index_eritrosit === null &&
@@ -87,10 +87,9 @@ function checkIfMedicalResultIsEmpty() {
     isDataMedicalRecordEmpty.lainnya = medicalResult.lainnya === null;
     isDataMedicalRecordEmpty.mikroskopis = (
         medicalResult.mikroskopis.bta.hasil === null &&
-        medicalResult.mikroskopis.feses.hasil === null &&
         medicalResult.mikroskopis.ims.laki === null &&
         medicalResult.mikroskopis.ims.perempuan === null &&
-        medicalResult.makroskopis === null
+        medicalResult.mikroskopis.makroskopis === null
     );
 }
 
@@ -108,7 +107,6 @@ async function onHandleDownloadPDF() {
 
 onMounted(async () => {
     await getPatientMedicalRecord();
-    checkIfMedicalResultIsEmpty();
 });
 </script>
 
@@ -174,7 +172,7 @@ onMounted(async () => {
                             <tr v-if="dataPatientMedicalRecord.patient.gender">
                                 <th>Jenis Kelamin</th>
                                 <th>:</th>
-                                <td>{{ dataPatientMedicalRecord.patient.gender.label }}</td>
+                                <td>{{ dataPatientMedicalRecord.patient.gender.name }}</td>
                             </tr>
                             <tr>
                                 <th>Tanggal Pengambilan</th>
@@ -197,7 +195,7 @@ onMounted(async () => {
                             <tr>
                                 <th>Jenis Spesimen</th>
                                 <th>:</th>
-                                <td>{{ dataPatientMedicalRecord.spesimen.title }}</td>
+                                <td>{{ dataPatientMedicalRecord.spesimen }}</td>
                             </tr>
                         </tbody>
                     </table>

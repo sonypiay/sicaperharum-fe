@@ -10,6 +10,36 @@ const props = defineProps({
     <h3>Kimia Klinik</h3>
 
     <div v-if="props.formDataPatient">
+<!--        <table class="uk-table uk-table-small uk-table-divider uk-table-responsive uk-table-middle table-input-lab">-->
+<!--            <thead>-->
+<!--                <tr>-->
+<!--                    <th class="uk-width-small">Pemeriksaan</th>-->
+<!--                    <th class="uk-width-medium">Nilai</th>-->
+<!--                    <th class="uk-width-small">Satuan</th>-->
+<!--                    <th class="uk-width-small">Nilai Normal</th>-->
+<!--                </tr>-->
+<!--            </thead>-->
+
+<!--            <tbody v-for="(rowsItem, rowsIndex) in props.formInput.sub" :key="`sub-${rowsItem.value}-${rowsIndex}`">-->
+<!--                <tr>-->
+<!--                    <th>{{ rowsItem.name }}</th>-->
+<!--                </tr>-->
+<!--                <tr v-if="Array.isArray(rowsItem.option)" v-for="(columnInput, columIndex) in rowsItem.option" :key="`sub-${columnInput.label}-${columIndex}`">-->
+<!--                    <td>{{ columnInput.label }}</td>-->
+<!--                    <td>-->
+<!--                        <input type="text" class="uk-input form-input form-input-small" v-model="columnInput.hasil" placeholder="Masukkan nilai" />-->
+<!--                    </td>-->
+<!--                    <td>{{ columnInput.satuan }}</td>-->
+<!--                    <td>-->
+<!--                        <span v-if="typeof columnInput.nilai_normal === 'object'">-->
+<!--                            {{ columnInput.nilai_normal[props.formDataPatient.gender] }}-->
+<!--                        </span>-->
+<!--                        <span v-else>{{ columnInput.nilai_normal }}</span>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+
         <!-- input diabetes -->
         <table class="uk-table uk-table-small uk-table-divider table-input-lab">
             <thead>
@@ -61,7 +91,7 @@ const props = defineProps({
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(column, index) in props.formInput.fungsiGinjal" :key="`fungsiGinjal-${index}`">
+                <tr v-for="(column, index) in props.formInput.fungsi_ginjal" :key="`fungsiGinjal-${index}`">
                     <td>{{ column.label }}</td>
                     <td>
                         <input type="text" class="uk-input form-input form-input-small" v-model="column.hasil" />
@@ -80,14 +110,14 @@ const props = defineProps({
         <table class="uk-table uk-table-small uk-table-divider table-input-lab">
             <thead>
                 <tr>
-                    <th class="uk-width-medium">Fungsi Ginjal</th>
+                    <th class="uk-width-medium">Fungsi Hati</th>
                     <th>Nilai</th>
                     <th class="uk-width-small">Satuan</th>
                     <th class="uk-width-small">Nilai Normal</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(column, index) in props.formInput.fungsiHati" :key="`fungsiHati-${index}`">
+                <tr v-for="(column, index) in props.formInput.fungsi_hati" :key="`fungsiHati-${index}`">
                     <td>{{ column.label }}</td>
                     <td><input type="text" class="uk-input form-input form-input-small" v-model="column.hasil" /></td>
                     <td>{{ column.satuan }}</td>

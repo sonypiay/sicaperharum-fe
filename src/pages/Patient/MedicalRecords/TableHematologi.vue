@@ -46,14 +46,14 @@ const props = defineProps({
         </tr>
     </tbody>
 
-    <tbody v-if="props.medicalRecord.hasOwnProperty('laju_endap_darah') && props.medicalRecord.laju_endap_darah !== null">
+    <tbody v-if="props.medicalRecord.hasOwnProperty('laju_endap_darah') && props.medicalRecord.laju_endap_darah.hasil !== null">
         <tr>
             <th>Laju Endap Darah</th>
             <td>{{ props.medicalRecord.laju_endap_darah.hasil }}</td>
             <td>{{ props.medicalRecord.laju_endap_darah.satuan }}</td>
             <td>
-                <span v-if="props.dataPatient.gender.value === 'P'">{{ props.medicalRecord.laju_endap_darah.perempuan }}</span>
-                <span v-else>{{ props.medicalRecord.laju_endap_darah.laki }}</span>
+                <span v-if="props.dataPatient.gender.value === 'P'">{{ props.medicalRecord.laju_endap_darah.nilai_normal.perempuan }}</span>
+                <span v-else>{{ props.medicalRecord.laju_endap_darah.nilai_normal.laki }}</span>
             </td>
         </tr>
     </tbody>

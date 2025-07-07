@@ -10,6 +10,8 @@ import {useSessionStorage} from "@vueuse/core";
 import metodePembayaranAPI from "../../../utils/api/MasterData/MetodePembayaranAPI.js";
 import patientMedicalRecordAPI from "../../../utils/api/Patient/PatientMedicalRecordAPI.js";
 import dayjs from "dayjs";
+import Multiselect  from "vue-multiselect";
+import "vue-multiselect/dist/vue-multiselect.min.css";
 
 const formsInput = reactive({
     register_number: '',
@@ -23,15 +25,9 @@ const formsInput = reactive({
         value: '',
         label: '',
     },
-    spesimen: {
-        value: '',
-        label: '',
-    },
+    spesimen: [],
     pickup_datetime: '',
-    metode_pembayaran: {
-        value: [],
-        label: [],
-    },
+    metode_pembayaran: [],
     age: 0,
     patientType: 'child',
 });
@@ -83,7 +79,7 @@ function onValidationForm() {
         errorDetail.isError = true;
     }
 
-    if( formsInput.spesimen.value === '' ) {
+    if( formsInput.spesimen.length === 0 ) {
         errorDetail.spesimen = 'Spesimen wajib diisi';
         errorDetail.isError = true;
     }
@@ -93,7 +89,7 @@ function onValidationForm() {
         errorDetail.isError = true;
     }
 
-    if( formsInput.metode_pembayaran.value.length === 0 ) {
+    if( formsInput.metode_pembayaran.length === 0 ) {
         errorDetail.metode_pembayaran = 'Metode pembayaran wajib diisi ';
         errorDetail.isError = true;
     }
@@ -107,7 +103,12 @@ async function fetchDataKlaster() {
     errorDetail.klaster = '';
 
     if( statusCode === 200 ) {
-        dataKlaster.value = responseBody;
+        dataKlaster.value = responseBody.map(item => {
+            return {
+                id: item.id,
+                title: item.title,
+            }
+        });
     } else {
         errorDetail.klaster = 'Gagal mengambil data klaster';
         toastFailed(fetchApi.data.message);
@@ -122,7 +123,12 @@ async function fetchDataSpesimen() {
     errorDetail.spesimen = '';
 
     if( statusCode === 200 ) {
-        dataSpesimen.value = responseBody;
+        dataSpesimen.value = responseBody.map(item => {
+            return {
+                id: item.id,
+                title: item.title,
+            }
+        });
     } else {
         errorDetail.spesimen = 'Gagal mengambil data spesimen';
         toastFailed(fetchApi.data.message);
@@ -137,7 +143,12 @@ async function fetchDataMetodePembayaran() {
     errorDetail.metode_pembayaran = '';
 
     if( statusCode === 200 ) {
-        dataMetodePembayaran.value = responseBody;
+        dataMetodePembayaran.value = responseBody.map(item => {
+            return {
+                id: item.id,
+                title: item.title,
+            }
+        });
     } else {
         errorDetail.metode_pembayaran = 'Gagal mengambil data metode pembayaran';
         toastFailed(fetchApi.data.message);
@@ -230,25 +241,8 @@ async function onHandleSubmitForm() {
         formsInput.klaster.label = getDataKlaster[0].title;
     }
 
-    if( formsInput.spesimen.value !== '' ) {
-        const getDataSpesimen = dataSpesimen.value.filter(item => {
-            return item.id === formsInput.spesimen.value;
-        });
-
-        formsInput.spesimen.label = getDataSpesimen[0].title;
-    }
-
-    if( formsInput.metode_pembayaran.value.length > 0 ) {
-        const getDataMetodePembayaran = dataMetodePembayaran.value.filter(item => {
-            return formsInput.metode_pembayaran.value.includes(item.id);
-        });
-
-        formsInput.metode_pembayaran.label = getDataMetodePembayaran.map(item => item.title);
-    }
-
     if( errorDetail.isError === false ) {
         formPatient.value = JSON.stringify(formsInput);
-
         await router.push({ name: 'form-register-medical-record' });
     }
 }
@@ -279,14 +273,14 @@ onMounted(async() => {
             <form @submit.prevent="onHandleSubmitForm()">
                 <div class="uk-grid-small" uk-grid>
                     <div class="uk-width-1-1 uk-grid-small" uk-grid>
-                        <div class="uk-width-1-3">
+                        <div class="uk-width-1-3@m uk-width-1-1@s">
                             <label class="uk-form-label form-label">No. Register Lab</label>
                             <div class="uk-form-controls">
                                 <input type="text" class="uk-width-1-1 uk-input form-input" v-model="formsInput.register_number" disabled />
                             </div>
                         </div>
 
-                        <div class="uk-width-1-3">
+                        <div class="uk-width-1-3@m uk-width-1-1@s">
                             <label class="uk-form-label form-label form-label-required">Klaster</label>
                             <div class="uk-form-controls">
                                 <select class="uk-width-1-1 uk-select form-select" v-model="formsInput.klaster.value" aria-label="Select">
@@ -297,19 +291,23 @@ onMounted(async() => {
                             <div v-if="errorDetail.klaster !== ''" class="uk-text-danger">{{ errorDetail.klaster }}</div>
                         </div>
 
-                        <div class="uk-width-1-3">
+                        <div class="uk-width-1-3@m uk-width-1-1@s">
                             <label class="uk-form-label form-label form-label-required">Jenis Spesimen</label>
                             <div class="uk-form-controls">
-                                <select class="uk-width-1-1 uk-select form-select" v-model="formsInput.spesimen.value" aria-label="Select">
-                                    <option value="">Pilih Spesimen</option>
-                                    <option v-for="item in dataSpesimen" :key="item.id" :value="item.id">{{ item.title }}</option>
-                                </select>
+                                <multiselect
+                                    v-model="formsInput.spesimen"
+                                    :options="dataSpesimen"
+                                    :multiple="true"
+                                    :clear-on-select="false"
+                                    placeholder="Pilih Spesimen"
+                                    track-by="id"
+                                    label="title" />
                             </div>
                             <div v-if="errorDetail.spesimen !== ''" class="uk-text-danger">{{ errorDetail.spesimen }}</div>
                         </div>
                     </div>
 
-                    <div class="uk-width-1-2">
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
                         <label for="input-medical-number" class="uk-form-label form-label form-label-required">No. Rekam Medis</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" v-model="formsInput.medical_number" @keyup="onHandleFindPatient($event.target.value)" />
@@ -334,7 +332,7 @@ onMounted(async() => {
                         <div v-if="errorDetail.medical_number !== ''" class="uk-text-danger">{{ errorDetail.medical_number }}</div>
                     </div>
 
-                    <div class="uk-width-1-2">
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
                         <label for="input-nama" class="uk-form-label form-label form-label-required">Nama</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" v-model="formsInput.fullname"/>
@@ -343,7 +341,7 @@ onMounted(async() => {
                         <div v-if="errorDetail.fullname !== ''" class="uk-text-danger">{{ errorDetail.fullname }}</div>
                     </div>
 
-                    <div class="uk-width-1-2">
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
                         <label for="input-dob" class="uk-form-label form-label form-label-required">Tanggal Lahir</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" id="input-dob" v-model="formsInput.dob"/>
@@ -352,7 +350,7 @@ onMounted(async() => {
                         <div v-if="errorDetail.dob !== ''" class="uk-text-danger">{{ errorDetail.dob }}</div>
                     </div>
 
-                    <div class="uk-width-1-2">
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
                         <label for="input-active" class="uk-form-label form-label form-label-required">Jenis Kelamin</label>
                         <div class="uk-form-controls">
                             <select class="uk-width-1-1 uk-select form-select" v-model="formsInput.gender" aria-label="Select">
@@ -362,7 +360,7 @@ onMounted(async() => {
                         </div>
                     </div>
 
-                    <div class="uk-width-1-2">
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
                         <label for="input-address" class="uk-form-label form-label form-label-required">Alamat</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" v-model="formsInput.address" />
@@ -371,14 +369,14 @@ onMounted(async() => {
                         <div v-if="errorDetail.address !== ''" class="uk-text-danger">{{ errorDetail.address }}</div>
                     </div>
 
-                    <div class="uk-width-1-2">
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
                         <label for="input-telepon" class="uk-form-label form-label">Nomor Telepon</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" v-model="formsInput.phone_number"/>
                         </div>
                     </div>
 
-                    <div class="uk-width-1-2">
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
                         <label for="input-tanggal-pickup" class="uk-form-label form-label form-label-required">Tanggal Pengambilan &amp; Jam</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" id="input-tanggal-pickup" v-model="formsInput.pickup_datetime" />
@@ -387,15 +385,17 @@ onMounted(async() => {
                         <div v-if="errorDetail.pickup_datetime !== ''" class="uk-text-danger">{{ errorDetail.pickup_datetime }}</div>
                     </div>
 
-                    <div class="uk-width-1-2">
+                    <div class="uk-width-1-2@m uk-width-1-1@s">
                         <label class="uk-form-label form-label form-label-required">Metode Pembayaran</label>
                         <div class="uk-form-controls">
-                            <div class="uk-grid-small" uk-grid>
-                                <label v-for="item in dataMetodePembayaran" :key="item.id" class="uk-form-label" :for="`mp-${item.id}`">
-                                    <input type="checkbox" class="uk-checkbox" :id="`mp-${item.id}`" :value="item.id" v-model="formsInput.metode_pembayaran.value" />
-                                    {{ item.title }}
-                                </label>
-                            </div>
+                            <multiselect
+                                v-model="formsInput.metode_pembayaran"
+                                :options="dataMetodePembayaran"
+                                :multiple="true"
+                                :clear-on-select="false"
+                                placeholder="Pilih Metode Pembayaran"
+                                track-by="id"
+                                label="title" />
                         </div>
                         <div v-if="errorDetail.metode_pembayaran !== ''" class="uk-text-danger">{{ errorDetail.metode_pembayaran }}</div>
                     </div>

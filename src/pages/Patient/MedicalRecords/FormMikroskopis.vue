@@ -10,7 +10,56 @@ const props = defineProps({
     <h3>Mikroskopis</h3>
 
     <div v-if="props.formDataPatient">
-        <hr class="form-section-divider">
+<!--        <table class="uk-table uk-table-small uk-table-divider uk-table-responsive uk-table-middle table-input-lab">-->
+<!--            <thead>-->
+<!--                <tr>-->
+<!--                    <th class="uk-width-small">Pemeriksaan</th>-->
+<!--                    <th class="uk-width-medium">Nilai</th>-->
+<!--                    <th class="uk-width-small">Satuan</th>-->
+<!--                    <th class="uk-width-small">Nilai Normal</th>-->
+<!--                </tr>-->
+<!--            </thead>-->
+
+<!--            <tbody v-for="(rowsItem, rowsIndex) in props.formInput.sub" :key="`sub-${rowsItem.value}-${rowsIndex}`">-->
+<!--                <tr v-if="rowsIndex === 0">-->
+<!--                    <th>Feses</th>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <th>{{ rowsItem.name }}</th>-->
+<!--                </tr>-->
+
+<!--                <tr v-if="rowsItem.multiple === true && Array.isArray(rowsItem.option)" v-for="(columnInput, columIndex) in rowsItem.option" :key="`sub-${columnInput.label}-${columIndex}`">-->
+<!--                    <td>{{ columnInput.label }}</td>-->
+<!--                    <td>-->
+<!--                        <select v-if="Array.isArray(columnInput.option)" class="uk-select form-select form-select-small" v-model="columnInput.hasil">-->
+<!--                            <option value="">Pilih Nilai</option>-->
+<!--                            <option v-for="item in columnInput.option" :key="item" :value="item">{{ item }}</option>-->
+<!--                        </select>-->
+
+<!--                        <input v-else type="text" class="uk-input form-input form-input-small" v-model="columnInput.hasil" placeholder="Masukkan nilai" />-->
+<!--                    </td>-->
+<!--                    <td>{{ columnInput.satuan }}</td>-->
+<!--                    <td>{{ columnInput.nilai_normal }}</td>-->
+<!--                </tr>-->
+
+<!--                <tr v-else>-->
+<!--                    <td>{{ rowsItem.name }}</td>-->
+<!--                    <td>-->
+<!--                        <select v-if="Array.isArray(rowsItem.option)" class="uk-select form-select form-select-small" v-model="rowsItem.hasil">-->
+<!--                            <option value="">Pilih Nilai</option>-->
+<!--                            <option v-for="item in rowsItem.option" :key="item" :value="item">{{ item }}</option>-->
+<!--                        </select>-->
+
+<!--                        <select v-else class="uk-select form-select form-select-small" v-model="rowsItem.hasil">-->
+<!--                            <option value="">Pilih Nilai</option>-->
+<!--                            <option v-for="item in rowsItem.option" :key="item" :value="item">{{ item }}</option>-->
+<!--                        </select>-->
+<!--                    </td>-->
+<!--                    <td>{{ rowsItem.satuan }}</td>-->
+<!--                    <td>{{ rowsItem.nilai_normal }}</td>-->
+<!--                </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
 
         <table class="uk-table uk-table-small uk-table-divider table-input-lab">
             <thead>
@@ -19,9 +68,9 @@ const props = defineProps({
                 </tr>
                 <tr>
                     <th class="uk-width-medium">Makroskopis</th>
-                    <th class="uk-width-small">Nilai</th>
+                    <th>Nilai</th>
                     <th class="uk-width-small">Satuan</th>
-                    <th>Nilai Normal</th>
+                    <th class="uk-width-small">Nilai Normal</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,9 +93,9 @@ const props = defineProps({
             <thead>
                 <tr>
                     <th class="uk-width-medium">Mikroskopis</th>
-                    <th class="uk-width-small">Nilai</th>
+                    <th>Nilai</th>
                     <th class="uk-width-small">Satuan</th>
-                    <th>Nilai Normal</th>
+                    <th class="uk-width-small">Nilai Normal</th>
                 </tr>
             </thead>
             <tbody>
@@ -72,9 +121,9 @@ const props = defineProps({
             <thead>
                 <tr>
                     <th class="uk-width-medium">BTA</th>
-                    <th class="uk-width-small">Nilai</th>
+                    <th>Nilai</th>
                     <th class="uk-width-small">Satuan</th>
-                    <th>Nilai Normal</th>
+                    <th class="uk-width-small">Nilai Normal</th>
                 </tr>
             </thead>
             <tbody>
@@ -101,9 +150,9 @@ const props = defineProps({
                 </tr>
                 <tr>
                     <th class="uk-width-medium">Laki</th>
-                    <th class="uk-width-small">Nilai</th>
+                    <th>Nilai</th>
                     <th class="uk-width-small">Satuan</th>
-                    <th>Nilai Normal</th>
+                    <th class="uk-width-small">Nilai Normal</th>
                 </tr>
             </thead>
             <tbody>
@@ -128,9 +177,9 @@ const props = defineProps({
             <thead>
                 <tr>
                     <th class="uk-width-medium">Perempuan</th>
-                    <th class="uk-width-small">Nilai</th>
+                    <th>Nilai</th>
                     <th class="uk-width-small">Satuan</th>
-                    <th>Nilai Normal</th>
+                    <th class="uk-width-small">Nilai Normal</th>
                 </tr>
             </thead>
             <tbody>

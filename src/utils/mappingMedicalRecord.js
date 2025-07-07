@@ -1,7 +1,7 @@
 const mappingMedicalRecord = {}
 
 mappingMedicalRecord.hematologi = {
-    hematologiRutin: [
+    hematologi_rutin: [
         {
             label: 'Hemoglobin',
             hasil: '',
@@ -48,7 +48,7 @@ mappingMedicalRecord.hematologi = {
             },
         }
     ],
-    indexEritrosit: [
+    index_eritrosit: [
         {
             label: 'MCV',
             hasil: '',
@@ -70,7 +70,7 @@ mappingMedicalRecord.hematologi = {
             satuan: 'fL',
         }
     ],
-    lajuEndapDarah: {
+    laju_endap_darah: {
         hasil: '',
         satuan: 'mmHg',
         nilai_normal: {
@@ -78,7 +78,7 @@ mappingMedicalRecord.hematologi = {
             perempuan: '0 - 20',
         },
     },
-    jenisLeukosit: [
+    jenis_leukosit: [
         {
             label: 'Basofil',
             hasil: '',
@@ -118,7 +118,7 @@ mappingMedicalRecord.hematologi = {
     ]
 };
 
-mappingMedicalRecord.kimiaKlinik = {
+mappingMedicalRecord.kimia_klinik = {
     diabetes: [
         {
             label: 'Gula Darah Puasa',
@@ -165,7 +165,7 @@ mappingMedicalRecord.kimiaKlinik = {
             nilai_normal: '< 200'
         },
     ],
-    fungsiGinjal: [
+    fungsi_ginjal: [
         {
             label: 'Ureum',
             hasil: '',
@@ -191,7 +191,7 @@ mappingMedicalRecord.kimiaKlinik = {
             }
         }
     ],
-    fungsiHati: [
+    fungsi_hati: [
         {
             label: 'SGOT',
             hasil: '',
@@ -441,7 +441,7 @@ mappingMedicalRecord.napza = [
 ];
 
 mappingMedicalRecord.imunoserologi = {
-    golonganDarah: {
+    golongan_darah: {
         hasil: '',
         option: [
             "A",

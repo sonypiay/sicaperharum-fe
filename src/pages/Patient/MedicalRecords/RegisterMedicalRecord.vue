@@ -15,15 +15,27 @@ import FormNapza from "./FormNapza.vue";
 import patientMedicalRecordAPI from "../../../utils/api/Patient/PatientMedicalRecordAPI.js";
 import {toastFailed, toastSuccess} from "../../../utils/alerts.js";
 import router from "../../../router/index.js";
+// import MedicalRecordsData from "../../../utils/MedicalRecordsData.js";
 
 const formInputHematologi = reactive(mappingMedicalRecord.hematologi);
-const formInputKimiaKlinik = reactive(mappingMedicalRecord.kimiaKlinik);
+const formInputKimiaKlinik = reactive(mappingMedicalRecord.kimia_klinik);
 const formInputUrinalisa = reactive(mappingMedicalRecord.urinalisa);
 const formInputNapza = reactive(mappingMedicalRecord.napza);
 const formInputImunoserologi = reactive(mappingMedicalRecord.imunoserologi);
 const formInputMikroskopis = reactive(mappingMedicalRecord.mikroskopis);
 const formInputTcm = reactive(mappingMedicalRecord.tcm);
 const formInputLainnya = reactive(mappingMedicalRecord.lainnya);
+
+const inputMedicalRecordsData = reactive({
+    hematologi: mappingMedicalRecord.hematologi,
+    kimia_klinik: mappingMedicalRecord.kimia_klinik,
+    urinalisa: mappingMedicalRecord.urinalisa,
+    napza: mappingMedicalRecord.napza,
+    imunoserologi: mappingMedicalRecord.imunoserologi,
+    mikroskopis: mappingMedicalRecord.mikroskopis,
+    tcm: mappingMedicalRecord.tcm,
+    lainnya: mappingMedicalRecord.lainnya,
+});
 
 const navTabList = reactive({
     list: [
@@ -98,52 +110,62 @@ function onHandleMappingFormMedicalRecord(data) {
     return filteredData.length > 0 ? filteredData : null;
 }
 
+// function onHandleMappingInputFormMedicalRecord() {
+//     inputMedicalRecordsData.hematologi = MedicalRecordsData.filter(item => item.value === 'hematologi')[0];
+//     inputMedicalRecordsData.kimia_klinik = MedicalRecordsData.filter(item => item.value === 'kimia_klinik')[0];
+//     inputMedicalRecordsData.urinalisa = MedicalRecordsData.filter(item => item.value === 'urinalisa')[0];
+//     inputMedicalRecordsData.napza = MedicalRecordsData.filter(item => item.value === 'napza')[0];
+//     inputMedicalRecordsData.imunoserologi = MedicalRecordsData.filter(item => item.value === 'imunoserologi')[0];
+//     inputMedicalRecordsData.mikroskopis = MedicalRecordsData.filter(item => item.value === 'mikroskopis')[0];
+//     inputMedicalRecordsData.tcm = MedicalRecordsData.filter(item => item.value === 'tcm')[0];
+//     inputMedicalRecordsData.lainnya = MedicalRecordsData.filter(item => item.value === 'lainnya')[0];
+// }
+
 async function onHandleSubmitForm() {
     const formPatient = JSON.parse(useSessionStorage('form-patient').value ?? "{}");
     formPatient.klaster = formPatient.klaster.value;
-    formPatient.spesimen = formPatient.spesimen.value;
-    formPatient.metode_pembayaran = formPatient.metode_pembayaran.label;
+    // formPatient.spesimen = formPatient.spesimen.value;
+    // formPatient.metode_pembayaran = formPatient.metode_pembayaran.label;
 
     const mappingHematologi = {
-        hematologi_rutin: onHandleMappingFormMedicalRecord(formInputHematologi.hematologiRutin),
-        index_eritrosit: onHandleMappingFormMedicalRecord(formInputHematologi.indexEritrosit),
-        laju_endap_darah: formInputHematologi.lajuEndapDarah,
-        jenis_leukosit: onHandleMappingFormMedicalRecord(formInputHematologi.jenisLeukosit),
+        hematologi_rutin: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.hematologi.hematologi_rutin),
+        index_eritrosit: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.hematologi.index_eritrosit),
+        laju_endap_darah: inputMedicalRecordsData.hematologi.laju_endap_darah,
+        jenis_leukosit: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.hematologi.jenis_leukosit),
     };
 
     const mappingKimiaKlinik = {
-        diabetes: onHandleMappingFormMedicalRecord(formInputKimiaKlinik.diabetes),
-        lipid: onHandleMappingFormMedicalRecord(formInputKimiaKlinik.lipid),
-        fungsi_ginjal: onHandleMappingFormMedicalRecord(formInputKimiaKlinik.fungsiGinjal),
-        fungsi_hati: onHandleMappingFormMedicalRecord(formInputKimiaKlinik.fungsiHati),
+        diabetes: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.kimia_klinik.diabetes),
+        lipid: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.kimia_klinik.lipid),
+        fungsi_ginjal: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.kimia_klinik.fungsi_ginjal),
+        fungsi_hati: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.kimia_klinik.fungsi_hati),
     };
 
     const mappingUrinalisa = {
-        makroskopis_kimia: onHandleMappingFormMedicalRecord(formInputUrinalisa.makroskopis_kimia),
-        sedimen: onHandleMappingFormMedicalRecord(formInputUrinalisa.sedimen),
+        makroskopis_kimia: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.urinalisa.makroskopis_kimia),
+        sedimen: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.urinalisa.sedimen),
     };
 
-    const mappingNapza = onHandleMappingFormMedicalRecord(formInputNapza);
+    const mappingNapza = onHandleMappingFormMedicalRecord(inputMedicalRecordsData.napza);
     const mappingImunoserologi = {
-        hiv: onHandleMappingFormMedicalRecord(formInputImunoserologi.hiv),
-        widal: onHandleMappingFormMedicalRecord(formInputImunoserologi.widal),
-        golongan_darah: formInputImunoserologi.golonganDarah,
-        rhesus: formInputImunoserologi.rhesus,
+        hiv: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.imunoserologi.hiv),
+        widal: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.imunoserologi.widal),
+        golongan_darah: inputMedicalRecordsData.imunoserologi.golongan_darah,
+        rhesus: inputMedicalRecordsData.imunoserologi.rhesus,
     };
 
     const mappingMikroskopis = {
-        feses: formInputMikroskopis.feses,
-        makroskopis: onHandleMappingFormMedicalRecord(formInputMikroskopis.makroskopis),
-        mikroskopis: onHandleMappingFormMedicalRecord(formInputMikroskopis.mikroskopis),
+        makroskopis: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.mikroskopis.makroskopis),
+        mikroskopis: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.mikroskopis.mikroskopis),
         ims: {
-            laki: onHandleMappingFormMedicalRecord(formInputMikroskopis.ims.laki),
-            perempuan: onHandleMappingFormMedicalRecord(formInputMikroskopis.ims.perempuan)
+            laki: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.mikroskopis.ims.laki),
+            perempuan: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.mikroskopis.ims.perempuan)
         },
-        bta: formInputMikroskopis.bta,
+        bta: inputMedicalRecordsData.mikroskopis.bta,
     };
 
-    const mappingTCM = onHandleMappingFormMedicalRecord(formInputTcm);
-    const mappingLainnya = onHandleMappingFormMedicalRecord(formInputLainnya);
+    const mappingTCM = onHandleMappingFormMedicalRecord(inputMedicalRecordsData.tcm);
+    const mappingLainnya = onHandleMappingFormMedicalRecord(inputMedicalRecordsData.lainnya);
 
     formsInput.value = {
         medical_result: {
@@ -164,20 +186,22 @@ async function onHandleSubmitForm() {
     const statusCode = fetchApi.statusCode;
 
     if( statusCode === 201 ) {
+        const medical_records = responseBody.medical_records;
         toastSuccess(`Hasil lab untuk pasien dengan nomor rekam medis ${formPatient.medical_number} berhasil dibuat.`);
 
         // reset form
-        Object.assign(formInputHematologi, mappingMedicalRecord.hematologi);
-        Object.assign(formInputKimiaKlinik, mappingMedicalRecord.kimiaKlinik);
-        Object.assign(formInputUrinalisa, mappingMedicalRecord.urinalisa);
-        Object.assign(formInputNapza, mappingMedicalRecord.napza);
-        Object.assign(formInputImunoserologi, mappingMedicalRecord.imunoserologi);
-        Object.assign(formInputMikroskopis, mappingMedicalRecord.mikroskopis);
-        Object.assign(formInputTcm, mappingMedicalRecord.tcm);
-        Object.assign(formInputLainnya, mappingMedicalRecord.lainnya);
+        Object.assign(inputMedicalRecordsData.hematologi, mappingMedicalRecord.hematologi);
+        Object.assign(inputMedicalRecordsData.kimia_klinik, mappingMedicalRecord.kimia_klinik);
+        Object.assign(inputMedicalRecordsData.urinalisa, mappingMedicalRecord.urinalisa);
+        Object.assign(inputMedicalRecordsData.napza, mappingMedicalRecord.napza);
+        Object.assign(inputMedicalRecordsData.imunoserologi, mappingMedicalRecord.imunoserologi);
+        Object.assign(inputMedicalRecordsData.mikroskopis, mappingMedicalRecord.mikroskopis);
+        Object.assign(inputMedicalRecordsData.tcm, mappingMedicalRecord.tcm);
+        Object.assign(inputMedicalRecordsData.lainnya, mappingMedicalRecord.lainnya);
         sessionStorage.removeItem('form-patient');
 
-        await router.push({name: 'visitor-detail', params: {registerNumber: responseBody.medical_records.register_number}});
+        await patientMedicalRecordAPI.downloadPdf(medical_records.register_number_id);
+        await router.push({name: 'visitor-detail', params: {registerNumber: medical_records.register_number_id}});
     } else {
         toastFailed(responseBody.message);
     }
@@ -186,6 +210,7 @@ async function onHandleSubmitForm() {
 const dataPatient = ref({});
 onMounted(() => {
     dataPatient.value = JSON.parse(useSessionStorage('form-patient').value ?? "{}");
+    // onHandleMappingInputFormMedicalRecord();
 });
 </script>
 
@@ -235,7 +260,11 @@ onMounted(() => {
                     </tr>
                     <tr v-if="dataPatient.spesimen">
                         <th>Jenis Spesimen</th>
-                        <td>{{ dataPatient.spesimen.label }}</td>
+                        <td>
+                            <span v-if="dataPatient.spesimen.length > 0">
+                                {{ dataPatient.spesimen.map(item => item.title).join(', ') }}
+                            </span>
+                        </td>
                     </tr>
                     <tr>
                         <th>Tanggal Pemeriksaan</th>
@@ -243,7 +272,11 @@ onMounted(() => {
                     </tr>
                     <tr v-if="dataPatient.metode_pembayaran">
                         <th>Metode Pembayaran</th>
-                        <td>{{ dataPatient.metode_pembayaran.label.join(', ') }}</td>
+                        <td>
+                            <span v-if="dataPatient.metode_pembayaran.length > 0">
+                                {{ dataPatient.metode_pembayaran.map(item => item.title).join(', ') }}
+                            </span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
