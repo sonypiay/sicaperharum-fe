@@ -200,7 +200,15 @@ async function onHandleSubmitForm() {
         Object.assign(inputMedicalRecordsData.lainnya, mappingMedicalRecord.lainnya);
         sessionStorage.removeItem('form-patient');
 
-        await patientMedicalRecordAPI.downloadPdf(medical_records.register_number_id);
+        const generatePdf = await patientMedicalRecordAPI.downloadPdf(medical_records.register_number_id);
+        const responsePdf = generatePdf.data;
+        const statusCodePdf = generatePdf.statusCode;
+
+        if( statusCodePdf === 200 ) {
+            window.open(responsePdf.url, '_blank');
+            console.log(responsePdf.url);
+        }
+
         await router.push({name: 'visitor-detail', params: {registerNumber: medical_records.register_number_id}});
     } else {
         toastFailed(responseBody.message);

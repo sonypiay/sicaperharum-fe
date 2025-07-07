@@ -53,21 +53,28 @@ mappingMedicalRecord.hematologi = {
             label: 'MCV',
             hasil: '',
             satuan: 'fL',
+            nilai_normal: "80 - 100",
         },
         {
             label: 'MCH',
             hasil: '',
             satuan: 'pg',
+            nilai_normal: "27 - 34",
         },
         {
             label: 'MCHC',
             hasil: '',
             satuan: 'g/dL',
+            nilai_normal: {
+                dewasa: '32 - 36',
+                anak: '31 - 37'
+            }
         },
         {
             label: 'RDW-SD',
             hasil: '',
             satuan: 'fL',
+            nilai_normal: '35 - 56'
         }
     ],
     laju_endap_darah: {

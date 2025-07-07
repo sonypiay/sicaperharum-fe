@@ -103,7 +103,13 @@ const props = defineProps({
                     <td>{{ column.label }}</td>
                     <td><input type="text" class="uk-input form-input form-input-small" v-model="column.hasil" /></td>
                     <td>{{ column.satuan }}</td>
-                    <td>{{ column.nilai_normal }}</td>
+                    <td>
+                        <span v-if="column.label === 'MCHC'">
+                            <span v-if="props.formDataPatient.patientType === 'adult'">{{ column.nilai_normal.dewasa }}</span>
+                            <span v-else>{{ column.nilai_normal.anak }}</span>
+                        </span>
+                        <span v-else>{{ column.nilai_normal }}</span>
+                    </td>
                 </tr>
             </tbody>
         </table>

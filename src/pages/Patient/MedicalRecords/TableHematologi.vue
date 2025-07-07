@@ -42,7 +42,13 @@ const props = defineProps({
             <td>{{ column.label }}</td>
             <td>{{ column.hasil }}</td>
             <td>{{ column.satuan }}</td>
-            <td>{{ column.nilai_normal }}</td>
+            <td>
+                <span v-if="column.label === 'MCHC'">
+                    <span v-if="props.dataPatient.category === 'adult'">{{ column.nilai_normal.dewasa }}</span>
+                    <span v-else>{{ column.nilai_normal.anak }}</span>
+                </span>
+                <span v-else>{{ column.nilai_normal }}</span>
+            </td>
         </tr>
     </tbody>
 

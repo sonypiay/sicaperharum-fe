@@ -43,16 +43,19 @@ const props = defineProps({
         </tr>
     </tbody>
 
-    <tbody v-if="props.medicalRecord.hasOwnProperty('ims') && props.medicalRecord.ims !== null">
+    <tbody v-if="props.medicalRecord.ims.laki !== null">
         <tr><th colspan="4">IMS</th></tr>
-        <tr v-if="props.medicalRecord.ims.hasOwnProperty('laki') && props.medicalRecord.ims.laki !== null" v-for="(column, index) in props.medicalRecord.ims.laki" :key="`ims-laki-${index}`">
+        <tr v-for="(column, index) in props.medicalRecord.ims.laki" :key="`ims-laki-${index}`">
             <td>{{ column.label }}</td>
             <td>{{ column.hasil }}</td>
             <td>{{ column.satuan }}</td>
             <td>{{ column.nilai_normal }}</td>
         </tr>
+    </tbody>
 
-        <tr v-if="props.medicalRecord.ims.hasOwnProperty('perempuan') && props.medicalRecord.ims.perempuan !== null" v-for="(column, index) in props.medicalRecord.ims.perempuan" :key="`ims-perempuan-${index}`">
+    <tbody v-if="props.medicalRecord.ims.perempuan !== null">
+        <tr><th colspan="4">IMS</th></tr>
+        <tr v-for="(column, index) in props.medicalRecord.ims.perempuan" :key="`ims-perempuan-${index}`">
             <td>{{ column.label }}</td>
             <td>{{ column.hasil }}</td>
             <td>{{ column.satuan }}</td>
