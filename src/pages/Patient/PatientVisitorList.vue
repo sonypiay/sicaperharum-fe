@@ -11,11 +11,11 @@ import spesimenAPI from "../../utils/api/MasterData/SpesimenAPI.js";
 const searchField = reactive({
     register_number: '',
     medical_number: '',
-    klaster: '',
-    spesimen: '',
     tanggal_start_pickup: '',
     tanggal_end_pickup: '',
     page: 1,
+    tanggal_lahir: '',
+    patient_name: '',
 });
 
 const dataPatientVisitor = reactive({
@@ -35,7 +35,8 @@ const dataPatientVisitor = reactive({
 const dataKlaster = ref([]);
 const dataSpesimen = ref([]);
 const isSearchEnable = ref(false);
-let instanceFlatpickr = null;
+let instancePickupDatePicker = null;
+let instanceDobPicker = null;
 
 async function fetchPatientVisitor(page) {
     const fetchApi = await patientMedicalRecordAPI.getAll(searchField, page);
@@ -78,41 +79,59 @@ function handleToggleSearch() {
     isSearchEnable.value = !isSearchEnable.value;
 }
 
-function onHandleRenderPickupDate() {
-    const option = {
-        dateFormat: "Y-m-d",
-        altFormat: "F j, Y",
-        altInput: true,
-        enableTime: false,
-        maxDate: "today",
-        mode: 'range',
-        onChange: function(selectedDates, dateStr, instance) {
-            const date1 = selectedDates[0] ? dayjs(selectedDates[0]).format('YYYY-MM-DD') : '';
-            const date2 = selectedDates[1] ? dayjs(selectedDates[1]).format('YYYY-MM-DD') : '';
+function onHandleRenderDatePicker() {
+    const options = {
+        pickupDate: {
+            dateFormat: "Y-m-d",
+            altFormat: "F j, Y",
+            altInput: true,
+            enableTime: false,
+            maxDate: "today",
+            mode: 'range',
+            onChange: function(selectedDates, dateStr, instance) {
+                const date1 = selectedDates[0] ? dayjs(selectedDates[0]).format('YYYY-MM-DD') : '';
+                const date2 = selectedDates[1] ? dayjs(selectedDates[1]).format('YYYY-MM-DD') : '';
 
-            searchField.tanggal_start_pickup = date1;
-            searchField.tanggal_end_pickup = date2;
+                searchField.tanggal_start_pickup = date1;
+                searchField.tanggal_end_pickup = date2;
+            }
+        },
+        dob: {
+            dateFormat: "Y-m-d",
+            altFormat: "F j, Y",
+            altInput: true,
+            enableTime: false,
+            maxDate: "today",
         }
     };
 
-    if( instanceFlatpickr !== null ) {
-        instanceFlatpickr.destroy();
+    if( instancePickupDatePicker !== null ) {
+        instancePickupDatePicker.destroy();
+    }
+    
+    if( instanceDobPicker !== null ) {
+        instanceDobPicker.destroy();
     }
 
-    instanceFlatpickr = datePicker("#input-tanggal-pengambilan", option);
+    instancePickupDatePicker = datePicker("#input-tanggal-pengambilan", options.pickupDate);
+    instanceDobPicker = datePicker("#input-tanggal-lahir", options.dob);
 }
 
 async function handleResetSearch() {
     searchField.register_number = '';
     searchField.medical_number = '';
-    searchField.klaster = '';
-    searchField.spesimen = '';
+    searchField.patient_name = '';
+    searchField.tanggal_lahir = '';
     searchField.tanggal_start_pickup = '';
     searchField.tanggal_end_pickup = '';
     searchField.page = 1;
 
-    if( instanceFlatpickr ) {
-        instanceFlatpickr.clear();
+    if( instancePickupDatePicker ) {
+        instancePickupDatePicker.clear();
+    }
+
+    if( instanceDobPicker ) {
+        instanceDobPicker.clear();
     }
 
     await fetchPatientVisitor();
@@ -128,7 +147,7 @@ async function handlePageChange(page) {
 
 onMounted(async () => {
     if( isSearchEnable.value === true ) {
-        onHandleRenderPickupDate();
+        onHandleRenderDatePicker();
     }
 
     await fetchPatientVisitor();
@@ -139,9 +158,9 @@ onMounted(async () => {
 watch(isSearchEnable, async (newVal) => {
     if( newVal === true ) {
         await nextTick();
-        onHandleRenderPickupDate();
+        onHandleRenderDatePicker();
     } else {
-        if( instanceFlatpickr ) { instanceFlatpickr.destroy(); }
+        if( instancePickupDatePicker ) { instancePickupDatePicker.destroy(); }
     }
 });
 
@@ -173,41 +192,35 @@ watch(isSearchEnable, async (newVal) => {
 
             <form class="uk-form-stacked uk-margin-top uk-grid-small" @submit.prevent="false" v-if="isSearchEnable === true">
                 <div class="uk-grid-small" uk-grid>
-                    <div class="uk-width-1-3@m uk-width-1-1@s">
+                    <div class="uk-width-1-3@m uk-width-1-2@s">
                         <label class="uk-form-label form-label">No. Rekam Medis</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" v-model="searchField.medical_number" placeholder="Cari berdasarkan nomor rekam medis" />
                         </div>
                     </div>
 
-                    <div class="uk-width-1-3@m uk-width-1-1@s">
+                    <div class="uk-width-1-3@m uk-width-1-2@s">
                         <label class="uk-form-label form-label">Nomor Registrasi</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" v-model="searchField.register_number" placeholder="Cari berdasarkan nomor registrasi" />
                         </div>
                     </div>
 
-                    <div class="uk-width-1-3@m uk-width-1-1@s">
-                        <label class="uk-form-label form-label">Klaster</label>
+                    <div class="uk-width-1-3@m uk-width-1-2@s">
+                        <label class="uk-form-label form-label">Nama Pasien</label>
                         <div class="uk-form-controls">
-                            <select class="uk-width-1-1 uk-select form-select" v-model="searchField.klaster" aria-label="Select">
-                                <option value="" selected>Pilih Klaster</option>
-                                <option v-for="item in dataKlaster" :key="item.id" :value="item.id">{{ item.title }}</option>
-                            </select>
+                            <input type="text" class="uk-width-1-1 uk-input form-input" v-model="searchField.patient_name" placeholder="Cari berdasarkan nama pasien" />
                         </div>
                     </div>
 
-                    <div class="uk-width-1-3@m uk-width-1-1@s">
-                        <label class="uk-form-label form-label">Jenis Spesimen</label>
+                    <div class="uk-width-1-3@m uk-width-1-2@s">
+                        <label for="input-tanggal-lahir" class="uk-form-label form-label">Tanggal Lahir</label>
                         <div class="uk-form-controls">
-                            <select class="uk-width-1-1 uk-select form-select" v-model="searchField.spesimen" aria-label="Select">
-                                <option value="" selected>Pilih Spesimen</option>
-                                <option v-for="item in dataSpesimen" :key="item.id" :value="item.id">{{ item.title }}</option>
-                            </select>
+                            <input type="text" class="uk-width-1-1 uk-input form-input" id="input-tanggal-lahir" v-model="searchField.tanggal_lahir" />
                         </div>
                     </div>
 
-                    <div class="uk-width-1-3@m uk-width-1-1@s">
+                    <div class="uk-width-1-3@m uk-width-1-2@s">
                         <label for="input-tanggal-pengambilan" class="uk-form-label form-label">Tanggal Pengambilan</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" id="input-tanggal-pengambilan" />
@@ -215,13 +228,9 @@ watch(isSearchEnable, async (newVal) => {
                     </div>
                 </div>
 
-                <div class="uk-grid-small uk-child-width-1-4@m uk-child-width-1-2@s" uk-grid>
-                    <div>
-                        <button @click="handleSearch()" class="uk-width-1-1@s uk-button uk-button-primary button button-primary">Cari</button>
-                    </div>
-                    <div>
-                        <button @click="handleResetSearch()" class="uk-width-1-1@s uk-button uk-button-default button button-default">Reset</button>
-                    </div>
+                <div class="uk-margin">
+                    <button @click="handleSearch()" class="uk-button uk-button-primary button button-primary">Cari</button>
+                    <button @click="handleResetSearch()" class="uk-margin-small-left uk-button uk-button-default button button-default">Reset</button>
                 </div>
             </form>
         </div>
@@ -245,7 +254,7 @@ watch(isSearchEnable, async (newVal) => {
                     <tbody>
                         <tr v-for="data in dataPatientVisitor.data" :key="data.register_number">
                             <td>
-                                <router-link :to="{name: 'visitor-detail', params: { registerNumber: data.register_number }}" class="uk-width-1-1@s uk-button uk-button-small uk-button-primary button button-primary">
+                                <router-link :to="{name: 'visitor-detail', params: { registerNumber: data.register_number }}" class="uk-button uk-button-small uk-button-primary button button-primary">
                                     <span class="las la-eye"></span> Lihat
                                 </router-link>
                             </td>
@@ -254,7 +263,7 @@ watch(isSearchEnable, async (newVal) => {
                             <td>{{ data.patient.fullname }}</td>
                             <td>{{ dayjs(data.patient.dob).format('DD MMMM YYYY') }}</td>
                             <td>{{ data.patient.age }} tahun</td>
-                            <td>{{ data.patient.gender.label }}</td>
+                            <td>{{ data.patient.gender.name }}</td>
                             <td>{{ data.patient.phone_number }}</td>
                             <td>{{ dayjs(data.pickup_datetime).format('DD MMMM YYYY HH:mm') }}</td>
                         </tr>

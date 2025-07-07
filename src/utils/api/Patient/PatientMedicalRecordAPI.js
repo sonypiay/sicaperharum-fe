@@ -46,8 +46,8 @@ const patientMedicalRecordAPI = {
         if( search ) {
             if( search.medical_number !== '' ) endpoint.searchParams.append('medical_number', search.medical_number);
             if( search.register_number !== '' ) endpoint.searchParams.append('register_number', search.register_number);
-            if( search.klaster !== '' ) endpoint.searchParams.append('klaster', search.klaster);
-            if( search.spesimen !== '' ) endpoint.searchParams.append('spesimen', search.spesimen);
+            if( search.patient_name !== '' ) endpoint.searchParams.append('patient_name', search.patient_name);
+            if( search.tanggal_lahir !== '' ) endpoint.searchParams.append('tanggal_lahir', search.tanggal_lahir);
 
             if( search.tanggal_start_pickup !== '' ) {
                 endpoint.searchParams.append('tanggal_start_pickup', search.tanggal_start_pickup);
