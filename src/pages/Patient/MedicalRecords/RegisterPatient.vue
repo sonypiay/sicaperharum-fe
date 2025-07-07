@@ -197,34 +197,33 @@ async function onHandleSelectPatient(value) {
     formsInput.gender = value.gender.value;
     formsInput.phone_number = value.phone_number;
 
-    onHandleRenderDOB(value.dob);
+    onHandleRenderDatePicker();
 }
 
-function onHandleRenderDOB(date) {
-    const option = {
-        dateFormat: "Y-m-d",
-        altFormat: "F j, Y",
-        altInput: true,
-        enableTime: false,
-        maxDate: "today"
+function onHandleRenderDatePicker() {
+    const options = {
+        pickupDate: {
+            dateFormat: "Y-m-d H:i",
+            altFormat: "F j, Y H:i",
+            altInput: true,
+            enableTime: true,
+            time_24hr: true,
+            minDate: "today",
+        },
+        dob: {
+            dateFormat: "Y-m-d",
+            altFormat: "F j, Y",
+            altInput: true,
+            enableTime: false,
+            maxDate: "today"
+        }
     };
 
-    if( date ) option.defaultDate = date;
+    if( formsInput.dob !== '' ) options.dob.defaultDate = formsInput.dob;
+    if( formsInput.pickup_datetime !== '' ) options.pickupDate.defaultDate = formsInput.pickup_datetime;
 
-    datePicker("#input-dob", option);
-}
-
-function onHandleRenderPickupDatetime() {
-    const optionDatePickerPickup = {
-        dateFormat: "Y-m-d H:i",
-        altFormat: "F j, Y H:i",
-        altInput: true,
-        enableTime: true,
-        time_24hr: true,
-        minDate: "today",
-    };
-
-    datePicker("#input-tanggal-pickup", optionDatePickerPickup);
+    datePicker("#input-tanggal-pickup", options.pickupDate);
+    datePicker("#input-dob", options.dob);
 }
 
 async function onHandleSubmitForm() {
@@ -247,14 +246,22 @@ async function onHandleSubmitForm() {
     }
 }
 
-onMounted(async() => {
-    onHandleRenderDOB();
-    onHandleRenderPickupDatetime();
+function onHandleFilledForm() {
+    const formPatient = sessionStorage.getItem("form-patient") ?? null;
 
+    if( formPatient !== null ) {
+        Object.assign(formsInput, JSON.parse(formPatient));
+    }
+}
+
+onMounted(async() => {
     await fetchGenerateRegisterNumber();
     await fetchDataKlaster();
     await fetchDataSpesimen();
     await fetchDataMetodePembayaran();
+
+    onHandleFilledForm();
+    onHandleRenderDatePicker();
 });
 </script>
 
