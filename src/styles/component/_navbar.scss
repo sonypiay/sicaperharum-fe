@@ -2,7 +2,7 @@
 
 .navbar-container {
     background-color: #ffffff;
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #eeeeee;
 
     .navbar-profile-container {
         text-decoration: none;
@@ -51,7 +51,8 @@
 }
 
 .sidebar-nav {
-    border-right: 1px solid #dddddd;
+    border-right: 1px solid #eeeeee;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 
     ul.nav-list {
         margin-top: 2rem;

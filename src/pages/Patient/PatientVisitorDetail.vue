@@ -115,15 +115,16 @@ onMounted(async () => {
         <div class="card-heading">Data Hasil Pemeriksaan Pasien</div>
 
         <div class="uk-card uk-margin-top">
-            <div class="uk-flex uk-flex-right uk-margin-large-bottom">
+            <div class="uk-flex uk-flex-right uk-margin-bottom">
                 <button @click="onHandleDownloadPDF()" class="uk-button uk-button-primary button button-primary">Download PDF</button>
                 <button class="uk-margin-small-left uk-button uk-button-primary button button-primary">Send WhatsApp</button>
             </div>
 
-            <div class="uk-grid-small uk-grid-divider card-information-detail" uk-grid>
-                <div class="uk-width-1-2@l uk-width-1-1@s">
-                    <table class="uk-table uk-table-small uk-table-middle uk-table-divider table">
-                        <thead>
+            <div class="uk-card uk-card-default card-information-detail">
+                <div class="uk-grid-small uk-grid-divider" uk-grid>
+                    <div class="uk-width-1-2@l uk-width-1-1@s">
+                        <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-responsive uk-table-justify table">
+                            <thead>
                             <tr>
                                 <th>Dokter / Unit Pengirim</th>
                                 <th>:</th>
@@ -132,8 +133,8 @@ onMounted(async () => {
                             <tr>
                                 <th colspan="3">Informasi Pasien</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             <tr>
                                 <th>No. RM</th>
                                 <th>:</th>
@@ -154,12 +155,12 @@ onMounted(async () => {
                                 <th>:</th>
                                 <td>{{ dayjs(dataPatientMedicalRecord.patient.dob).format('DD MMMM YYYY') }}</td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="uk-width-1-2@l uk-width-1-1@s">
-                    <table class="uk-table uk-table-small uk-table-middle uk-table-divider table">
-                        <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="uk-width-1-2@l uk-width-1-1@s">
+                        <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-responsive uk-table-justify table">
+                            <tbody>
                             <tr>
                                 <th>Umur</th>
                                 <th>:</th>
@@ -197,65 +198,67 @@ onMounted(async () => {
                                 <th>:</th>
                                 <td>{{ dataPatientMedicalRecord.spesimen }}</td>
                             </tr>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <hr>
-        <table class="uk-table uk-table-small uk-table-divider uk-table-middle table" v-if="dataPatientMedicalRecord.medicalResult">
-            <thead>
-                <tr>
-                    <th>Pemeriksaan</th>
-                    <th>Nilai</th>
-                    <th>Satuan</th>
-                    <th>Nilai Normal</th>
-                </tr>
-            </thead>
+        <div class="uk-card uk-card-default uk-margin-top card-information-detail">
+            <table class="uk-table uk-table-small uk-table-middle uk-table-divider uk-table-responsive uk-table-justify table" v-if="dataPatientMedicalRecord.medicalResult">
+                <thead>
+                    <tr>
+                        <th>Pemeriksaan</th>
+                        <th>Nilai</th>
+                        <th>Satuan</th>
+                        <th>Nilai Normal</th>
+                    </tr>
+                </thead>
 
-            <TableHematologi
-                v-if="!isDataMedicalRecordEmpty.hematologi"
-                :medical-record="dataPatientMedicalRecord.medicalResult.hematologi"
-                :data-patient="dataPatientMedicalRecord.patient"
-            />
+                <TableHematologi
+                    v-if="!isDataMedicalRecordEmpty.hematologi"
+                    :medical-record="dataPatientMedicalRecord.medicalResult.hematologi"
+                    :data-patient="dataPatientMedicalRecord.patient"
+                />
 
-            <TableKimiaKlinik
-                v-if="!isDataMedicalRecordEmpty.kimia_klinik"
-                :medical-record="dataPatientMedicalRecord.medicalResult.kimia_klinik"
-                :data-patient="dataPatientMedicalRecord.patient"
-            />
+                <TableKimiaKlinik
+                    v-if="!isDataMedicalRecordEmpty.kimia_klinik"
+                    :medical-record="dataPatientMedicalRecord.medicalResult.kimia_klinik"
+                    :data-patient="dataPatientMedicalRecord.patient"
+                />
 
-            <TableUrinalisa
-                v-if="!isDataMedicalRecordEmpty.urinalisa"
-                :medical-record="dataPatientMedicalRecord.medicalResult.urinalisa"
-            />
+                <TableUrinalisa
+                    v-if="!isDataMedicalRecordEmpty.urinalisa"
+                    :medical-record="dataPatientMedicalRecord.medicalResult.urinalisa"
+                />
 
-            <TableNapza
-                v-if="!isDataMedicalRecordEmpty.napza"
-                :medical-record="dataPatientMedicalRecord.medicalResult.napza"
-            />
+                <TableNapza
+                    v-if="!isDataMedicalRecordEmpty.napza"
+                    :medical-record="dataPatientMedicalRecord.medicalResult.napza"
+                />
 
-            <TableImunoserologi
-                v-if="!isDataMedicalRecordEmpty.imunoserologi"
-                :medical-record="dataPatientMedicalRecord.medicalResult.imunoserologi"
-            />
+                <TableImunoserologi
+                    v-if="!isDataMedicalRecordEmpty.imunoserologi"
+                    :medical-record="dataPatientMedicalRecord.medicalResult.imunoserologi"
+                />
 
-            <TableMikroskopis
-                v-if="!isDataMedicalRecordEmpty.mikroskopis"
-                :medical-record="dataPatientMedicalRecord.medicalResult.mikroskopis"
-            />
+                <TableMikroskopis
+                    v-if="!isDataMedicalRecordEmpty.mikroskopis"
+                    :medical-record="dataPatientMedicalRecord.medicalResult.mikroskopis"
+                />
 
-            <TableTCM
-                v-if="!isDataMedicalRecordEmpty.tcm"
-                :medical-record="dataPatientMedicalRecord.medicalResult.tcm"
-            />
+                <TableTCM
+                    v-if="!isDataMedicalRecordEmpty.tcm"
+                    :medical-record="dataPatientMedicalRecord.medicalResult.tcm"
+                />
 
-            <TableLainnya
-                v-if="!isDataMedicalRecordEmpty.lainnya"
-                :medical-record="dataPatientMedicalRecord.medicalResult.lainnya"
-            />
-        </table>
+                <TableLainnya
+                    v-if="!isDataMedicalRecordEmpty.lainnya"
+                    :medical-record="dataPatientMedicalRecord.medicalResult.lainnya"
+                />
+            </table>
+        </div>
     </section>
 </template>
 
