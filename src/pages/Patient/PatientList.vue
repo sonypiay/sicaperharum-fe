@@ -142,7 +142,7 @@ onBeforeMount(async () => {
                 <tbody>
                     <tr v-for="data in dataPatient.data" :key="data.id">
                         <td>
-                            <router-link :to="{name: 'edit-patient', params: { id: data.id }}" class="uk-width-1-1@s uk-button uk-button-small uk-button-primary button button-primary">
+                            <router-link :to="{name: 'edit-patient', params: { id: data.id }}" class="uk-button uk-button-small uk-button-primary button button-primary">
                                 <span class="las la-edit"></span> Ubah
                             </router-link>
                         </td>
