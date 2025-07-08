@@ -171,7 +171,7 @@ async function handleDeleteButton(id, registerNumber) {
         const response = await patientMedicalRecordAPI.delete(id);
         const statusCode = response.statusCode;
 
-        if( statusCode === 200 ) {
+        if( statusCode === 202 ) {
             toastSuccess(`Data hasil lab ${registerNumber} berhasil dihapus`);
             await fetchPatientVisitor();
         } else {

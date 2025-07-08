@@ -303,14 +303,14 @@ onMounted(() => {
                     <button @click="onHandleSubmitForm()" class="uk-margin-small-left uk-button uk-button-primary button button-primary">Submit</button>
                 </div>
 
-                <FormHematologi v-if="currentNavTab === 'hematologi'" :form-data-patient="dataPatient" :formInput="formInputHematologi" />
-                <FormKimiaKlinik v-if="currentNavTab === 'kimia_klinik'" :form-data-patient="dataPatient" :formInput="formInputKimiaKlinik" />
-                <FormUrinalisa v-if="currentNavTab === 'urinalisa'" :formInput="formInputUrinalisa" />
-                <FormNapza v-if="currentNavTab === 'napza'" :formInput="formInputNapza" />
-                <FormImunoserologi v-if="currentNavTab === 'imunoserologi'" :formInput="formInputImunoserologi" />
-                <FormMikroskopis v-if="currentNavTab === 'mikroskopis'" :form-data-patient="dataPatient" :formInput="formInputMikroskopis" />
-                <FormTCM v-if="currentNavTab === 'tcm'" :formInput="formInputTcm" />
-                <FormLainnya v-if="currentNavTab === 'lainnya'" :formInput="formInputLainnya" />
+                <FormHematologi v-if="currentNavTab === 'hematologi'" :form-data-patient="dataPatient" :formInput="inputMedicalRecordsData.hematologi" />
+                <FormKimiaKlinik v-if="currentNavTab === 'kimia_klinik'" :form-data-patient="dataPatient" :formInput="inputMedicalRecordsData.kimia_klinik" />
+                <FormUrinalisa v-if="currentNavTab === 'urinalisa'" :formInput="inputMedicalRecordsData.urinalisa" />
+                <FormNapza v-if="currentNavTab === 'napza'" :formInput="inputMedicalRecordsData.napza" />
+                <FormImunoserologi v-if="currentNavTab === 'imunoserologi'" :formInput="inputMedicalRecordsData.imunoserologi" />
+                <FormMikroskopis v-if="currentNavTab === 'mikroskopis'" :form-data-patient="dataPatient" :formInput="inputMedicalRecordsData.mikroskopis" />
+                <FormTCM v-if="currentNavTab === 'tcm'" :formInput="inputMedicalRecordsData.tcm" />
+                <FormLainnya v-if="currentNavTab === 'lainnya'" :formInput="inputMedicalRecordsData.lainnya" />
 
                 <div class="uk-margin-top uk-text-center">
                     <router-link :to="{name: 'form-register-patient'}" class="uk-button uk-button-default button button-default">
