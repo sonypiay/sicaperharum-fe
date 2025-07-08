@@ -46,10 +46,13 @@ const patientAPI = {
         const userToken = localStorage.getItem('user_token') ?? null;
         const endpoint = page ? new URL(page) : new URL(`${apis.backendApi}/patients`);
 
-        if( search.medical_number  ) endpoint.searchParams.append('medical_number', search.medical_number);
-        if( search.name ) endpoint.searchParams.append('name', search.name);
-        if( search.gender ) endpoint.searchParams.append('gender', search.gender);
-        if( search.phone_number ) endpoint.searchParams.append('phone_number', search.phone_number);
+        if( search ) {
+            if( search.medical_number  ) endpoint.searchParams.append('medical_number', search.medical_number);
+            if( search.name ) endpoint.searchParams.append('name', search.name);
+            if( search.gender ) endpoint.searchParams.append('gender', search.gender);
+            if( search.phone_number ) endpoint.searchParams.append('phone_number', search.phone_number);
+            if( search.dob ) endpoint.searchParams.append('dob', search.dob);
+        }
 
         const fetchApi = await fetch(endpoint, {
             method: apis.method.get,

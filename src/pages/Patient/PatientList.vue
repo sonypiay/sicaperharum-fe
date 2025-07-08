@@ -1,9 +1,10 @@
 <script setup>
 
-import {onBeforeMount, reactive, ref} from "vue";
+import {nextTick, onMounted, reactive, ref, watch} from "vue";
 import patientAPI from "../../utils/api/Patient/PatientAPI.js";
 import dayjs from "dayjs";
 import {toastFailed} from "../../utils/alerts.js";
+import {datePicker} from "../../utils/datePickerUtil.js";
 
 const searchField = reactive({
     medical_number: '',
@@ -11,6 +12,7 @@ const searchField = reactive({
     phone_number: '',
     gender: '',
     page: 1,
+    dob: '',
 });
 
 const dataPatient = reactive({
@@ -28,6 +30,7 @@ const dataPatient = reactive({
     },
 });
 const isSearchEnable = ref(false);
+let instanceDobPicker = null;
 
 async function fetchPatient(page) {
     const fetchApi = await patientAPI.getAll(searchField, page);
@@ -54,8 +57,54 @@ async function handlePageChange(page) {
     await fetchPatient(page);
 }
 
-onBeforeMount(async () => {
+async function handleResetSearch() {
+    searchField.register_number = '';
+    searchField.name = '';
+    searchField.gender = '';
+    searchField.dob = '';
+    searchField.phone_number = '';
+    searchField.page = 1;
+
+    if( instanceDobPicker ) {
+        instanceDobPicker.clear();
+    }
+
     await fetchPatient();
+}
+
+function onHandleRenderDatePicker() {
+    const options = {
+        dob: {
+            dateFormat: "Y-m-d",
+            altFormat: "F j, Y",
+            altInput: true,
+            enableTime: false,
+            maxDate: "today",
+        }
+    };
+
+    if( instanceDobPicker !== null ) {
+        instanceDobPicker.destroy();
+    }
+
+    instanceDobPicker = datePicker("#input-dob", options.dob);
+}
+
+onMounted(async () => {
+    await fetchPatient();
+
+    if( isSearchEnable.value === true ) {
+        onHandleRenderDatePicker();
+    }
+});
+
+watch(isSearchEnable, async (newVal) => {
+    if( newVal === true ) {
+        await nextTick();
+        onHandleRenderDatePicker();
+    } else {
+        if( instanceDobPicker ) { instanceDobPicker.destroy(); }
+    }
 });
 
 </script>
@@ -64,7 +113,7 @@ onBeforeMount(async () => {
     <section class="card-section">
         <div class="uk-flex uk-flex-between">
             <div class="card-heading">Daftar Pasien</div>
-            <div class="uk-flex uk-flex-right">
+            <div class="uk-text-right">
                 <router-link :to="{name: 'create-patient'}" class="uk-button uk-button-primary button button-primary">
                     Tambah
                 </router-link>
@@ -85,30 +134,30 @@ onBeforeMount(async () => {
                 </div>
             </div>
 
-            <form class="uk-form-stacked uk-margin-top" @submit.prevent="handleSearch()" v-if="isSearchEnable === true">
+            <form class="uk-form-stacked uk-margin-top" @submit.prevent="false" v-if="isSearchEnable === true">
                 <div class="uk-grid-small" uk-grid>
-                    <div class="uk-width-1-3@m uk-width-1-1@s">
+                    <div class="uk-width-1-3@m uk-width-1-2@s">
                         <label class="uk-form-label form-label">No. Rekam Medis</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" v-model="searchField.medical_number" placeholder="Cari berdasarkan nomor rekam medis" />
                         </div>
                     </div>
 
-                    <div class="uk-width-1-3@m uk-width-1-1@s">
+                    <div class="uk-width-1-3@m uk-width-1-2@s">
                         <label class="uk-form-label form-label">Nama</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" v-model="searchField.name" placeholder="Cari berdasarkan nama" />
                         </div>
                     </div>
 
-                    <div class="uk-width-1-3@m uk-width-1-1@s">
+                    <div class="uk-width-1-3@m uk-width-1-2@s">
                         <label class="uk-form-label form-label">No. Telepon</label>
                         <div class="uk-form-controls">
                             <input type="text" class="uk-width-1-1 uk-input form-input" v-model="searchField.phone_number" placeholder="Cari berdasarkan nomor telepon" />
                         </div>
                     </div>
 
-                    <div class="uk-width-1-3@m uk-width-1-1@s">
+                    <div class="uk-width-1-3@m uk-width-1-2@s">
                         <label class="uk-form-label form-label">Jenis Kelamin</label>
                         <div class="uk-form-controls">
                             <select class="uk-width-1-1 uk-select form-select" v-model="searchField.gender">
@@ -118,10 +167,18 @@ onBeforeMount(async () => {
                             </select>
                         </div>
                     </div>
+
+                    <div class="uk-width-1-3@m uk-width-1-2@s">
+                        <label for="input-dob" class="uk-form-label form-label">Tanggal Lahir</label>
+                        <div class="uk-form-controls">
+                            <input type="text" class="uk-width-1-1 uk-input form-input" id="input-dob" v-model="searchField.dob" />
+                        </div>
+                    </div>
                 </div>
 
                 <div class="uk-margin">
-                    <button class="uk-button uk-button-primary button button-primary">Cari</button>
+                    <button @click="handleSearch()" class="uk-button uk-button-primary button button-primary">Cari</button>
+                    <button @click="handleResetSearch()" class="uk-margin-small-left uk-button uk-button-default button button-default">Reset</button>
                 </div>
             </form>
         </div>
