@@ -247,10 +247,11 @@ async function onHandleSubmitForm() {
 }
 
 function onHandleFilledForm() {
-    const formPatient = sessionStorage.getItem("form-patient") ?? null;
+    const sessionFormPatient = sessionStorage.getItem("form-patient") ?? null;
 
-    if( formPatient !== null ) {
-        Object.assign(formsInput, JSON.parse(formPatient));
+    if( sessionFormPatient !== null && sessionFormPatient !== '' ) {
+        const formPatient = JSON.parse(sessionFormPatient);
+        Object.assign(formsInput, formPatient);
     }
 }
 

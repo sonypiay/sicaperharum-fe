@@ -109,6 +109,24 @@ const patientMedicalRecordAPI = {
             data: await fetchApi.json(),
             statusCode: fetchApi.status
         };
+    },
+    delete: async(id) => {
+        const userToken = localStorage.getItem('user_token') ?? null;
+        const endpoint = `${apis.backendApi}/patients/medical-records/${id}`;
+        const fetchApi = await fetch(endpoint, {
+            method: apis.method.delete,
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization': `Bearer ${userToken}`
+            }
+        });
+
+        return {
+            data: await fetchApi.json(),
+            statusCode: fetchApi.status
+        };
     }
 }
 

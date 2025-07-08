@@ -13,7 +13,7 @@ import dayjs from "dayjs";
 import mappingMedicalRecord from "../../../utils/mappingMedicalRecord.js";
 import FormNapza from "./FormNapza.vue";
 import patientMedicalRecordAPI from "../../../utils/api/Patient/PatientMedicalRecordAPI.js";
-import {toastFailed, toastSuccess} from "../../../utils/alerts.js";
+import {alertConfirm, toastFailed, toastSuccess} from "../../../utils/alerts.js";
 import router from "../../../router/index.js";
 // import MedicalRecordsData from "../../../utils/MedicalRecordsData.js";
 
@@ -122,6 +122,12 @@ function onHandleMappingFormMedicalRecord(data) {
 // }
 
 async function onHandleSubmitForm() {
+    const confirmForm = await alertConfirm("Konfirmasi", "Apakah anda yakin ingin menyimpan hasil lab ini?");
+
+    if(confirmForm !== true) {
+        return false;
+    }
+
     const formPatient = JSON.parse(useSessionStorage('form-patient').value ?? "{}");
     formPatient.klaster = formPatient.klaster.value;
     // formPatient.spesimen = formPatient.spesimen.value;

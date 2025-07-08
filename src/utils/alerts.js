@@ -1,9 +1,9 @@
-import Swal from "sweetalert2"
+import swal from 'sweetalert';
 import Toastify from 'toastify-js';
 import "toastify-js/src/toastify.css";
 
 export const alertSuccess = async(title, message) => {
-    return Swal.fire({
+    return swal({
         icon: 'success',
         title: title,
         text: message,
@@ -11,7 +11,7 @@ export const alertSuccess = async(title, message) => {
 }
 
 export const alertFailed = async(title, message) => {
-    return Swal.fire({
+    return swal({
         icon: 'error',
         title: title,
         text: message,
@@ -19,20 +19,12 @@ export const alertFailed = async(title, message) => {
 };
 
 export const alertConfirm = async(title, message) => {
-    return Swal.fire({
+    return await swal({
         title: title,
         text: message,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            return true;
-        } else {
-            return false;
-        }
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
     });
 }
 

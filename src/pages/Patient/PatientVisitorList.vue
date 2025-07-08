@@ -2,7 +2,7 @@
 
 import {nextTick, onMounted, reactive, ref, watch} from "vue";
 import dayjs from "dayjs";
-import {toastFailed} from "../../utils/alerts.js";
+import {alertConfirm, toastFailed, toastSuccess} from "../../utils/alerts.js";
 import patientMedicalRecordAPI from "../../utils/api/Patient/PatientMedicalRecordAPI.js";
 import {datePicker} from "../../utils/datePickerUtil.js";
 import klasterAPI from "../../utils/api/MasterData/KlasterAPI.js";
@@ -164,6 +164,22 @@ watch(isSearchEnable, async (newVal) => {
     }
 });
 
+async function handleDeleteButton(id, registerNumber) {
+    const confirmDelete = await alertConfirm("Konfirmasi", `Apakah anda yakin ingin menghapus data lab ${registerNumber}?`);
+
+    if( confirmDelete === true ) {
+        const response = await patientMedicalRecordAPI.delete(id);
+        const statusCode = response.statusCode;
+
+        if( statusCode === 200 ) {
+            toastSuccess(`Data hasil lab ${registerNumber} berhasil dihapus`);
+            await fetchPatientVisitor();
+        } else {
+            toastFailed(response.data.message);
+        }
+    }
+}
+
 </script>
 
 <template>
@@ -257,6 +273,10 @@ watch(isSearchEnable, async (newVal) => {
                                 <router-link :to="{name: 'visitor-detail', params: { registerNumber: data.register_number }}" class="uk-button uk-button-small uk-button-primary button button-primary">
                                     <span class="las la-eye"></span> Lihat
                                 </router-link>
+
+                                <button @click="handleDeleteButton(data.id, data.register_number)" class="uk-margin-small-left uk-button uk-button-danger uk-button-small button button-danger">
+                                    <span class="las la-trash"></span> Hapus
+                                </button>
                             </td>
                             <td>{{ data.register_number }}</td>
                             <td>{{ data.patient.medical_number }}</td>

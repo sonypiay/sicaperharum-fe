@@ -116,7 +116,10 @@ onMounted(async () => {
 
         <div class="uk-card uk-margin-top">
             <div class="uk-flex uk-flex-right uk-margin-bottom">
-                <button @click="onHandleDownloadPDF()" class="uk-button uk-button-primary button button-primary">Download PDF</button>
+                <router-link :to="{name: 'list-visitor-patient'}" class=" uk-button uk-button-default button button-default">
+                    <span class="las la-angle-left"></span> Kembali
+                </router-link>
+                <button @click="onHandleDownloadPDF()" class="uk-margin-small-left uk-button uk-button-primary button button-primary">Download PDF</button>
                 <button class="uk-margin-small-left uk-button uk-button-primary button button-primary">Send WhatsApp</button>
             </div>
 
