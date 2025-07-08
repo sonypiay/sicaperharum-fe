@@ -283,7 +283,7 @@ onMounted(async() => {
                         <div class="uk-width-1-3@m uk-width-1-1@s">
                             <label class="uk-form-label form-label">No. Register Lab</label>
                             <div class="uk-form-controls">
-                                <input type="text" class="uk-width-1-1 uk-input form-input" v-model="formsInput.register_number" disabled />
+                                <input type="text" class="uk-width-1-1 uk-input form-input" v-model="formsInput.register_number" />
                             </div>
                         </div>
 
