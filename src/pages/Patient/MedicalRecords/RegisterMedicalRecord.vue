@@ -15,16 +15,6 @@ import FormNapza from "./FormNapza.vue";
 import patientMedicalRecordAPI from "../../../utils/api/Patient/PatientMedicalRecordAPI.js";
 import {alertConfirm, toastFailed, toastSuccess} from "../../../utils/alerts.js";
 import router from "../../../router/index.js";
-// import MedicalRecordsData from "../../../utils/MedicalRecordsData.js";
-
-const formInputHematologi = reactive(mappingMedicalRecord.hematologi);
-const formInputKimiaKlinik = reactive(mappingMedicalRecord.kimia_klinik);
-const formInputUrinalisa = reactive(mappingMedicalRecord.urinalisa);
-const formInputNapza = reactive(mappingMedicalRecord.napza);
-const formInputImunoserologi = reactive(mappingMedicalRecord.imunoserologi);
-const formInputMikroskopis = reactive(mappingMedicalRecord.mikroskopis);
-const formInputTcm = reactive(mappingMedicalRecord.tcm);
-const formInputLainnya = reactive(mappingMedicalRecord.lainnya);
 
 const inputMedicalRecordsData = reactive({
     hematologi: mappingMedicalRecord.hematologi,
@@ -130,8 +120,6 @@ async function onHandleSubmitForm() {
 
     const formPatient = JSON.parse(useSessionStorage('form-patient').value ?? "{}");
     formPatient.klaster = formPatient.klaster.value;
-    // formPatient.spesimen = formPatient.spesimen.value;
-    // formPatient.metode_pembayaran = formPatient.metode_pembayaran.label;
 
     const mappingHematologi = {
         hematologi_rutin: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.hematologi.hematologi_rutin),
@@ -206,15 +194,7 @@ async function onHandleSubmitForm() {
         Object.assign(inputMedicalRecordsData.lainnya, mappingMedicalRecord.lainnya);
         sessionStorage.removeItem('form-patient');
 
-        const generatePdf = await patientMedicalRecordAPI.downloadPdf(medical_records.register_number_id);
-        const responsePdf = generatePdf.data;
-        const statusCodePdf = generatePdf.statusCode;
-
-        if( statusCodePdf === 200 ) {
-            window.open(responsePdf.url, '_blank');
-            console.log(responsePdf.url);
-        }
-
+        window.open(patientMedicalRecordAPI.urlReadPdf(medical_records.register_number_id), '_blank');
         await router.push({name: 'visitor-detail', params: {registerNumber: medical_records.register_number_id}});
     } else {
         toastFailed(responseBody.message);

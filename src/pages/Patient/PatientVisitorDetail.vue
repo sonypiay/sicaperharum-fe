@@ -94,15 +94,17 @@ function checkIfMedicalResultIsEmpty(medicalResult) {
 }
 
 async function onHandleDownloadPDF() {
-    const fetchApi = await patientMedicalRecordAPI.downloadPdf(registerNumber);
-    const responseBody = fetchApi.data;
-    const statusCode = fetchApi.statusCode;
+    // const fetchApi = await patientMedicalRecordAPI.downloadPdf(registerNumber);
+    // const responseBody = fetchApi.data;
+    // const statusCode = fetchApi.statusCode;
+    //
+    // if( statusCode === 200 ) {
+    //     window.open(responseBody.url, '_blank');
+    // } else {
+    //     toastFailed("Gagal mendownload PDF.");
+    // }
 
-    if( statusCode === 200 ) {
-        window.open(responseBody.url, '_blank');
-    } else {
-        toastFailed("Gagal mendownload PDF.");
-    }
+    window.open(patientMedicalRecordAPI.urlReadPdf(registerNumber), '_blank');
 }
 
 onMounted(async () => {

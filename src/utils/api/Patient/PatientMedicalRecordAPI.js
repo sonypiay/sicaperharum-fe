@@ -127,6 +127,10 @@ const patientMedicalRecordAPI = {
             data: await fetchApi.json(),
             statusCode: fetchApi.status
         };
+    },
+    urlReadPdf: (registerNumber) => {
+        const userProfile = JSON.parse(localStorage.getItem('user_profile'));
+        return `${apis.backendApi}/patients/medical-records/pdf/generate/${registerNumber}?user_id=${userProfile.id}`;
     }
 }
 
