@@ -100,17 +100,6 @@ function onHandleMappingFormMedicalRecord(data) {
     return filteredData.length > 0 ? filteredData : null;
 }
 
-// function onHandleMappingInputFormMedicalRecord() {
-//     inputMedicalRecordsData.hematologi = MedicalRecordsData.filter(item => item.value === 'hematologi')[0];
-//     inputMedicalRecordsData.kimia_klinik = MedicalRecordsData.filter(item => item.value === 'kimia_klinik')[0];
-//     inputMedicalRecordsData.urinalisa = MedicalRecordsData.filter(item => item.value === 'urinalisa')[0];
-//     inputMedicalRecordsData.napza = MedicalRecordsData.filter(item => item.value === 'napza')[0];
-//     inputMedicalRecordsData.imunoserologi = MedicalRecordsData.filter(item => item.value === 'imunoserologi')[0];
-//     inputMedicalRecordsData.mikroskopis = MedicalRecordsData.filter(item => item.value === 'mikroskopis')[0];
-//     inputMedicalRecordsData.tcm = MedicalRecordsData.filter(item => item.value === 'tcm')[0];
-//     inputMedicalRecordsData.lainnya = MedicalRecordsData.filter(item => item.value === 'lainnya')[0];
-// }
-
 async function onHandleSubmitForm() {
     const confirmForm = await alertConfirm("Konfirmasi", "Apakah anda yakin ingin menyimpan hasil lab ini?");
 
@@ -144,6 +133,8 @@ async function onHandleSubmitForm() {
     const mappingImunoserologi = {
         hiv: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.imunoserologi.hiv),
         widal: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.imunoserologi.widal),
+        sifilis: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.imunoserologi.sifilis),
+        hepatitis: onHandleMappingFormMedicalRecord(inputMedicalRecordsData.imunoserologi.hepatitis),
         golongan_darah: inputMedicalRecordsData.imunoserologi.golongan_darah,
         rhesus: inputMedicalRecordsData.imunoserologi.rhesus,
     };

@@ -46,7 +46,7 @@ const props = defineProps({
     <tbody v-if="props.medicalRecord.ims.laki !== null">
         <tr><th colspan="4">IMS</th></tr>
         <tr v-for="(column, index) in props.medicalRecord.ims.laki" :key="`ims-laki-${index}`">
-            <td>{{ column.label }}</td>
+            <td v-html="column.label"></td>
             <td>{{ column.hasil }}</td>
             <td>{{ column.satuan }}</td>
             <td>{{ column.nilai_normal }}</td>
@@ -56,7 +56,7 @@ const props = defineProps({
     <tbody v-if="props.medicalRecord.ims.perempuan !== null">
         <tr><th colspan="4">IMS</th></tr>
         <tr v-for="(column, index) in props.medicalRecord.ims.perempuan" :key="`ims-perempuan-${index}`">
-            <td>{{ column.label }}</td>
+            <td v-html="column.label"></td>
             <td>{{ column.hasil }}</td>
             <td>{{ column.satuan }}</td>
             <td>{{ column.nilai_normal }}</td>

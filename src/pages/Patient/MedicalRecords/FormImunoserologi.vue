@@ -117,15 +117,68 @@ const props = defineProps({
                                 <option value="">Pilih Nilai</option>
                                 <option v-for="item in column.option" :key="item" :value="item">{{ item }}</option>
                             </select>
-
-                            <div v-if="column.hasil === 'Reaktif' && column.label === 'VDRL'" class="uk-margin-small-top">
-                                <!-- jika nilai reaktif, tampilkan input titer -->
-                                <input  type="text" class="uk-width-1-1 uk-input form-input form-input-small" v-model="column.titer" placeholder="Masukkan nilai titer" />
-                            </div>
                         </td>
                         <td></td>
                         <td>{{ column.nilai_normal }}</td>
                     </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- input sifilis -->
+        <div class="uk-card uk-card-default uk-card-body card-form-input">
+            <table class="uk-table uk-table-small uk-table-middle uk-table-responsive uk-table-justify table-input-lab">
+                <thead>
+                <tr>
+                    <th class="uk-width-medium">Sifilis</th>
+                    <th class="uk-width-small">Nilai</th>
+                    <th class="uk-width-small">Satuan</th>
+                    <th class="uk-width-small">Nilai Normal</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(column, index) in props.formInput.sifilis" :key="`hiv_${index}`">
+                    <td>{{ column.label }}</td>
+                    <td>
+                        <select class="uk-width-1-1 uk-select form-select form-select-small" v-model="column.hasil">
+                            <option value="">Pilih Nilai</option>
+                            <option v-for="item in column.option" :key="item" :value="item">{{ item }}</option>
+                        </select>
+
+                        <div v-if="column.hasil === 'Reaktif' && column.label === 'VDRL'" class="uk-margin-small-top">
+                            <input  type="text" class="uk-width-1-1 uk-input form-input form-input-small" v-model="column.titer" placeholder="Masukkan nilai titer" />
+                        </div>
+                    </td>
+                    <td></td>
+                    <td>{{ column.nilai_normal }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- input hepatitis -->
+        <div class="uk-card uk-card-default uk-card-body card-form-input">
+            <table class="uk-table uk-table-small uk-table-middle uk-table-responsive uk-table-justify table-input-lab">
+                <thead>
+                <tr>
+                    <th class="uk-width-medium">Hepatitis</th>
+                    <th class="uk-width-small">Nilai</th>
+                    <th class="uk-width-small">Satuan</th>
+                    <th class="uk-width-small">Nilai Normal</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(column, index) in props.formInput.hepatitis" :key="`hiv_${index}`">
+                    <td>{{ column.label }}</td>
+                    <td>
+                        <select class="uk-width-1-1 uk-select form-select form-select-small" v-model="column.hasil">
+                            <option value="">Pilih Nilai</option>
+                            <option v-for="item in column.option" :key="item" :value="item">{{ item }}</option>
+                        </select>
+                    </td>
+                    <td></td>
+                    <td>{{ column.nilai_normal }}</td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -143,14 +196,14 @@ const props = defineProps({
                 </thead>
                 <tbody>
                     <tr v-for="(column, index) in props.formInput.widal" :key="`widal_${index}`">
-                        <td>{{ column.label }}</td>
+                        <td v-html="column.label"></td>
                         <td>
                             <select class="uk-width-1-1 uk-select form-select form-select-small" v-model="column.hasil">
                                 <option value="">Pilih Nilai</option>
                                 <option v-for="item in column.option" :key="item" :value="item">{{ item }}</option>
                             </select>
 
-                            <!-- jika nilai reaktif, tampilkan input titer -->
+                            <!-- jika nilai positif, tampilkan input titer -->
                             <input v-if="column.hasil === 'Positif'" type="text" class="uk-width-1-1 uk-margin-small-top uk-input form-input form-input-small" v-model="column.titer" placeholder="Masukkan nilai titer" />
                         </td>
                         <td></td>

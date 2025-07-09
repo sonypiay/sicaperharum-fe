@@ -159,7 +159,7 @@ const props = defineProps({
                 </thead>
                 <tbody>
                     <tr v-for="(column, index) in props.formInput.ims.laki" :key="`ims-laki-${index}`">
-                        <td>{{ column.label }}</td>
+                        <td v-html="column.label"></td>
                         <td v-if="column.hasOwnProperty('option')">
                             <select class="uk-width-1-1 uk-select form-select form-select-small" v-model="column.hasil">
                                 <option value="">Pilih Nilai</option>
@@ -188,7 +188,9 @@ const props = defineProps({
                 </thead>
                 <tbody>
                     <tr v-for="(column, index) in props.formInput.ims.perempuan" :key="`ims-laki-${index}`">
-                        <td>{{ column.label }}</td>
+                        <td>
+                            <span v-html="column.label"></span>
+                        </td>
                         <td v-if="column.hasOwnProperty('option')">
                             <select class="uk-width-1-1 uk-select form-select form-select-small" v-model="column.hasil">
                                 <option value="">Pilih Nilai</option>

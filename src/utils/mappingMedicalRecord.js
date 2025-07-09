@@ -148,19 +148,19 @@ mappingMedicalRecord.kimia_klinik = {
     ],
     lipid: [
         {
-            label: 'Kolestrol',
+            label: 'Kolesterol',
             hasil: '',
             satuan: 'mg/dL',
             nilai_normal: "<= 200"
         },
         {
-            label: 'HDL Kolestrol',
+            label: 'HDL Kolesterol',
             hasil: '',
             satuan: 'mg/dL',
             nilai_normal: "> 35"
         },
         {
-            label: 'LDL Kolestrol',
+            label: 'LDL Kolesterol',
             hasil: '',
             satuan: 'mg/dL',
             nilai_normal: "< 115"
@@ -326,7 +326,7 @@ mappingMedicalRecord.urinalisa = {
             nilai_normal: "Negatif"
         },
         {
-            label: 'Leukosit',
+            label: 'Leukosit Esterase',
             hasil: '',
             option: [
                 "Negatif",
@@ -358,7 +358,7 @@ mappingMedicalRecord.urinalisa = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "5 - 6"
+            nilai_normal: "5 - 6",
         },
         {
             label: 'Silinder',
@@ -368,7 +368,8 @@ mappingMedicalRecord.urinalisa = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         },
         {
             label: 'Kristal',
@@ -378,7 +379,8 @@ mappingMedicalRecord.urinalisa = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         },
         {
             label: 'Bakteri',
@@ -482,6 +484,8 @@ mappingMedicalRecord.imunoserologi = {
             ],
             nilai_normal: "Non Reaktif"
         },
+    ],
+    sifilis: [
         {
             label: 'TPHA',
             hasil: '',
@@ -501,6 +505,8 @@ mappingMedicalRecord.imunoserologi = {
             nilai_normal: "Non Reaktif",
             titer: "",
         },
+    ],
+    hepatitis: [
         {
             label: 'HBsAG',
             hasil: '',
@@ -527,11 +533,11 @@ mappingMedicalRecord.imunoserologi = {
                 "Positif",
             ],
             nilai_normal: "Negatif"
-        }
+        },
     ],
     widal: [
         {
-            label: 'Salmonella Typhi O',
+            label: `<i>Salmonella typhi</i> O`,
             hasil: '',
             option: [
                 "Negatif",
@@ -541,7 +547,7 @@ mappingMedicalRecord.imunoserologi = {
             titer: '',
         },
         {
-            label: 'Salmonella Typhi H',
+            label: `<i>Salmonella typhi</i> H`,
             hasil: '',
             option: [
                 "Negatif",
@@ -551,7 +557,7 @@ mappingMedicalRecord.imunoserologi = {
             titer: '',
         },
         {
-            label: 'Salmonella Paratyphi A0',
+            label: `<i>Salmonella paratyphi</i> AO`,
             hasil: '',
             option: [
                 "Negatif",
@@ -561,7 +567,7 @@ mappingMedicalRecord.imunoserologi = {
             titer: '',
         },
         {
-            label: 'Salmonella Paratyphi AH',
+            label: `<i>Salmonella paratyphi</i> AH`,
             hasil: '',
             option: [
                 "Negatif",
@@ -695,7 +701,7 @@ mappingMedicalRecord.mikroskopis = {
                 nilai_normal: "Negatif"
             },
             {
-                label: 'Diplocossus',
+                label: `<i>Diplococcus</i>`,
                 hasil: '',
                 option: [
                     "Negatif",
@@ -715,7 +721,7 @@ mappingMedicalRecord.mikroskopis = {
                 nilai_normal: "Negatif"
             },
             {
-                label: 'Diplocossus',
+                label: `<i>Diplococcus</i>`,
                 hasil: '',
                 option: [
                     "Negatif",
@@ -724,7 +730,7 @@ mappingMedicalRecord.mikroskopis = {
                 nilai_normal: "Negatif"
             },
             {
-                label: 'T Vaginalis',
+                label: `T. <i>vaginalis</i>`,
                 hasil: '',
                 option: [
                     "Negatif",
@@ -733,7 +739,7 @@ mappingMedicalRecord.mikroskopis = {
                 nilai_normal: "Negatif"
             },
             {
-                label: 'Candida',
+                label: `<i>Candida</i>`,
                 hasil: '',
                 option: [
                     "Negatif",

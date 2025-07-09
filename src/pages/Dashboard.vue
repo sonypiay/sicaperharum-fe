@@ -71,5 +71,9 @@ onMounted(async () => {
                 </div>
             </div>
         </div>
+
+        <div class="uk-margin-large-top card-summary-visitor">
+            <div class="heading">Grafik Kunjungan Tahunan</div>
+        </div>
     </div>
 </template>

@@ -30,12 +30,30 @@ const props = defineProps({
         <tr><th colspan="4">HIV</th></tr>
         <tr v-for="(column, index) in props.medicalRecord.hiv" :key="`hiv-${index}`">
             <td>{{ column.label }}</td>
+            <td>{{ column.hasil }}</td>
+            <td>{{ column.satuan }}</td>
+            <td>{{ column.nilai_normal }}</td>
+        </tr>
+    </tbody>
+
+    <tbody v-if="props.medicalRecord.hasOwnProperty('sifilis') && props.medicalRecord.sifilis !== null">
+        <tr><th colspan="4">Sifilis</th></tr>
+        <tr v-for="(column, index) in props.medicalRecord.sifilis" :key="`sifilis-${index}`">
+            <td>{{ column.label }}</td>
             <td>
                 {{ column.hasil }}
-                <span v-if="column.hasOwnProperty('titer') && column.titer !== null">
-                    (Titer: {{ column.titer }})
-                </span>
+                <span v-if="column.hasOwnProperty('titer') && column.titer !== null">(Titer: {{ column.titer }})</span>
             </td>
+            <td>{{ column.satuan }}</td>
+            <td>{{ column.nilai_normal }}</td>
+        </tr>
+    </tbody>
+
+    <tbody v-if="props.medicalRecord.hasOwnProperty('hepatitis') && props.medicalRecord.hepatitis !== null">
+        <tr><th colspan="4">Hepatitis</th></tr>
+        <tr v-for="(column, index) in props.medicalRecord.hepatitis" :key="`hepatitis-${index}`">
+            <td>{{ column.label }}</td>
+            <td>{{ column.hasil }}</td>
             <td>{{ column.satuan }}</td>
             <td>{{ column.nilai_normal }}</td>
         </tr>
@@ -44,12 +62,10 @@ const props = defineProps({
     <tbody v-if="props.medicalRecord.hasOwnProperty('widal') && props.medicalRecord.widal !== null">
         <tr><th colspan="4">Widal</th></tr>
         <tr v-for="(column, index) in props.medicalRecord.widal" :key="`widal-${index}`">
-            <td>{{ column.label }}</td>
+            <td v-html="column.label"></td>
             <td>
                 {{ column.hasil }}
-                <span v-if="column.hasOwnProperty('titer') && column.titer !== null">
-                    (Titer: {{ column.titer }})
-                </span>
+                <span v-if="column.hasOwnProperty('titer') && column.titer !== null">(Titer: {{ column.titer }})</span>
             </td>
             <td>{{ column.satuan }}</td>
             <td>{{ column.nilai_normal }}</td>
