@@ -78,12 +78,19 @@ function checkIfMedicalResultIsEmpty(medicalResult) {
 
     isDataMedicalRecordEmpty.napza = medicalResult.napza === null;
     isDataMedicalRecordEmpty.tcm = medicalResult.tcm === null;
+
+    const hasPropertySifilis = Object.prototype.hasOwnProperty.call(medicalResult.imunoserologi, 'sifilis');
+    const hasPropertyHepatitis = Object.prototype.hasOwnProperty.call(medicalResult.imunoserologi, 'hepatitis');
+
     isDataMedicalRecordEmpty.imunoserologi = (
         medicalResult.imunoserologi.golongan_darah.hasil === null &&
         medicalResult.imunoserologi.rhesus.hasil === null &&
         medicalResult.imunoserologi.hiv === null &&
-        medicalResult.imunoserologi.widal === null
+        medicalResult.imunoserologi.widal === null &&
+        (medicalResult.imunoserologi.sifilis === null || hasPropertySifilis === false) &&
+        (medicalResult.imunoserologi.hepatitis === null || hasPropertyHepatitis === false)
     );
+
     isDataMedicalRecordEmpty.lainnya = medicalResult.lainnya === null;
     isDataMedicalRecordEmpty.mikroskopis = (
         medicalResult.mikroskopis.bta.hasil === null &&

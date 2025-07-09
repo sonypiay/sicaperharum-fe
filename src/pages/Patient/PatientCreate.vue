@@ -22,6 +22,7 @@ function onValidationForm() {
     errorDetail.fullname = '';
     errorDetail.address = '';
     errorDetail.dob = '';
+    errorDetail.phone_number = '';
     errorDetail.isError = false;
 
     if( formsInput.fullname === '' ) {
@@ -41,6 +42,11 @@ function onValidationForm() {
 
     if( formsInput.dob === '' ) {
         errorDetail.dob = 'Tanggal lahir wajib diisi';
+        errorDetail.isError = true;
+    }
+
+    if( formsInput.phone_number !== '' && formsInput.phone_number.length > 15 ) {
+        errorDetail.phone_number = 'Nomor telepon tidak boleh melebihi 15 karakter';
         errorDetail.isError = true;
     }
 }
@@ -111,8 +117,10 @@ onMounted(() => {
                 <div class="uk-margin">
                     <label for="input-telepon" class="uk-form-label form-label">Nomor Telepon</label>
                     <div class="uk-form-controls">
-                        <input type="text" class="uk-width-1-1 uk-input form-input" v-model="formsInput.phone_number"/>
+                        <input type="text" class="uk-width-1-1 uk-input form-input" v-model="formsInput.phone_number" maxlength="15" />
                     </div>
+
+                    <div v-if="errorDetail.phone_number !== ''" class="uk-text-danger">{{ errorDetail.phone_number }}</div>
                 </div>
 
                 <div class="uk-margin">
