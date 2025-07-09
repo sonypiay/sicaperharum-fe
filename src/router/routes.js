@@ -16,11 +16,11 @@ import UserEdit from "../pages/MasterData/User/UserEdit.vue";
 import PatientList from "../pages/Patient/PatientList.vue";
 import PatientCreate from "../pages/Patient/PatientCreate.vue";
 import PatientEdit from "../pages/Patient/PatientEdit.vue";
-import FormRegisterComponent from "../pages/Patient/MedicalRecords/FormRegisterComponent.vue";
 import RegisterMedicalRecord from "../pages/Patient/MedicalRecords/RegisterMedicalRecord.vue";
 import RegisterPatient from "../pages/Patient/MedicalRecords/RegisterPatient.vue";
 import PatientVisitorDetail from "../pages/Patient/PatientVisitorDetail.vue";
 import PatientVisitorList from "../pages/Patient/PatientVisitorList.vue";
+import Reports from "../pages/Reports.vue";
 
 const routes = [
     {
@@ -39,6 +39,11 @@ const routes = [
                 path: '',
                 name: 'dashboard',
                 component: Dashboard,
+            },
+            {
+                path: '/reports',
+                name: 'reports',
+                component: Reports,
             },
             {
                 path: 'patients',

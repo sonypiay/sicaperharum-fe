@@ -131,6 +131,16 @@ const patientMedicalRecordAPI = {
     urlReadPdf: (registerNumber) => {
         const userProfile = JSON.parse(localStorage.getItem('user_profile'));
         return `${apis.backendApi}/patients/medical-records/pdf/generate/${registerNumber}?user_id=${userProfile.id}`;
+    },
+    exportExcel: async(search) => {
+        const endpoint = new URL(`${apis.backendApi}/patients/medical-records/export/excel`);
+
+        if( search ) {
+            if( search.start_date ) endpoint.searchParams.append('start_date', search.start_date);
+            if( search.end_date ) endpoint.searchParams.append('end_date', search.end_date);
+        }
+
+        return endpoint.href;
     }
 }
 

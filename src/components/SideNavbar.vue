@@ -28,9 +28,9 @@
             </li>
 
             <li>
-                <a href="#">
+                <router-link :to="{name: 'reports'}">
                     <span class="las la-poll"></span> Laporan
-                </a>
+                </router-link>
             </li>
 
             <li class="uk-parent">
