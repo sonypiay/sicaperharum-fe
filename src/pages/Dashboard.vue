@@ -3,6 +3,8 @@
 import {onMounted, reactive} from "vue";
 import dashboardAPI from "../utils/api/DashboardAPI.js";
 import {toastFailed} from "../utils/alerts.js";
+import dayjs from "dayjs";
+import BarChart from "../components/Chart/BarChart.vue";
 
 const dataSummaryVisitor = reactive({
     total_harian: 0,
@@ -11,6 +13,12 @@ const dataSummaryVisitor = reactive({
     total_all: 0,
     date: '',
 });
+
+const dataTotalVisitorByYear = reactive({
+    year: dayjs().format('YYYY'),
+    total: [],
+    isFetchChart: false,
+})
 
 async function fetchSummaryVisitor() {
     const fetchApi = await dashboardAPI.totalSummaryVisitor(dataSummaryVisitor.date);
@@ -27,8 +35,28 @@ async function fetchSummaryVisitor() {
     }
 }
 
+async function fetchTotalVisitorByYear() {
+    const fetchApi = await dashboardAPI.totalVisitorByYear(dataTotalVisitorByYear.year);
+    const responseBody = fetchApi.data;
+    const statusCode = fetchApi.statusCode;
+
+    dataTotalVisitorByYear.isFetchChart = false;
+
+    if( statusCode === 200 ) {
+        dataTotalVisitorByYear.total = responseBody.total;
+    }
+
+    dataTotalVisitorByYear.isFetchChart = true;
+}
+
+async function handleChangeGraphVisitor() {
+    dataTotalVisitorByYear.isFetchChart = false;
+    await fetchTotalVisitorByYear();
+}
+
 onMounted(async () => {
     await fetchSummaryVisitor();
+    await fetchTotalVisitorByYear();
 });
 </script>
 
@@ -73,7 +101,23 @@ onMounted(async () => {
         </div>
 
         <div class="uk-margin-large-top card-summary-visitor">
-            <div class="heading">Grafik Kunjungan Tahunan</div>
+            <div class="uk-flex uk-flex-between">
+                <div class="heading">Grafik Kunjungan Tahunan</div>
+                <div class="uk-width-1-5@m uk-width-1-1@s">
+                    <select class="uk-width-1-1 uk-select form-select form-select-small" v-model="dataTotalVisitorByYear.year" @change="handleChangeGraphVisitor()">
+                        <option v-for="year in 5" :key="year" :value="year + 2020">{{ year + 2020 }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="uk-width-1-1">
+                {{ dataTotalVisitorByYear.isFetchChart }}
+                <div class="uk-card uk-card-body uk-text-center" v-if="dataTotalVisitorByYear.isFetchChart === false">
+                    <span uk-spinner></span> Loading ...
+                </div>
+
+                <BarChart v-if="dataTotalVisitorByYear.isFetchChart === true" :data-sets="dataTotalVisitorByYear.total" />
+            </div>
         </div>
     </div>
 </template>
