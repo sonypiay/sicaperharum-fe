@@ -123,12 +123,26 @@ onMounted(async () => {
         <div class="card-heading">Data Hasil Pemeriksaan Pasien</div>
 
         <div class="uk-card uk-margin-top">
-            <div class="uk-flex uk-flex-right uk-margin-bottom">
+            <div class="uk-flex uk-flex-right uk-margin-bottom uk-visible@m">
                 <router-link :to="{name: 'list-visitor-patient'}" class=" uk-button uk-button-default button button-default">
                     <span class="las la-angle-left"></span> Kembali
                 </router-link>
                 <button @click="onHandleDownloadPDF()" class="uk-margin-small-left uk-button uk-button-primary button button-primary">Download PDF</button>
                 <button v-if="dataPatientMedicalRecord.patient.phone_number" @click="onHandleSendWhatsApp()" class="uk-margin-small-left uk-button uk-button-primary button button-primary">Send WhatsApp</button>
+            </div>
+
+            <div class="uk-margin-bottom uk-hidden@m uk-grid-small" uk-grid>
+                <div class="uk-width-1-1">
+                    <router-link :to="{name: 'list-visitor-patient'}" class="uk-width-1-1 uk-button uk-button-default button button-default">
+                        <span class="las la-angle-left"></span> Kembali
+                    </router-link>
+                </div>
+                <div class="uk-width-1-1">
+                    <button @click="onHandleDownloadPDF()" class="uk-width-1-1 uk-button uk-button-primary button button-primary">Download PDF</button>
+                </div>
+                <div class="uk-width-1-1">
+                    <button v-if="dataPatientMedicalRecord.patient.phone_number" @click="onHandleSendWhatsApp()" class="uk-width-1-1 uk-button uk-button-primary button button-primary">Send WhatsApp</button>
+                </div>
             </div>
 
             <div class="uk-card uk-card-default card-information-detail">
