@@ -101,17 +101,16 @@ function checkIfMedicalResultIsEmpty(medicalResult) {
 }
 
 async function onHandleDownloadPDF() {
-    // const fetchApi = await patientMedicalRecordAPI.downloadPdf(registerNumber);
-    // const responseBody = fetchApi.data;
-    // const statusCode = fetchApi.statusCode;
-    //
-    // if( statusCode === 200 ) {
-    //     window.open(responseBody.url, '_blank');
-    // } else {
-    //     toastFailed("Gagal mendownload PDF.");
-    // }
-
     window.open(patientMedicalRecordAPI.urlReadPdf(registerNumber), '_blank');
+}
+
+function onHandleSendWhatsApp() {
+    const phoneNumber = dataPatientMedicalRecord.patient.phone_number;
+    const urlPdf = patientMedicalRecordAPI.urlReadPdf(registerNumber);
+    const message = `Laporan hasil lab pemeriksaan dapat di unduh dengan klik link berikut: ${urlPdf}`;
+    const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${message}`;
+
+    window.open(url, '_blank');
 }
 
 onMounted(async () => {
@@ -129,7 +128,7 @@ onMounted(async () => {
                     <span class="las la-angle-left"></span> Kembali
                 </router-link>
                 <button @click="onHandleDownloadPDF()" class="uk-margin-small-left uk-button uk-button-primary button button-primary">Download PDF</button>
-                <button class="uk-margin-small-left uk-button uk-button-primary button button-primary">Send WhatsApp</button>
+                <button v-if="dataPatientMedicalRecord.patient.phone_number" @click="onHandleSendWhatsApp()" class="uk-margin-small-left uk-button uk-button-primary button button-primary">Send WhatsApp</button>
             </div>
 
             <div class="uk-card uk-card-default card-information-detail">
