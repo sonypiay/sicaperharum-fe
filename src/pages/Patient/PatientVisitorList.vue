@@ -253,7 +253,7 @@ async function handleDeleteButton(id, registerNumber) {
 
         <div class="uk-card uk-card-default card-body">
             <div class="uk-overflow-auto uk-margin">
-                <table class="uk-table uk-table-divider uk-table-striped uk-table-small uk-table-responsive uk-table-middle uk-table-justify table">
+                <table class="uk-table uk-table-divider uk-table-striped uk-table-small uk-table-responsive uk-table-middle table">
                     <thead>
                         <tr>
                             <th>Aksi</th>
@@ -270,13 +270,18 @@ async function handleDeleteButton(id, registerNumber) {
                     <tbody>
                         <tr v-for="data in dataPatientVisitor.data" :key="data.register_number">
                             <td>
-                                <router-link :to="{name: 'visitor-detail', params: { registerNumber: data.register_number }}" class="uk-button uk-button-small uk-button-primary button button-primary">
-                                    <span class="las la-eye"></span> Lihat
-                                </router-link>
-
-                                <button @click="handleDeleteButton(data.id, data.register_number)" class="uk-margin-small-left uk-button uk-button-danger uk-button-small button button-danger">
-                                    <span class="las la-trash"></span> Hapus
-                                </button>
+                                <div class="uk-grid-small uk-child-width-auto" uk-grid>
+                                    <div>
+                                        <router-link :to="{name: 'visitor-detail', params: { registerNumber: data.register_number }}" class="uk-width-1-1 uk-button uk-button-small uk-button-primary button button-primary">
+                                            <span class="las la-eye"></span> Lihat
+                                        </router-link>
+                                    </div>
+                                    <div>
+                                        <button @click="handleDeleteButton(data.id, data.register_number)" class="uk-width-1-1 uk-button uk-button-danger uk-button-small button button-danger">
+                                            <span class="las la-trash"></span> Hapus
+                                        </button>
+                                    </div>
+                                </div>
                             </td>
                             <td>{{ data.register_number }}</td>
                             <td>{{ data.patient.medical_number }}</td>

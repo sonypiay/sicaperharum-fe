@@ -1,6 +1,6 @@
 <script setup>
 import {onMounted, reactive, ref} from 'vue';
-import {toastFailed, toastSuccess} from "../../../utils/alerts.js";
+import {toastFailed} from "../../../utils/alerts.js";
 import {useRouter} from "vue-router";
 import patientAPI from "../../../utils/api/Patient/PatientAPI.js";
 import {datePicker} from "../../../utils/datePickerUtil.js";
@@ -93,13 +93,6 @@ function onValidationForm() {
     if( formsInput.metode_pembayaran.length === 0 ) {
         errorDetail.metode_pembayaran = 'Metode pembayaran wajib diisi ';
         errorDetail.isError = true;
-    }
-
-    if( formsInput.phone_number !== '' || formsInput.phone_number !== null ) {
-        if( formsInput.phone_number.length > 15 ) {
-            errorDetail.phone_number = 'Nomor telepon tidak boleh melebihi 15 karakter';
-            errorDetail.isError = true;
-        }
     }
 }
 

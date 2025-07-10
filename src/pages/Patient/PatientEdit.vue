@@ -1,5 +1,5 @@
 <script setup>
-import {onBeforeMount, onMounted, reactive} from 'vue';
+import {onMounted, reactive} from 'vue';
 import {toastFailed, toastSuccess} from "../../utils/alerts.js";
 import {useRouter, useRoute} from "vue-router";
 import patientAPI from "../../utils/api/Patient/PatientAPI.js";
@@ -44,13 +44,6 @@ function onValidationForm() {
     if( formsInput.dob === '' ) {
         errorDetail.dob = 'Tanggal lahir wajib diisi';
         errorDetail.isError = true;
-    }
-
-    if( formsInput.phone_number !== '' || formsInput.phone_number !== null ) {
-        if( formsInput.phone_number.length > 15 ) {
-            errorDetail.phone_number = 'Nomor telepon tidak boleh melebihi 15 karakter';
-            errorDetail.isError = true;
-        }
     }
 }
 
