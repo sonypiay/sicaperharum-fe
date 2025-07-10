@@ -270,18 +270,35 @@ async function handleDeleteButton(id, registerNumber) {
                     <tbody>
                         <tr v-for="data in dataPatientVisitor.data" :key="data.register_number">
                             <td>
-                                <div class="uk-grid-small uk-child-width-auto" uk-grid>
-                                    <div>
-                                        <router-link :to="{name: 'visitor-detail', params: { registerNumber: data.register_number }}" class="uk-width-1-1 uk-button uk-button-small uk-button-primary button button-primary">
-                                            <span class="las la-eye"></span> Lihat
-                                        </router-link>
-                                    </div>
-                                    <div>
-                                        <button @click="handleDeleteButton(data.id, data.register_number)" class="uk-width-1-1 uk-button uk-button-danger uk-button-small button button-danger">
-                                            <span class="las la-trash"></span> Hapus
-                                        </button>
-                                    </div>
+                                <button class="uk-button uk-button-primary uk-button-small button button-primary">
+                                    <span class="las la-ellipsis-v"></span>
+                                </button>
+                                <div uk-dropdown class="table-dropdown-nav">
+                                    <ul class="uk-nav uk-dropdown-nav dropdown-nav">
+                                        <li>
+                                            <router-link :to="{name: 'visitor-detail', params: { registerNumber: data.register_number }}">
+                                                <span class="las la-eye"></span> Lihat
+                                            </router-link>
+                                        </li>
+                                        <li>
+                                            <a @click="handleDeleteButton(data.id, data.register_number)">
+                                                <span class="las la-trash"></span> Hapus
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
+<!--                                <div class="uk-grid-small" uk-grid>-->
+<!--                                    <div class="uk-width-1-1">-->
+<!--                                        <router-link :to="{name: 'visitor-detail', params: { registerNumber: data.register_number }}" class="uk-width-1-1 uk-button uk-button-small uk-button-primary button button-primary">-->
+<!--                                            <span class="las la-eye"></span> Lihat-->
+<!--                                        </router-link>-->
+<!--                                    </div>-->
+<!--                                    <div class="uk-width-1-1">-->
+<!--                                        <button @click="handleDeleteButton(data.id, data.register_number)" class="uk-width-1-1 uk-button uk-button-danger uk-button-small button button-danger">-->
+<!--                                            <span class="las la-trash"></span> Hapus-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                             </td>
                             <td>{{ data.register_number }}</td>
                             <td>{{ data.patient.medical_number }}</td>
