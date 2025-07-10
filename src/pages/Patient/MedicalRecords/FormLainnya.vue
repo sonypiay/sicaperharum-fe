@@ -28,7 +28,7 @@ const props = defineProps({
                             </select>
                         </td>
                         <td v-else>
-                            <input type="number" class="uk-input form-input form-input-small" v-model="column.hasil" />
+                            <input type="text" class="uk-input form-input form-input-small" v-model="column.hasil" />
                         </td>
                         <td>{{ column.satuan }}</td>
                         <td>{{ column.nilai_normal }}</td>
