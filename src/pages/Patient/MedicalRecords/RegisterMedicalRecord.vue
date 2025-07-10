@@ -14,8 +14,10 @@ import mappingMedicalRecord from "../../../utils/mappingMedicalRecord.js";
 import FormNapza from "./FormNapza.vue";
 import patientMedicalRecordAPI from "../../../utils/api/Patient/PatientMedicalRecordAPI.js";
 import {alertConfirm, toastFailed, toastSuccess} from "../../../utils/alerts.js";
-import router from "../../../router/index.js";
+import {useRoute, useRouter} from "vue-router";
 
+const router = useRouter();
+const route = useRoute();
 const inputMedicalRecordsData = reactive({
     hematologi: mappingMedicalRecord.hematologi,
     kimia_klinik: mappingMedicalRecord.kimia_klinik,
@@ -100,6 +102,24 @@ function onHandleMappingFormMedicalRecord(data) {
     return filteredData.length > 0 ? filteredData : null;
 }
 
+function onHandleResetFormMedicalRecord(data) {
+    return data.map((item) => {
+        if( item.hasOwnProperty('hasil') ) {
+            item.hasil = '';
+        }
+
+        if( item.hasOwnProperty('note') ) {
+            item.note = '';
+        }
+
+        if( item.hasOwnProperty('titer') ) {
+            item.titer = '';
+        }
+
+        return item;
+    });
+}
+
 async function onHandleSubmitForm() {
     const confirmForm = await alertConfirm("Konfirmasi", "Apakah anda yakin ingin menyimpan hasil lab ini?");
 
@@ -175,18 +195,22 @@ async function onHandleSubmitForm() {
         toastSuccess(`Hasil lab untuk pasien dengan nomor rekam medis ${formPatient.medical_number} berhasil dibuat.`);
 
         // reset form
-        Object.assign(inputMedicalRecordsData.hematologi, mappingMedicalRecord.hematologi);
-        Object.assign(inputMedicalRecordsData.kimia_klinik, mappingMedicalRecord.kimia_klinik);
-        Object.assign(inputMedicalRecordsData.urinalisa, mappingMedicalRecord.urinalisa);
-        Object.assign(inputMedicalRecordsData.napza, mappingMedicalRecord.napza);
-        Object.assign(inputMedicalRecordsData.imunoserologi, mappingMedicalRecord.imunoserologi);
-        Object.assign(inputMedicalRecordsData.mikroskopis, mappingMedicalRecord.mikroskopis);
-        Object.assign(inputMedicalRecordsData.tcm, mappingMedicalRecord.tcm);
-        Object.assign(inputMedicalRecordsData.lainnya, mappingMedicalRecord.lainnya);
+        Object.assign(inputMedicalRecordsData.hematologi, {});
+        Object.assign(inputMedicalRecordsData.kimia_klinik, {});
+        Object.assign(inputMedicalRecordsData.urinalisa, {});
+        Object.assign(inputMedicalRecordsData.napza, {});
+        Object.assign(inputMedicalRecordsData.imunoserologi, {});
+        Object.assign(inputMedicalRecordsData.mikroskopis, {});
+        Object.assign(inputMedicalRecordsData.tcm, {});
+        Object.assign(inputMedicalRecordsData.lainnya, {});
         sessionStorage.removeItem('form-patient');
 
+
         window.open(patientMedicalRecordAPI.urlReadPdf(medical_records.register_number_id), '_blank');
-        await router.push({name: 'visitor-detail', params: {registerNumber: medical_records.register_number_id}});
+        setTimeout(() => {
+            window.location = `${route.path}/${medical_records.register_number_id}`;
+        }, 500);
+        // await router.push({name: 'visitor-detail', params: {registerNumber: medical_records.register_number_id}});
     } else {
         toastFailed(responseBody.message);
     }

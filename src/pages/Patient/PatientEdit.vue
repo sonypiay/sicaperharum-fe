@@ -46,9 +46,11 @@ function onValidationForm() {
         errorDetail.isError = true;
     }
 
-    if( formsInput.phone_number !== '' && formsInput.phone_number.length > 15 ) {
-        errorDetail.phone_number = 'Nomor telepon tidak boleh melebihi 15 karakter';
-        errorDetail.isError = true;
+    if( formsInput.phone_number !== '' || formsInput.phone_number !== null ) {
+        if( formsInput.phone_number.length > 15 ) {
+            errorDetail.phone_number = 'Nomor telepon tidak boleh melebihi 15 karakter';
+            errorDetail.isError = true;
+        }
     }
 }
 

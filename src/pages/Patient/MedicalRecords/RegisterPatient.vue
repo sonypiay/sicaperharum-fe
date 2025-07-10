@@ -95,9 +95,11 @@ function onValidationForm() {
         errorDetail.isError = true;
     }
 
-    if( formsInput.phone_number !== '' && formsInput.phone_number.length > 15 ) {
-        errorDetail.phone_number = 'Nomor telepon tidak boleh melebihi 15 karakter';
-        errorDetail.isError = true;
+    if( formsInput.phone_number !== '' || formsInput.phone_number !== null ) {
+        if( formsInput.phone_number.length > 15 ) {
+            errorDetail.phone_number = 'Nomor telepon tidak boleh melebihi 15 karakter';
+            errorDetail.isError = true;
+        }
     }
 }
 
@@ -201,7 +203,7 @@ async function onHandleSelectPatient(value) {
     formsInput.address = value.address;
     formsInput.dob = value.dob;
     formsInput.gender = value.gender.value;
-    formsInput.phone_number = value.phone_number;
+    formsInput.phone_number = value.phone_number ?? '';
 
     onHandleRenderDatePicker();
 }
