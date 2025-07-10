@@ -508,7 +508,7 @@ mappingMedicalRecord.imunoserologi = {
     ],
     hepatitis: [
         {
-            label: 'HBsAG',
+            label: 'HBsAg',
             hasil: '',
             option: [
                 "Negatif",
