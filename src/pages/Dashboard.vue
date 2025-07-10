@@ -111,7 +111,6 @@ onMounted(async () => {
             </div>
 
             <div class="uk-width-1-1">
-                {{ dataTotalVisitorByYear.isFetchChart }}
                 <div class="uk-card uk-card-body uk-text-center" v-if="dataTotalVisitorByYear.isFetchChart === false">
                     <span uk-spinner></span> Loading ...
                 </div>
