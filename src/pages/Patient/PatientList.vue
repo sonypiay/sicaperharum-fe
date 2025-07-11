@@ -3,7 +3,7 @@
 import {nextTick, onMounted, reactive, ref, watch} from "vue";
 import patientAPI from "../../utils/api/Patient/PatientAPI.js";
 import dayjs from "dayjs";
-import {toastFailed} from "../../utils/alerts.js";
+import {alertConfirm, toastFailed, toastSuccess} from "../../utils/alerts.js";
 import {datePicker} from "../../utils/datePickerUtil.js";
 
 const searchField = reactive({
@@ -88,6 +88,23 @@ function onHandleRenderDatePicker() {
     }
 
     instanceDobPicker = datePicker("#input-dob", options.dob);
+}
+
+async function handleDeleteButton(medicalNumber) {
+    const confirmDelete = await alertConfirm("Konfirmasi", `Apakah anda yakin ingin menghapus data pasien ${medicalNumber}?`);
+
+    if( confirmDelete === true ) {
+        const response = await patientAPI.delete(medicalNumber);
+        const statusCode = response.statusCode;
+
+        if( statusCode === 202 ) {
+            toastSuccess(`Data pasien ${medicalNumber} berhasil dihapus`);
+            searchField.page = 1;
+            await fetchPatient();
+        } else {
+            toastFailed(response.data.message);
+        }
+    }
 }
 
 onMounted(async () => {
@@ -199,9 +216,24 @@ watch(isSearchEnable, async (newVal) => {
                 <tbody>
                     <tr v-for="data in dataPatient.data" :key="data.id">
                         <td>
-                            <router-link :to="{name: 'edit-patient', params: { id: data.id }}" class="uk-button uk-button-small uk-button-primary button button-primary">
-                                <span class="las la-edit"></span> Ubah
-                            </router-link>
+                            <button class="uk-button uk-button-primary uk-button-small button button-primary">
+                                <span class="las la-ellipsis-v"></span>
+                            </button>
+
+                            <div uk-dropdown class="table-dropdown-nav">
+                                <ul class="uk-nav uk-dropdown-nav dropdown-nav">
+                                    <li>
+                                        <router-link :to="{name: 'edit-patient', params: { id: data.id }}">
+                                            <span class="las la-edit"></span> Ubah
+                                        </router-link>
+                                    </li>
+                                    <li>
+                                        <a @click="handleDeleteButton(data.medical_number)">
+                                            <span class="las la-trash"></span> Hapus
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </td>
                         <td>{{ data.medical_number }}</td>
                         <td>{{ data.fullname }}</td>
