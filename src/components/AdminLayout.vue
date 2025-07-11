@@ -1,5 +1,4 @@
-<script setup lang="ts">
-
+<script setup>
 import SideNavbar from "./SideNavbar.vue";
 import HeaderNavbar from "./HeaderNavbar.vue";
 import OffcanvasNav from "./OffcanvasNav.vue";
