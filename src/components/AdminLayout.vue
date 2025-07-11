@@ -10,19 +10,19 @@ import OffcanvasNav from "./OffcanvasNav.vue";
     <OffcanvasNav />
     <!-- offcanvas sidebar -->
 
-    <div>
-        <div class="uk-grid-collapse" uk-grid>
-            <div class="uk-width-1-6@xl uk-width-1-5@m uk-width-2-5@s uk-grid-item-match">
+    <div class="uk-flex">
+        <div class="uk-width-1-6@xl uk-width-1-5@l uk-width-1-5@s uk-visible@m">
+            <div class="uk-height-viewport" uk-sticky>
                 <SideNavbar />
             </div>
-            <div class="uk-width-expand">
-                <HeaderNavbar />
+        </div>
+        <div class="uk-width-expand">
+            <div class="uk-flex uk-flex-right">
+                <div class="uk-width-expand container">
+                    <HeaderNavbar />
 
-                <div class="uk-width-1-1 container">
                     <div class="wrapper">
-                        <div>
-                            <router-view />
-                        </div>
+                        <router-view />
                     </div>
                 </div>
             </div>

@@ -24,7 +24,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <header>
+    <header class="uk-width-1-1">
         <nav class="navbar-container">
             <div uk-navbar>
                 <div class="uk-navbar-left uk-hidden@s">

@@ -138,6 +138,37 @@ ul.nav-pagination {
     }
 }
 
+.form-nav-tab-dropdown {
+    background-color: #E2E6F9;
+    margin-top: 2rem;
+    padding: 10px;
+    border-radius: 10px;
+
+    .nav-btn {
+        text-align: center;
+        color: black;
+        padding: 20px;
+        @include vars.fontStyling(vars.$fontFamily, 18px, 600, black !important);
+        text-decoration: none;
+    }
+
+    .nav-btn-active {
+        background-color: vars.$color-4;
+        color: #ffffff !important;
+        border-radius: 10px;
+    }
+
+    .form-tab-dropdown-container {
+
+    }
+}
+
+.sticky-position {
+    position: sticky;
+    top: 3%;
+    z-index: 9999;
+}
+
 .offcanvas-bar {
     background-color: #ffffff;
     padding: 0;

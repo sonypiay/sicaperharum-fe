@@ -1,7 +1,7 @@
 <script setup>
 
 import {useSessionStorage} from "@vueuse/core";
-import {onMounted, reactive, ref} from "vue";
+import {onBeforeUnmount, onMounted, reactive, ref} from "vue";
 import FormHematologi from "./FormHematologi.vue";
 import FormKimiaKlinik from "./FormKimiaKlinik.vue";
 import FormUrinalisa from "./FormUrinalisa.vue";
@@ -76,6 +76,7 @@ const navTabList = reactive({
 
 const currentNavTab = ref('hematologi');
 const formsInput = ref({});
+const isShowMenuDropdownTab = ref(false);
 
 function onHandleTabClick(value) {
     navTabList.list.forEach((tab) => {
@@ -83,6 +84,7 @@ function onHandleTabClick(value) {
     });
 
     currentNavTab.value = value;
+    isShowMenuDropdownTab.value = false;
 }
 
 function onHandleMappingFormMedicalRecord(data) {
@@ -100,24 +102,6 @@ function onHandleMappingFormMedicalRecord(data) {
     });
 
     return filteredData.length > 0 ? filteredData : null;
-}
-
-function onHandleResetFormMedicalRecord(data) {
-    return data.map((item) => {
-        if( item.hasOwnProperty('hasil') ) {
-            item.hasil = '';
-        }
-
-        if( item.hasOwnProperty('note') ) {
-            item.note = '';
-        }
-
-        if( item.hasOwnProperty('titer') ) {
-            item.titer = '';
-        }
-
-        return item;
-    });
 }
 
 async function onHandleSubmitForm() {
@@ -205,7 +189,6 @@ async function onHandleSubmitForm() {
         Object.assign(inputMedicalRecordsData.lainnya, {});
         sessionStorage.removeItem('form-patient');
 
-
         window.open(patientMedicalRecordAPI.urlReadPdf(medical_records.register_number_id), '_blank');
         setTimeout(() => {
             window.location = `${route.path}/${medical_records.register_number_id}`;
@@ -216,10 +199,29 @@ async function onHandleSubmitForm() {
     }
 }
 
+function onHandleDetectScrolling() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const formNavTab = document.querySelector('.form-nav-tab');
+    const formNavTabDropdown = document.querySelector('.form-nav-tab-dropdown');
+
+    if( scrollTop > 200 ) {
+        formNavTabDropdown.classList.add('sticky-position');
+        formNavTab.classList.add('sticky-position');
+    } else {
+        formNavTab.classList.remove('sticky-position');
+        formNavTabDropdown.classList.remove('sticky-position');
+    }
+}
+
+function onHandleToggleMenuDropdownTab()
+{
+    isShowMenuDropdownTab.value = !isShowMenuDropdownTab.value;
+}
+
 const dataPatient = ref({});
 onMounted(() => {
     dataPatient.value = JSON.parse(useSessionStorage('form-patient').value ?? "{}");
-    // onHandleMappingInputFormMedicalRecord();
+    window.addEventListener('scroll', onHandleDetectScrolling);
 });
 </script>
 
@@ -234,10 +236,21 @@ onMounted(() => {
             </div>
         </div>
 
-        <nav class="form-nav-tab uk-flex uk-flex-center">
-            <a v-for="tab in navTabList.list" class="uk-width-1-2@l uk-width-1-1@m nav-btn" :key="tab.title" :class="{ 'nav-btn-active': tab.active }" @click="onHandleTabClick(tab.value)">
+        <nav class="form-nav-tab uk-flex uk-flex-center uk-visible@m">
+            <a v-for="tab in navTabList.list" href="#form-medical-record" class="uk-width-1-2@l uk-width-1-1@m nav-btn" :key="tab.title" :class="{ 'nav-btn-active': tab.active }" @click="onHandleTabClick(tab.value)">
                 {{ tab.title }}
             </a>
+        </nav>
+
+        <nav class="form-nav-tab-dropdown uk-hidden@m uk-position-z-index-high">
+            <a class="uk-width-1-1 uk-display-block nav-btn" @click="onHandleToggleMenuDropdownTab()">
+                <span class="las la-bars"></span> Menu
+            </a>
+            <div v-if="isShowMenuDropdownTab" class="uk-width-1-1 form-tab-dropdown-container">
+                <a v-for="tab in navTabList.list" href="#form-medical-record" class="uk-width-1-1 uk-display-block nav-btn" :key="tab.title" :class="{ 'nav-btn-active': tab.active }" @click="onHandleTabClick(tab.value)">
+                    {{ tab.title }}
+                </a>
+            </div>
         </nav>
 
         <div class="uk-form-stacked form-section-input">
@@ -290,7 +303,7 @@ onMounted(() => {
                 </tbody>
             </table>
 
-            <form class="uk-form-stacked" @submit.prevent="false">
+            <form class="uk-form-stacked" id="form-medical-record" @submit.prevent="false">
                 <div class="uk-text-center">
                     <router-link :to="{name: 'form-register-patient'}" class="uk-button uk-button-default button button-default">
                         Kembali

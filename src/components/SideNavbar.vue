@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <nav class="uk-visible@s uk-card uk-card-body uk-height-viewport sidebar-nav">
+    <nav class="uk-card uk-card-body uk-height-viewport sidebar-nav">
         <div class="nav-logo">
             <img src="../assets/images/logo_pkm_botim.png" />
         </div>
