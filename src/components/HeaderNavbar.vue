@@ -27,7 +27,7 @@ onMounted(() => {
     <header class="uk-width-1-1">
         <nav class="navbar-container">
             <div uk-navbar>
-                <div class="uk-navbar-left uk-hidden@s">
+                <div class="uk-navbar-left uk-hidden@m">
                     <div class="uk-navbar-item">
                         <div class="uk-margin-small-left" uk-toggle="target: #offcanvas-nav">
                             <span uk-icon="icon: menu; ratio: 1.2"></span>

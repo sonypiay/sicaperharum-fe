@@ -6,7 +6,7 @@ function offCanvasToggleHide() {
 
 <template>
     <div id="offcanvas-nav" uk-offcanvas>
-        <div class="uk-offcanvas-bar offcanvas-bar">
+        <div class="uk-offcanvas-bar uk-box-shadow-small offcanvas-bar">
             <button class="uk-offcanvas-close" type="button" uk-close></button>
 
             <nav class="offcanvas-sidebar-nav">
