@@ -201,15 +201,15 @@ async function onHandleSubmitForm() {
 
 function onHandleDetectScrolling() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const formNavTab = document.querySelector('.form-nav-tab');
-    const formNavTabDropdown = document.querySelector('.form-nav-tab-dropdown');
+    const navTabStickyWeb = document.querySelector('.nav-tab-sticky-web');
+    const navTabStickyMobile = document.querySelector('.nav-tab-sticky-mobile');
 
     if( scrollTop > 200 ) {
-        formNavTabDropdown.classList.add('sticky-position');
-        formNavTab.classList.add('sticky-position');
+        navTabStickyWeb.classList.add('sticky-position');
+        navTabStickyMobile.classList.add('sticky-position');
     } else {
-        formNavTab.classList.remove('sticky-position');
-        formNavTabDropdown.classList.remove('sticky-position');
+        navTabStickyWeb.classList.remove('sticky-position');
+        navTabStickyMobile.classList.remove('sticky-position');
     }
 }
 
@@ -236,22 +236,26 @@ onMounted(() => {
             </div>
         </div>
 
-        <nav class="form-nav-tab uk-flex uk-flex-center uk-visible@m">
-            <a v-for="tab in navTabList.list" href="#form-medical-record" class="uk-width-1-2@l uk-width-1-1@m nav-btn" :key="tab.title" :class="{ 'nav-btn-active': tab.active }" @click="onHandleTabClick(tab.value)">
-                {{ tab.title }}
-            </a>
-        </nav>
-
-        <nav class="form-nav-tab-dropdown uk-hidden@m uk-position-z-index-high">
-            <a class="uk-width-1-1 uk-display-block nav-btn" @click="onHandleToggleMenuDropdownTab()">
-                <span class="las la-bars"></span> Menu
-            </a>
-            <div v-if="isShowMenuDropdownTab" class="uk-width-1-1 form-tab-dropdown-container">
-                <a v-for="tab in navTabList.list" href="#form-medical-record" class="uk-width-1-1 uk-display-block nav-btn" :key="tab.title" :class="{ 'nav-btn-active': tab.active }" @click="onHandleTabClick(tab.value)">
+        <div class="nav-tab-sticky-web uk-visible@m">
+            <nav class="form-nav-tab uk-flex uk-flex-center uk-visible@m">
+                <a v-for="tab in navTabList.list" href="#form-medical-record" class="uk-width-1-2@l uk-width-1-1@m nav-btn" :key="tab.title" :class="{ 'nav-btn-active': tab.active }" @click="onHandleTabClick(tab.value)">
                     {{ tab.title }}
                 </a>
-            </div>
-        </nav>
+            </nav>
+        </div>
+
+        <div class="nav-tab-sticky-mobile uk-hidden@m">
+            <nav class="form-nav-tab-dropdown uk-position-z-index-high">
+                <a class="uk-width-1-1 uk-display-block nav-btn" @click="onHandleToggleMenuDropdownTab()">
+                    <span class="las la-bars"></span> Menu
+                </a>
+                <div v-if="isShowMenuDropdownTab" class="uk-width-1-1 form-tab-dropdown-container">
+                    <a v-for="tab in navTabList.list" href="#form-medical-record" class="uk-width-1-1 uk-display-block nav-btn" :key="tab.title" :class="{ 'nav-btn-active': tab.active }" @click="onHandleTabClick(tab.value)">
+                        {{ tab.title }}
+                    </a>
+                </div>
+            </nav>
+        </div>
 
         <div class="uk-form-stacked form-section-input">
             <table class="uk-table uk-table-divider uk-table-small uk-table-responsive uk-table-middle uk-table-justify table">

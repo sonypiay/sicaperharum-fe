@@ -170,8 +170,10 @@ ul.nav-pagination {
 
 .sticky-position {
     position: sticky;
-    top: 3%;
-    z-index: 9999;
+    top: 0;
+    z-index: 1;
+    background-color: #ffffff;
+    padding-top: 5px;
 }
 
 .offcanvas-bar {
