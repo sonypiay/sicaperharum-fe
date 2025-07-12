@@ -46,7 +46,12 @@
                     username: user.username,
                     name: user.name,
                     email: user.email,
-                    image: user.image
+                    image: user.image,
+                    gelar: user.gelar,
+                    role: {
+                        code: user.role.code,
+                        name: user.role.name,
+                    }
                 });
                 userToken.value = responseBody.data.token;
                 await toastSuccess('Login berhasil');

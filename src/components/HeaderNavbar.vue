@@ -52,7 +52,7 @@ onMounted(() => {
                                             {{ userProfile.name }}
                                             <span v-if="userProfile.gelar">({{ userProfile.gelar }})</span>
                                         </div>
-                                        <div class="nav-profile-role">Superadmin</div>
+                                        <div class="nav-profile-role" v-if="userProfile.hasOwnProperty('role')">{{ userProfile.role.name }}</div>
                                     </div>
                                     <div class="navbar-icon-dropdown">
                                         <span class="las la-angle-down"></span>

@@ -12,6 +12,7 @@ const userAPI = {
         formData.append('password', request.password);
         formData.append('active', request.active);
         formData.append('gelar', request.gelar);
+        formData.append('role', request.role);
 
         if( request.image ) formData.append('profile_image', request.image);
 
@@ -41,6 +42,7 @@ const userAPI = {
         formData.append('active', request.active);
         formData.append('old_profile_image', request.oldProfileImage.file);
         formData.append('gelar', request.gelar);
+        formData.append('role', request.role);
 
         if( request.image ) formData.append('profile_image', request.image);
 
@@ -99,6 +101,24 @@ const userAPI = {
             data: await fetchApi.json(),
             statusCode: fetchApi.status
         };
+    },
+    getAllRole: async() => {
+        const userToken = localStorage.getItem('user_token') ?? null;
+        const endpoint = `${apis.backendApi}/users/roles`;
+        const fetchApi = await fetch(endpoint, {
+            method: apis.method.get,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization': `Bearer ${userToken}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        });
+
+        return {
+            data: await fetchApi.json(),
+            statusCode: fetchApi.status
+        }
     }
 };
 

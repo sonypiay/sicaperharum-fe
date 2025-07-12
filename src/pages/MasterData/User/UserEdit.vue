@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, reactive} from 'vue';
+import {onMounted, reactive, ref} from 'vue';
 import {toastFailed, toastSuccess} from "../../../utils/alerts.js";
 import {useRoute, useRouter} from "vue-router";
 import userAPI from "../../../utils/api/MasterData/UserAPI.js";
@@ -18,10 +18,12 @@ const formsInput = reactive({
         url: ''
     },
     gelar: '',
+    role: '',
 });
 const router = useRouter();
 const userId = useRoute().params.id;
 const errorDetail = reactive({});
+const roleList = ref([]);
 
 function onValidationForm() {
     errorDetail.username = '';
@@ -30,7 +32,13 @@ function onValidationForm() {
     errorDetail.password = '';
     errorDetail.image = '';
     errorDetail.gelar = '';
+    errorDetail.role = '';
     errorDetail.isError = false;
+
+    if( formsInput.role === '' ) {
+        errorDetail.role = 'Role wajib diisi';
+        errorDetail.isError = true;
+    }
 
     if( formsInput.username === '' ) {
         errorDetail.username = 'Username wajib diisi';
@@ -72,6 +80,19 @@ async function fetchUser() {
     formsInput.active = responseBody.active;
     formsInput.oldProfileImage = responseBody.image ?? '';
     formsInput.gelar = responseBody.gelar ?? '';
+    formsInput.role = responseBody.role.code ?? '';
+}
+
+async function fetchRoles() {
+    const fetchApi = await userAPI.getAllRole();
+    const responseBody = fetchApi.data;
+    const statusCode = fetchApi.statusCode;
+
+    if( statusCode === 200 ) {
+        roleList.value = responseBody;
+    } else {
+        toastFailed(fetchApi.data.message);
+    }
 }
 
 async function onHandleSubmit() {
@@ -94,6 +115,10 @@ async function onHandleSubmit() {
                     email: responseBody.email,
                     image: responseBody.image,
                     gelar: responseBody.gelar,
+                    role: {
+                        code: responseBody.role.code,
+                        name: responseBody.role.name,
+                    }
                 }));
             }
 
@@ -111,6 +136,7 @@ function handleGetFiles(event) {
 }
 
 onMounted(async () => {
+    await fetchRoles();
     await fetchUser();
 });
 </script>
@@ -121,6 +147,18 @@ onMounted(async () => {
 
         <div class="uk-form-stacked form-section-input">
             <form @submit.prevent="onHandleSubmit()">
+                <div class="uk-margin">
+                    <label for="input-active" class="uk-form-label form-label form-label-required">Hak Akses</label>
+                    <div class="uk-form-controls">
+                        <select class="uk-select form-select" v-model="formsInput.role" aria-label="Select">
+                            <option value="">Pilih Hak Akses</option>
+                            <option v-for="role in roleList" :key="role.code" :value="role.code">{{ role.name }}</option>
+                        </select>
+                    </div>
+
+                    <div v-if="errorDetail.role !== ''" class="uk-text-danger">{{ errorDetail.role }}</div>
+                </div>
+
                 <div class="uk-margin">
                     <label for="input-nama" class="uk-form-label form-label form-label-required">Username</label>
                     <div class="uk-form-controls">
