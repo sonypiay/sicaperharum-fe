@@ -38,13 +38,18 @@
     }
 
     .navbar-dropdown {
+        border-radius: 0 0 10px 10px;
+        top: 80px !important;
         box-shadow: none;
-        border-radius: 10px;
-        border: 1px solid #dddddd;
+        border: 1px solid #eeeeee;
 
         ul.nav-dropdown {
             li > a {
-                @include vars.fontStyling(vars.$fontFamily, 14px, 500, #777777);
+                @include vars.fontStyling(vars.$fontFamily, 14px, 600, #777777);
+
+                &:hover {
+                    color: vars.$color-2;
+                }
             }
         }
     }

@@ -1,5 +1,19 @@
 <script setup>
+import {useRouter} from "vue-router";
+import authAPI from "../utils/api/AuthAPI.js";
+import {useLocalStorage} from "@vueuse/core";
 
+const router = useRouter();
+
+async function handleLogout() {
+    await authAPI.logout();
+    const userProfile = useLocalStorage('user_profile', '');
+    const userToken = useLocalStorage('user_token', '');
+
+    userProfile.value = '';
+    userToken.value = '';
+    await router.push('/');
+}
 </script>
 
 <template>
@@ -59,6 +73,12 @@
                         </router-link>
                     </li>
                 </ul>
+            </li>
+
+            <li>
+                <a href="#" @click="handleLogout()">
+                    <span class="las la-sign-out-alt"></span> Logout
+                </a>
             </li>
         </ul>
     </nav>

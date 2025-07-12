@@ -64,7 +64,11 @@ onMounted(() => {
 
                     <div class="uk-navbar-dropdown navbar-dropdown">
                         <ul class="uk-nav uk-dropdown-nav nav-dropdown">
-                            <li><a href="#" @click="handleLogout()">Logout</a></li>
+                            <li>
+                                <a href="#" @click="handleLogout()">
+                                    <span class="las la-sign-out-alt"></span> Logout
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
