@@ -210,7 +210,6 @@ function onHandleRenderDatePicker() {
             altInput: true,
             enableTime: true,
             time_24hr: true,
-            minDate: "today",
         },
         dob: {
             dateFormat: "Y-m-d",
