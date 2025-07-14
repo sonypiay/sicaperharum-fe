@@ -1,13 +1,20 @@
 <script setup>
 
 import {useRouter} from "vue-router";
-import {onBeforeMount, reactive, ref} from "vue";
+import {onBeforeMount, onMounted, reactive, ref} from "vue";
 import klasterAPI from "../../../utils/api/MasterData/KlasterAPI.js";
 import dayjs from "dayjs";
+import CheckPermissionAccess from "../../../utils/CheckPermissionAccess.js";
 
 const router = useRouter();
 const searchField = reactive({
     title: ''
+});
+
+const getPermission = ref({
+    read: false,
+    write: false,
+    delete: false,
 });
 
 const dataKlaster = ref([]);
@@ -31,7 +38,14 @@ async function handleSearch() {
     await fetchKlaster();
 }
 
-onBeforeMount(async () => {
+function handleGetPermission() {
+    getPermission.value.read = CheckPermissionAccess('read');
+    getPermission.value.write = CheckPermissionAccess('write');
+    getPermission.value.delete = CheckPermissionAccess('delete');
+}
+
+onMounted(async () => {
+    handleGetPermission();
     await fetchKlaster();
 });
 
@@ -41,7 +55,7 @@ onBeforeMount(async () => {
     <section class="card-section">
         <div class="uk-flex uk-flex-between">
             <div class="card-heading">Daftar Klaster</div>
-            <div class="uk-text-right">
+            <div v-if="getPermission.write" class="uk-text-right">
                 <router-link :to="{name: 'create-klaster'}" class="uk-button uk-button-primary button button-primary">
                     Tambah
                 </router-link>

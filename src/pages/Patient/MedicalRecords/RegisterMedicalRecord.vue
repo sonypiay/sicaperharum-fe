@@ -1,7 +1,7 @@
 <script setup>
 
 import {useSessionStorage} from "@vueuse/core";
-import {onBeforeUnmount, onMounted, reactive, ref} from "vue";
+import {onBeforeMount, onBeforeUnmount, onMounted, reactive, ref} from "vue";
 import FormHematologi from "./FormHematologi.vue";
 import FormKimiaKlinik from "./FormKimiaKlinik.vue";
 import FormUrinalisa from "./FormUrinalisa.vue";
@@ -15,6 +15,7 @@ import FormNapza from "./FormNapza.vue";
 import patientMedicalRecordAPI from "../../../utils/api/Patient/PatientMedicalRecordAPI.js";
 import {alertConfirm, toastFailed, toastSuccess} from "../../../utils/alerts.js";
 import {useRoute, useRouter} from "vue-router";
+import CheckPermissionAccess from "../../../utils/CheckPermissionAccess.js";
 
 const router = useRouter();
 const route = useRoute();
@@ -218,8 +219,20 @@ function onHandleToggleMenuDropdownTab()
     isShowMenuDropdownTab.value = !isShowMenuDropdownTab.value;
 }
 
+async function handleGetPermission() {
+    if( CheckPermissionAccess('write') === false ) {
+        toastFailed('Anda tidak memiliki akses untuk mengakses halaman ini');
+        await router.push({ name: 'list-visitor-patient'});
+    }
+}
+
 const dataPatient = ref({});
-onMounted(() => {
+
+onBeforeMount(async () => {
+    await handleGetPermission();
+});
+
+onMounted(async () => {
     dataPatient.value = JSON.parse(useSessionStorage('form-patient').value ?? "{}");
     window.addEventListener('scroll', onHandleDetectScrolling);
 });

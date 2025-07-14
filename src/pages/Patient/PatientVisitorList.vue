@@ -1,12 +1,13 @@
 <script setup>
 
-import {nextTick, onMounted, reactive, ref, watch} from "vue";
+import {nextTick, onBeforeMount, onMounted, reactive, ref, watch} from "vue";
 import dayjs from "dayjs";
 import {alertConfirm, toastFailed, toastSuccess} from "../../utils/alerts.js";
 import patientMedicalRecordAPI from "../../utils/api/Patient/PatientMedicalRecordAPI.js";
 import {datePicker} from "../../utils/datePickerUtil.js";
 import klasterAPI from "../../utils/api/MasterData/KlasterAPI.js";
 import spesimenAPI from "../../utils/api/MasterData/SpesimenAPI.js";
+import CheckPermissionAccess from "../../utils/CheckPermissionAccess.js";
 
 const searchField = reactive({
     register_number: '',
@@ -35,6 +36,11 @@ const dataPatientVisitor = reactive({
 const dataKlaster = ref([]);
 const dataSpesimen = ref([]);
 const isSearchEnable = ref(false);
+const getPermission = ref({
+    read: false,
+    write: false,
+    delete: false,
+});
 let instancePickupDatePicker = null;
 let instanceDobPicker = null;
 
@@ -145,6 +151,16 @@ async function handlePageChange(page) {
     await fetchPatientVisitor(page);
 }
 
+function handleGetPermission() {
+    getPermission.value.read = CheckPermissionAccess('read');
+    getPermission.value.write = CheckPermissionAccess('write');
+    getPermission.value.delete = CheckPermissionAccess('delete');
+}
+
+onBeforeMount(() => {
+    handleGetPermission();
+})
+
 onMounted(async () => {
     if( isSearchEnable.value === true ) {
         onHandleRenderDatePicker();
@@ -187,7 +203,7 @@ async function handleDeleteButton(id, registerNumber) {
         <div class="uk-flex uk-flex-between">
             <div class="card-heading">Daftar Kunjungan Pasien</div>
             <div class="uk-text-right">
-                <router-link :to="{name: 'form-register-patient'}" class="uk-button uk-button-primary button button-primary">
+                <router-link :to="{name: 'form-register-patient'}" class="uk-button uk-button-primary button button-primary" v-if="getPermission.write">
                     Tambah
                 </router-link>
             </div>
@@ -280,25 +296,13 @@ async function handleDeleteButton(id, registerNumber) {
                                                 <span class="las la-eye"></span> Lihat
                                             </router-link>
                                         </li>
-                                        <li>
+                                        <li v-if="getPermission.delete">
                                             <a @click="handleDeleteButton(data.id, data.register_number)">
                                                 <span class="las la-trash"></span> Hapus
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
-<!--                                <div class="uk-grid-small" uk-grid>-->
-<!--                                    <div class="uk-width-1-1">-->
-<!--                                        <router-link :to="{name: 'visitor-detail', params: { registerNumber: data.register_number }}" class="uk-width-1-1 uk-button uk-button-small uk-button-primary button button-primary">-->
-<!--                                            <span class="las la-eye"></span> Lihat-->
-<!--                                        </router-link>-->
-<!--                                    </div>-->
-<!--                                    <div class="uk-width-1-1">-->
-<!--                                        <button @click="handleDeleteButton(data.id, data.register_number)" class="uk-width-1-1 uk-button uk-button-danger uk-button-small button button-danger">-->
-<!--                                            <span class="las la-trash"></span> Hapus-->
-<!--                                        </button>-->
-<!--                                    </div>-->
-<!--                                </div>-->
                             </td>
                             <td>{{ data.register_number }}</td>
                             <td>{{ data.patient.medical_number }}</td>

@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, reactive, ref} from 'vue';
+import {onBeforeMount, onMounted, reactive, ref} from 'vue';
 import {toastFailed} from "../../../utils/alerts.js";
 import {useRouter} from "vue-router";
 import patientAPI from "../../../utils/api/Patient/PatientAPI.js";
@@ -12,6 +12,7 @@ import patientMedicalRecordAPI from "../../../utils/api/Patient/PatientMedicalRe
 import dayjs from "dayjs";
 import Multiselect  from "vue-multiselect";
 import "vue-multiselect/dist/vue-multiselect.min.css";
+import CheckPermissionAccess from "../../../utils/CheckPermissionAccess.js";
 
 const formsInput = reactive({
     register_number: '',
@@ -255,6 +256,18 @@ function onHandleFilledForm() {
         Object.assign(formsInput, formPatient);
     }
 }
+
+async function handleGetPermission() {
+    if( CheckPermissionAccess('write') === false ) {
+        toastFailed('Anda tidak memiliki akses untuk mengakses halaman ini');
+
+        await router.push({ name: 'list-visitor-patient'});
+    }
+}
+
+onBeforeMount(async () => {
+    await handleGetPermission();
+});
 
 onMounted(async() => {
     await fetchGenerateRegisterNumber();

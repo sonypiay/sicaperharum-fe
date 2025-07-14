@@ -21,6 +21,7 @@ import RegisterPatient from "../pages/Patient/MedicalRecords/RegisterPatient.vue
 import PatientVisitorDetail from "../pages/Patient/PatientVisitorDetail.vue";
 import PatientVisitorList from "../pages/Patient/PatientVisitorList.vue";
 import Reports from "../pages/Reports.vue";
+import AccessDenied from "../pages/AccessDenied.vue";
 
 const routes = [
     {
@@ -39,11 +40,37 @@ const routes = [
                 path: '',
                 name: 'dashboard',
                 component: Dashboard,
+                meta: {
+                    roles: {
+                        superadmin: {
+                            read: true,
+                        },
+                        admin: {
+                            read: true,
+                        },
+                        user: {
+                            read: true,
+                        },
+                    }
+                },
             },
             {
                 path: '/reports',
                 name: 'reports',
                 component: Reports,
+                meta: {
+                    roles: {
+                        superadmin: {
+                            read: true,
+                        },
+                        admin: {
+                            read: true,
+                        },
+                        user: {
+                            read: true,
+                        },
+                    }
+                },
             },
             {
                 path: 'patients',
@@ -56,14 +83,33 @@ const routes = [
                     {
                         path: 'create',
                         name: 'create-patient',
-                        component: PatientCreate
+                        component: PatientCreate,
                     },
                     {
                         path: 'edit/:id',
                         name: 'edit-patient',
-                        component: PatientEdit
+                        component: PatientEdit,
                     },
                 ],
+                meta: {
+                    roles: {
+                        superadmin: {
+                            read: true,
+                            write: true,
+                            delete: true,
+                        },
+                        admin: {
+                            read: true,
+                            write: true,
+                            delete: true,
+                        },
+                        user: {
+                            read: true,
+                            write: false,
+                            delete: false,
+                        },
+                    }
+                }
             },
             {
                 path: 'visitor',
@@ -89,6 +135,25 @@ const routes = [
                         component: PatientVisitorDetail
                     }
                 ],
+                meta: {
+                    roles: {
+                        superadmin: {
+                            read: true,
+                            write: true,
+                            delete: true,
+                        },
+                        admin: {
+                            read: true,
+                            write: true,
+                            delete: true,
+                        },
+                        user: {
+                            read: true,
+                            write: false,
+                            delete: false,
+                        },
+                    }
+                }
             },
             {
                 path: 'master',
@@ -111,7 +176,26 @@ const routes = [
                                 name: 'edit-user',
                                 component: UserEdit
                             }
-                        ]
+                        ],
+                        meta: {
+                            roles: {
+                                superadmin: {
+                                    read: true,
+                                    write: true,
+                                    delete: true,
+                                },
+                                admin: {
+                                    read: false,
+                                    write: false,
+                                    delete: false,
+                                },
+                                user: {
+                                    read: false,
+                                    write: false,
+                                    delete: false,
+                                }
+                            },
+                        }
                     },
                     {
                         path: 'klaster',
@@ -131,7 +215,26 @@ const routes = [
                                 name: 'edit-klaster',
                                 component: KlasterEdit,
                             }
-                        ]
+                        ],
+                        meta: {
+                            roles: {
+                                superadmin: {
+                                    read: true,
+                                    write: true,
+                                    delete: true,
+                                },
+                                admin: {
+                                    read: false,
+                                    write: false,
+                                    delete: false,
+                                },
+                                user: {
+                                    read: false,
+                                    write: false,
+                                    delete: false,
+                                }
+                            }
+                        }
                     },
                     {
                         path: 'spesimen',
@@ -151,7 +254,26 @@ const routes = [
                                 name: 'edit-spesimen',
                                 component: SpesimenEdit,
                             }
-                        ]
+                        ],
+                        meta: {
+                            roles: {
+                                superadmin: {
+                                    read: true,
+                                    write: true,
+                                    delete: true,
+                                },
+                                admin: {
+                                    read: false,
+                                    write: false,
+                                    delete: false,
+                                },
+                                user: {
+                                    read: false,
+                                    write: false,
+                                    delete: false,
+                                }
+                            }
+                        }
                     },
                     {
                         path: 'metode-pembayaran',
@@ -171,11 +293,35 @@ const routes = [
                                 name: 'edit-metode-pembayaran',
                                 component: MetodePembayaranEdit,
                             }
-                        ]
+                        ],
+                        meta: {
+                            roles: {
+                                superadmin: {
+                                    read: true,
+                                    write: true,
+                                    delete: true,
+                                },
+                                admin: {
+                                    read: false,
+                                    write: false,
+                                    delete: false,
+                                },
+                                user: {
+                                    read: false,
+                                    write: false,
+                                    delete: false,
+                                }
+                            }
+                        }
                     },
                 ]
             }
         ],
+    },
+    {
+        path: '/access-denied',
+        name: 'access-denied',
+        component: AccessDenied,
     }
 ];
 

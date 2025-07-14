@@ -5,6 +5,7 @@ import patientAPI from "../../utils/api/Patient/PatientAPI.js";
 import dayjs from "dayjs";
 import {alertConfirm, toastFailed, toastSuccess} from "../../utils/alerts.js";
 import {datePicker} from "../../utils/datePickerUtil.js";
+import CheckPermissionAccess from "../../utils/CheckPermissionAccess.js";
 
 const searchField = reactive({
     medical_number: '',
@@ -31,6 +32,11 @@ const dataPatient = reactive({
 });
 const isSearchEnable = ref(false);
 let instanceDobPicker = null;
+const getPermission = ref({
+    read: false,
+    write: false,
+    delete: false,
+});
 
 async function fetchPatient(page) {
     const fetchApi = await patientAPI.getAll(searchField, page);
@@ -107,7 +113,14 @@ async function handleDeleteButton(medicalNumber) {
     }
 }
 
+function handleGetPermission() {
+    getPermission.value.read = CheckPermissionAccess('read');
+    getPermission.value.write = CheckPermissionAccess('write');
+    getPermission.value.delete = CheckPermissionAccess('delete');
+}
+
 onMounted(async () => {
+    handleGetPermission();
     await fetchPatient();
 
     if( isSearchEnable.value === true ) {
@@ -130,7 +143,7 @@ watch(isSearchEnable, async (newVal) => {
     <section class="card-section">
         <div class="uk-flex uk-flex-between">
             <div class="card-heading">Daftar Pasien</div>
-            <div class="uk-text-right">
+            <div class="uk-text-right" v-if="getPermission.write">
                 <router-link :to="{name: 'create-patient'}" class="uk-button uk-button-primary button button-primary">
                     Tambah
                 </router-link>
@@ -224,10 +237,15 @@ watch(isSearchEnable, async (newVal) => {
                                 <ul class="uk-nav uk-dropdown-nav dropdown-nav">
                                     <li>
                                         <router-link :to="{name: 'edit-patient', params: { id: data.id }}">
-                                            <span class="las la-edit"></span> Ubah
+                                            <span v-if="getPermission.write">
+                                                <span class="las la-edit"></span> Ubah
+                                            </span>
+                                            <span v-else>
+                                                <span class="las la-eye"></span> Lihat
+                                            </span>
                                         </router-link>
                                     </li>
-                                    <li>
+                                    <li v-if="getPermission.delete">
                                         <a @click="handleDeleteButton(data.medical_number)">
                                             <span class="las la-trash"></span> Hapus
                                         </a>

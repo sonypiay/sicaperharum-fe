@@ -1,9 +1,10 @@
 <script setup>
-import {onMounted, reactive} from 'vue';
+import {onMounted, reactive, ref} from 'vue';
 import {toastFailed, toastSuccess} from "../../utils/alerts.js";
 import {useRouter, useRoute} from "vue-router";
 import patientAPI from "../../utils/api/Patient/PatientAPI.js";
 import {datePickerOnlyDate} from "../../utils/datePickerUtil.js";
+import CheckPermissionAccess from "../../utils/CheckPermissionAccess.js";
 
 const formsInput = reactive({
     medical_number: '',
@@ -17,6 +18,7 @@ const formsInput = reactive({
 const router = useRouter();
 const errorDetail = reactive({});
 const id = useRoute().params.id;
+const getPermission = ref(false);
 
 function onValidationForm() {
     errorDetail.medical_number = '';
@@ -81,10 +83,14 @@ async function fetchPatient() {
     }
 }
 
+function handleGetPermission() {
+    getPermission.value = CheckPermissionAccess('write');
+}
+
 onMounted(async () => {
     await fetchPatient();
-
     datePickerOnlyDate('#input-dob', formsInput.dob);
+    handleGetPermission();
 });
 </script>
 
@@ -151,7 +157,7 @@ onMounted(async () => {
                     <router-link :to="{ name: 'list-patients' }" class="uk-button uk-button-default uk-margin-small-right button button-default">
                         Kembali
                     </router-link>
-                    <button class="uk-button uk-button-primary button button-primary">
+                    <button v-if="getPermission" class="uk-button uk-button-primary button button-primary">
                         Simpan
                     </button>
                 </div>

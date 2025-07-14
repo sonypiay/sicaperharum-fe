@@ -2,8 +2,11 @@
 import {useRouter} from "vue-router";
 import authAPI from "../utils/api/AuthAPI.js";
 import {useLocalStorage} from "@vueuse/core";
+import {onMounted, ref} from "vue";
+import {CheckModuleVisibility} from "../utils/CheckModuleVisibility.js";
 
 const router = useRouter();
+const getRoleCode = ref(null);
 
 async function handleLogout() {
     await authAPI.logout();
@@ -14,6 +17,15 @@ async function handleLogout() {
     userToken.value = '';
     await router.push('/');
 }
+
+function handleGetRoleCode() {
+    const userProfile = useLocalStorage('user_profile', null);
+    getRoleCode.value = JSON.parse(userProfile.value).role.code ?? null;
+}
+
+onMounted(() => {
+    handleGetRoleCode();
+})
 </script>
 
 <template>
@@ -23,31 +35,36 @@ async function handleLogout() {
         </div>
 
         <ul class="uk-nav uk-nav-default nav-list" uk-nav>
-            <li>
+            <li v-if="CheckModuleVisibility.dashboard.roles.includes(getRoleCode)">
                 <router-link to="/admin">
                     <span class="las la-home"></span> Dashboard
                 </router-link>
             </li>
 
-            <li>
+            <li v-if="CheckModuleVisibility.patientVisitor.roles.includes(getRoleCode)">
                 <router-link :to="{name: 'list-visitor-patient'}">
                     <span class="las la-clipboard"></span> Kunjungan Pasien
                 </router-link>
             </li>
 
-            <li>
+            <li v-if="CheckModuleVisibility.patient.roles.includes(getRoleCode)">
                 <router-link :to="{name: 'list-patients'}">
                     <span class="las la-user"></span> Daftar Pasien
                 </router-link>
             </li>
 
-            <li>
+            <li v-if="CheckModuleVisibility.reports.roles.includes(getRoleCode)">
                 <router-link :to="{name: 'reports'}">
                     <span class="las la-poll"></span> Laporan
                 </router-link>
             </li>
 
-            <li class="uk-parent">
+            <li class="uk-parent"
+            v-if="
+            CheckModuleVisibility.masterData.user.roles.includes(getRoleCode) ||
+            CheckModuleVisibility.masterData.klaster.roles.includes(getRoleCode) ||
+            CheckModuleVisibility.masterData.spesimen.roles.includes(getRoleCode) ||
+            CheckModuleVisibility.masterData.metodePembayaran.roles.includes(getRoleCode)">
                 <a href="#">
                     <span class="las la-database"></span> Master Data <span uk-nav-parent-icon></span>
                 </a>
