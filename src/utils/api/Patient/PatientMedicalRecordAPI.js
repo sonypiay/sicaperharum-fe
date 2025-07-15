@@ -48,14 +48,7 @@ const patientMedicalRecordAPI = {
             if( search.register_number !== '' ) endpoint.searchParams.append('register_number', search.register_number);
             if( search.patient_name !== '' ) endpoint.searchParams.append('patient_name', search.patient_name);
             if( search.tanggal_lahir !== '' ) endpoint.searchParams.append('tanggal_lahir', search.tanggal_lahir);
-
-            if( search.tanggal_start_pickup !== '' ) {
-                endpoint.searchParams.append('tanggal_start_pickup', search.tanggal_start_pickup);
-            }
-
-            if( search.tanggal_end_pickup !== '' ) {
-                endpoint.searchParams.append('tanggal_end_pickup', search.tanggal_end_pickup);
-            }
+            if( search.tanggal_pickup !== '' ) endpoint.searchParams.append('tanggal_pickup', search.tanggal_pickup);
         }
 
         const fetchApi = await fetch(endpoint, {

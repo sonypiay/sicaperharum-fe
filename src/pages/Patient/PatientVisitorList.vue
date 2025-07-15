@@ -12,8 +12,7 @@ import CheckPermissionAccess from "../../utils/CheckPermissionAccess.js";
 const searchField = reactive({
     register_number: '',
     medical_number: '',
-    tanggal_start_pickup: '',
-    tanggal_end_pickup: '',
+    tanggal_pickup: '',
     page: 1,
     tanggal_lahir: '',
     patient_name: '',
@@ -92,15 +91,6 @@ function onHandleRenderDatePicker() {
             altFormat: "F j, Y",
             altInput: true,
             enableTime: false,
-            maxDate: "today",
-            mode: 'range',
-            onChange: function(selectedDates, dateStr, instance) {
-                const date1 = selectedDates[0] ? dayjs(selectedDates[0]).format('YYYY-MM-DD') : '';
-                const date2 = selectedDates[1] ? dayjs(selectedDates[1]).format('YYYY-MM-DD') : '';
-
-                searchField.tanggal_start_pickup = date1;
-                searchField.tanggal_end_pickup = date2;
-            }
         },
         dob: {
             dateFormat: "Y-m-d",
@@ -128,8 +118,7 @@ async function handleResetSearch() {
     searchField.medical_number = '';
     searchField.patient_name = '';
     searchField.tanggal_lahir = '';
-    searchField.tanggal_start_pickup = '';
-    searchField.tanggal_end_pickup = '';
+    searchField.tanggal_pickup = '';
     searchField.page = 1;
 
     if( instancePickupDatePicker ) {
@@ -255,7 +244,7 @@ async function handleDeleteButton(id, registerNumber) {
                     <div class="uk-width-1-3@m uk-width-1-2@s">
                         <label for="input-tanggal-pengambilan" class="uk-form-label form-label">Tanggal Pengambilan</label>
                         <div class="uk-form-controls">
-                            <input type="text" class="uk-width-1-1 uk-input form-input" id="input-tanggal-pengambilan" />
+                            <input type="text" class="uk-width-1-1 uk-input form-input" id="input-tanggal-pengambilan" v-model="searchField.tanggal_pickup" />
                         </div>
                     </div>
                 </div>
