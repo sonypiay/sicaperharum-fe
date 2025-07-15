@@ -53,6 +53,10 @@ const props = defineProps({
                                 <option value="">Pilih Nilai</option>
                                 <option v-for="item in column.option" :key="item" :value="item">{{ item }}</option>
                             </select>
+
+                            <div v-if="column.hasOwnProperty('note') && column.hasil === 'Positif'" class="uk-margin-small-top">
+                                <input type="text" class="uk-width-1-1 uk-input form-input form-input-small" v-model="column.note" placeholder="Masukkan keterangan" />
+                            </div>
                         </td>
                         <td></td>
                         <td>{{ column.nilai_normal }}</td>

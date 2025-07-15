@@ -81,6 +81,10 @@ const props = defineProps({
                                 <option value="">Pilih Nilai</option>
                                 <option v-for="item in column.option" :key="item" :value="item">{{ item }}</option>
                             </select>
+
+                            <div v-if="column.hasOwnProperty('note') && column.hasil === 'Positif'" class="uk-margin-small-top">
+                                <input type="text" class="uk-width-1-1 uk-input form-input form-input-small" v-model="column.note" placeholder="Masukkan keterangan" />
+                            </div>
                         </td>
                         <td></td>
                         <td>{{ column.nilai_normal }}</td>
@@ -107,6 +111,9 @@ const props = defineProps({
                                 <option value="">Pilih Nilai</option>
                                 <option v-for="item in column.option" :key="item" :value="item">{{ item }}</option>
                             </select>
+                            <div v-if="column.hasOwnProperty('note') && column.hasil === 'Positif'" class="uk-margin-small-top">
+                                <input type="text" class="uk-width-1-1 uk-input form-input form-input-small" v-model="column.note" placeholder="Masukkan keterangan" />
+                            </div>
                         </td>
                         <td v-else>
                             <input type="text" class="uk-width-1-1 uk-input form-input form-input-small" v-model="column.hasil" />
@@ -136,6 +143,10 @@ const props = defineProps({
                                 <option value="">Pilih Nilai</option>
                                 <option v-for="item in props.formInput.bta.option" :key="item" :value="item">{{ item }}</option>
                             </select>
+
+                            <div v-if="props.formInput.bta.hasOwnProperty('note') && (props.formInput.bta.hasil !== 'Negatif' && props.formInput.bta.hasil !== '')" class="uk-margin-small-top">
+                                <input type="text" class="uk-width-1-1 uk-input form-input form-input-small" v-model="props.formInput.bta.note" placeholder="Masukkan keterangan" />
+                            </div>
                         </td>
                         <td></td>
                         <td>{{ props.formInput.bta.nilai_normal }}</td>
@@ -165,6 +176,10 @@ const props = defineProps({
                                 <option value="">Pilih Nilai</option>
                                 <option v-for="item in column.option" :key="item" :value="item">{{ item }}</option>
                             </select>
+
+                            <div v-if="column.hasOwnProperty('note') && column.hasil === 'Positif'" class="uk-margin-small-top">
+                                <input type="text" class="uk-width-1-1 uk-input form-input form-input-small" v-model="column.note" placeholder="Masukkan keterangan" />
+                            </div>
                         </td>
                         <td v-else>
                             <input type="text" class="uk-width-1-1 uk-input form-input form-input-small" v-model="column.hasil" />
@@ -196,6 +211,10 @@ const props = defineProps({
                                 <option value="">Pilih Nilai</option>
                                 <option v-for="item in column.option" :key="item" :value="item">{{ item }}</option>
                             </select>
+
+                            <div v-if="column.hasOwnProperty('note') && column.hasil === 'Positif'" class="uk-margin-small-top">
+                                <input type="text" class="uk-width-1-1 uk-input form-input form-input-small" v-model="column.note" placeholder="Masukkan keterangan" />
+                            </div>
                         </td>
                         <td v-else>
                             <input type="text" class="uk-width-1-1 uk-input form-input form-input-small" v-model="column.hasil" />

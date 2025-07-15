@@ -90,6 +90,10 @@ const props = defineProps({
                                 <option value="">Pilih Nilai</option>
                                 <option v-for="item in props.formInput.rhesus.option" :key="item" :value="item">{{ item }}</option>
                             </select>
+
+                            <div v-if="props.formInput.rhesus.hasOwnProperty('note') && (props.formInput.rhesus.hasil !== 'Negatif' && props.formInput.rhesus.hasil !== '')" class="uk-margin-small-top">
+                                <input type="text" class="uk-input form-input form-input-small" v-model="props.formInput.rhesus.note" placeholder="Masukkan catatan" />
+                            </div>
                         </td>
                         <td></td>
                         <td>{{ props.formInput.rhesus.nilai_normal }}</td>
@@ -117,6 +121,10 @@ const props = defineProps({
                                 <option value="">Pilih Nilai</option>
                                 <option v-for="item in column.option" :key="item" :value="item">{{ item }}</option>
                             </select>
+
+                            <div v-if="column.hasOwnProperty('note') && column.hasil === 'Reaktif'" class="uk-margin-small-top">
+                                <input  type="text" class="uk-input form-input form-input-small" v-model="column.note" placeholder="Masukkan keterangan" />
+                            </div>
                         </td>
                         <td></td>
                         <td>{{ column.nilai_normal }}</td>
@@ -145,8 +153,12 @@ const props = defineProps({
                             <option v-for="item in column.option" :key="item" :value="item">{{ item }}</option>
                         </select>
 
-                        <div v-if="column.hasil === 'Reaktif' && column.label === 'VDRL'" class="uk-margin-small-top">
-                            <input  type="text" class="uk-width-1-1 uk-input form-input form-input-small" v-model="column.titer" placeholder="Masukkan nilai titer" />
+                        <div v-if="column.hasOwnProperty('titer') && column.hasil === 'Reaktif'" class="uk-margin-small-top">
+                            <input type="text" class="uk-width-1-1 uk-input form-input form-input-small" v-model="column.titer" placeholder="Masukkan nilai titer" />
+                        </div>
+
+                        <div v-if="column.hasOwnProperty('note') && column.hasil === 'Positif'" class="uk-margin-small-top">
+                            <input type="text" class="uk-width-1-1 uk-input form-input form-input-small" v-model="column.note" placeholder="Masukkan keterangan" />
                         </div>
                     </td>
                     <td></td>
@@ -160,25 +172,29 @@ const props = defineProps({
         <div class="uk-card uk-card-default uk-card-body card-form-input">
             <table class="uk-table uk-table-small uk-table-middle uk-table-responsive uk-table-justify table-input-lab">
                 <thead>
-                <tr>
-                    <th class="uk-width-medium">Hepatitis</th>
-                    <th class="uk-width-small">Nilai</th>
-                    <th class="uk-width-small">Satuan</th>
-                    <th class="uk-width-small">Nilai Normal</th>
-                </tr>
+                    <tr>
+                        <th class="uk-width-medium">Hepatitis</th>
+                        <th class="uk-width-small">Nilai</th>
+                        <th class="uk-width-small">Satuan</th>
+                        <th class="uk-width-small">Nilai Normal</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr v-for="(column, index) in props.formInput.hepatitis" :key="`hiv_${index}`">
-                    <td>{{ column.label }}</td>
-                    <td>
-                        <select class="uk-width-1-1 uk-select form-select form-select-small" v-model="column.hasil">
-                            <option value="">Pilih Nilai</option>
-                            <option v-for="item in column.option" :key="item" :value="item">{{ item }}</option>
-                        </select>
-                    </td>
-                    <td></td>
-                    <td>{{ column.nilai_normal }}</td>
-                </tr>
+                    <tr v-for="(column, index) in props.formInput.hepatitis" :key="`hiv_${index}`">
+                        <td>{{ column.label }}</td>
+                        <td>
+                            <select class="uk-width-1-1 uk-select form-select form-select-small" v-model="column.hasil">
+                                <option value="">Pilih Nilai</option>
+                                <option v-for="item in column.option" :key="item" :value="item">{{ item }}</option>
+                            </select>
+
+                            <div v-if="column.hasOwnProperty('note') && column.hasil === 'Positif'" class="uk-margin-small-top">
+                                <input type="text" class="uk-width-1-1 uk-input form-input form-input-small" v-model="column.note" placeholder="Masukkan keterangan" />
+                            </div>
+                        </td>
+                        <td></td>
+                        <td>{{ column.nilai_normal }}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

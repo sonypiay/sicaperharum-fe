@@ -264,7 +264,8 @@ mappingMedicalRecord.urinalisa = {
                 "Positif 3",
                 "Positif 4",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         },
         {
             label: 'Protein',
@@ -276,7 +277,8 @@ mappingMedicalRecord.urinalisa = {
                 "Positif 3",
                 "Positif 4",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         },
         {
             label: 'Bilirubin',
@@ -285,7 +287,8 @@ mappingMedicalRecord.urinalisa = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         },
         {
             label: 'Urobilinogen',
@@ -294,7 +297,7 @@ mappingMedicalRecord.urinalisa = {
                 "Normal",
                 "Abnormal",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
         },
         {
             label: 'Nitrit',
@@ -303,7 +306,8 @@ mappingMedicalRecord.urinalisa = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         },
         {
             label: 'Keton',
@@ -312,10 +316,11 @@ mappingMedicalRecord.urinalisa = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         },
         {
-            label: 'Eritrosit',
+            label: 'Blood',
             hasil: '',
             option: [
                 "Negatif",
@@ -323,7 +328,8 @@ mappingMedicalRecord.urinalisa = {
                 "Positif 2",
                 "Positif 3",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         },
         {
             label: 'Leukosit Esterase',
@@ -334,7 +340,8 @@ mappingMedicalRecord.urinalisa = {
                 "Positif 2",
                 "Positif 3",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         },
     ],
     sedimen: [
@@ -359,6 +366,7 @@ mappingMedicalRecord.urinalisa = {
                 "Positif",
             ],
             nilai_normal: "5 - 6",
+            note: '',
         },
         {
             label: 'Silinder',
@@ -392,7 +400,8 @@ mappingMedicalRecord.urinalisa = {
                 "Positif 3",
             ],
             satuan: "/ LPB",
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         },
         {
             label: 'Jamur',
@@ -402,7 +411,8 @@ mappingMedicalRecord.urinalisa = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         }
     ]
 };
@@ -415,7 +425,8 @@ mappingMedicalRecord.napza = [
             "Negatif",
             "Positif",
         ],
-        nilai_normal: "Negatif"
+        nilai_normal: "Negatif",
+        note: '',
     },
     {
         label: 'MOP',
@@ -424,7 +435,8 @@ mappingMedicalRecord.napza = [
             "Negatif",
             "Positif",
         ],
-        nilai_normal: "Negatif"
+        nilai_normal: "Negatif",
+        note: '',
     },
     {
         label: 'THC',
@@ -433,7 +445,8 @@ mappingMedicalRecord.napza = [
             "Negatif",
             "Positif",
         ],
-        nilai_normal: "Negatif"
+        nilai_normal: "Negatif",
+        note: '',
     }
 ];
 
@@ -454,7 +467,8 @@ mappingMedicalRecord.imunoserologi = {
             "Negatif",
             "Positif",
         ],
-        nilai_normal: ""
+        nilai_normal: "",
+        note: '',
     },
     hiv: [
         {
@@ -464,7 +478,8 @@ mappingMedicalRecord.imunoserologi = {
                 "Non Reaktif",
                 "Reaktif",
             ],
-            nilai_normal: "Non Reaktif"
+            nilai_normal: "Non Reaktif",
+            note: '',
         },
         {
             label: 'HIV R2',
@@ -473,7 +488,8 @@ mappingMedicalRecord.imunoserologi = {
                 "Non Reaktif",
                 "Reaktif",
             ],
-            nilai_normal: "Non Reaktif"
+            nilai_normal: "Non Reaktif",
+            note: '',
         },
         {
             label: 'HIV R3',
@@ -482,7 +498,8 @@ mappingMedicalRecord.imunoserologi = {
                 "Non Reaktif",
                 "Reaktif",
             ],
-            nilai_normal: "Non Reaktif"
+            nilai_normal: "Non Reaktif",
+            note: '',
         },
     ],
     sifilis: [
@@ -493,7 +510,8 @@ mappingMedicalRecord.imunoserologi = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         },
         {
             label: 'VDRL',
@@ -514,7 +532,8 @@ mappingMedicalRecord.imunoserologi = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         },
         {
             label: 'Anti HBs',
@@ -523,7 +542,8 @@ mappingMedicalRecord.imunoserologi = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         },
         {
             label: 'HCV',
@@ -532,7 +552,8 @@ mappingMedicalRecord.imunoserologi = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         },
     ],
     widal: [
@@ -616,7 +637,8 @@ mappingMedicalRecord.mikroskopis = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         },
         {
             label: 'Darah',
@@ -625,7 +647,8 @@ mappingMedicalRecord.mikroskopis = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         },
         {
             label: 'Sisa Makanan',
@@ -634,7 +657,8 @@ mappingMedicalRecord.mikroskopis = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         }
     ],
     mikroskopis: [
@@ -657,7 +681,8 @@ mappingMedicalRecord.mikroskopis = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         },
         {
             label: 'Telur Cacing',
@@ -666,7 +691,8 @@ mappingMedicalRecord.mikroskopis = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         },
         {
             label: 'Jamur',
@@ -675,7 +701,8 @@ mappingMedicalRecord.mikroskopis = {
                 "Negatif",
                 "Positif",
             ],
-            nilai_normal: "Negatif"
+            nilai_normal: "Negatif",
+            note: '',
         }
     ],
     bta: {
@@ -687,7 +714,8 @@ mappingMedicalRecord.mikroskopis = {
             "Positif 2",
             "Positif 3",
         ],
-        nilai_normal: "Negatif"
+        nilai_normal: "Negatif",
+        note: '',
     },
     ims: {
         laki: [
@@ -698,7 +726,8 @@ mappingMedicalRecord.mikroskopis = {
                     "Negatif",
                     "Positif",
                 ],
-                nilai_normal: "Negatif"
+                nilai_normal: "Negatif",
+                note: '',
             },
             {
                 label: `<i>Diplococcus</i>`,
@@ -707,7 +736,8 @@ mappingMedicalRecord.mikroskopis = {
                     "Negatif",
                     "Positif",
                 ],
-                nilai_normal: "Negatif"
+                nilai_normal: "Negatif",
+                note: '',
             }
         ],
         perempuan: [
@@ -718,7 +748,8 @@ mappingMedicalRecord.mikroskopis = {
                     "Negatif",
                     "Positif",
                 ],
-                nilai_normal: "Negatif"
+                nilai_normal: "Negatif",
+                note: '',
             },
             {
                 label: `<i>Diplococcus</i>`,
@@ -727,7 +758,8 @@ mappingMedicalRecord.mikroskopis = {
                     "Negatif",
                     "Positif",
                 ],
-                nilai_normal: "Negatif"
+                nilai_normal: "Negatif",
+                note: '',
             },
             {
                 label: `T. <i>vaginalis</i>`,
@@ -736,7 +768,8 @@ mappingMedicalRecord.mikroskopis = {
                     "Negatif",
                     "Positif",
                 ],
-                nilai_normal: "Negatif"
+                nilai_normal: "Negatif",
+                note: '',
             },
             {
                 label: `<i>Candida</i>`,
@@ -745,7 +778,8 @@ mappingMedicalRecord.mikroskopis = {
                     "Negatif",
                     "Positif",
                 ],
-                nilai_normal: "Negatif"
+                nilai_normal: "Negatif",
+                note: '',
             },
             {
                 label: 'Clue Cell',
@@ -754,7 +788,8 @@ mappingMedicalRecord.mikroskopis = {
                     "Negatif",
                     "Positif",
                 ],
-                nilai_normal: "Negatif"
+                nilai_normal: "Negatif",
+                note: '',
             },
             {
                 label: 'Bakterial Vaginosis',
@@ -763,7 +798,8 @@ mappingMedicalRecord.mikroskopis = {
                     "Negatif",
                     "Positif",
                 ],
-                nilai_normal: "Negatif"
+                nilai_normal: "Negatif",
+                note: '',
             }
         ]
     }
@@ -806,7 +842,8 @@ mappingMedicalRecord.lainnya = [
             "Negatif",
             "Positif",
         ],
-        nilai_normal: "Negatif"
+        nilai_normal: "Negatif",
+        note: '',
     },
     {
         label: 'Dengue NS1',
@@ -815,7 +852,8 @@ mappingMedicalRecord.lainnya = [
             "Negatif",
             "Positif",
         ],
-        nilai_normal: "Negatif"
+        nilai_normal: "Negatif",
+        note: '',
     },
     {
         label: 'Dengue IgG ',
@@ -825,6 +863,7 @@ mappingMedicalRecord.lainnya = [
             "Positif",
         ],
         nilai_normal: "Negatif",
+        note: '',
     },
     {
         label: 'Dengue IgM',
@@ -833,7 +872,8 @@ mappingMedicalRecord.lainnya = [
             "Negatif",
             "Positif",
         ],
-        nilai_normal: "Negatif"
+        nilai_normal: "Negatif",
+        note: '',
     },
     {
         label: 'Malaria',
@@ -842,7 +882,8 @@ mappingMedicalRecord.lainnya = [
             "Negatif",
             "Positif",
         ],
-        nilai_normal: "Negatif"
+        nilai_normal: "Negatif",
+        note: '',
     },
     {
         label: 'Chikungunya',
@@ -851,7 +892,8 @@ mappingMedicalRecord.lainnya = [
             "Negatif",
             "Positif",
         ],
-        nilai_normal: "Negatif"
+        nilai_normal: "Negatif",
+        note: '',
     },
     {
         label: 'Antigen Covid-19',
@@ -860,7 +902,8 @@ mappingMedicalRecord.lainnya = [
             "Negatif",
             "Positif",
         ],
-        nilai_normal: "Negatif"
+        nilai_normal: "Negatif",
+        note: '',
     },
     {
         label: 'Darah Samar',
@@ -869,7 +912,8 @@ mappingMedicalRecord.lainnya = [
             "Negatif",
             "Positif",
         ],
-        nilai_normal: "Negatif"
+        nilai_normal: "Negatif",
+        note: '',
     }
 ];
 

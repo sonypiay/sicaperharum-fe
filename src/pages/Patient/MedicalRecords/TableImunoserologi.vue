@@ -20,7 +20,10 @@ const props = defineProps({
     <tbody v-if="props.medicalRecord.rhesus.hasil !== null">
         <tr>
             <td>Rhesus</td>
-            <td>{{ props.medicalRecord.rhesus.hasil }}</td>
+            <td>
+                {{ props.medicalRecord.rhesus.hasil }}
+                <span v-if="props.medicalRecord.rhesus.hasOwnProperty('note') && props.medicalRecord.rhesus.note !== null">(Keterangan: {{ props.medicalRecord.rhesus.note }})</span>
+            </td>
             <td>{{ props.medicalRecord.rhesus.satuan }}</td>
             <td>{{ props.medicalRecord.rhesus.nilai_normal }}</td>
         </tr>
@@ -30,7 +33,10 @@ const props = defineProps({
         <tr><th colspan="4">HIV</th></tr>
         <tr v-for="(column, index) in props.medicalRecord.hiv" :key="`hiv-${index}`">
             <td>{{ column.label }}</td>
-            <td>{{ column.hasil }}</td>
+            <td>
+                {{ column.hasil }}
+                <span v-if="column.hasOwnProperty('note') && column.note !== null">(Keterangan: {{ column.note }})</span>
+            </td>
             <td>{{ column.satuan }}</td>
             <td>{{ column.nilai_normal }}</td>
         </tr>
@@ -43,6 +49,7 @@ const props = defineProps({
             <td>
                 {{ column.hasil }}
                 <span v-if="column.hasOwnProperty('titer') && column.titer !== null">(Titer: {{ column.titer }})</span>
+                <span v-if="column.hasOwnProperty('note') && column.note !== null">(Keterangan: {{ column.note }})</span>
             </td>
             <td>{{ column.satuan }}</td>
             <td>{{ column.nilai_normal }}</td>
@@ -53,7 +60,10 @@ const props = defineProps({
         <tr><th colspan="4">Hepatitis</th></tr>
         <tr v-for="(column, index) in props.medicalRecord.hepatitis" :key="`hepatitis-${index}`">
             <td>{{ column.label }}</td>
-            <td>{{ column.hasil }}</td>
+            <td>
+                {{ column.hasil }}
+                <span v-if="column.hasOwnProperty('note') && column.note !== null">(Keterangan: {{ column.note }})</span>
+            </td>
             <td>{{ column.satuan }}</td>
             <td>{{ column.nilai_normal }}</td>
         </tr>
