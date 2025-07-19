@@ -40,11 +40,11 @@ mappingMedicalRecord.hematologi = {
         {
             label: 'Eritrosit',
             hasil: '',
-            satuan: 'juta sel/µl',
+            satuan: 'sel/µl',
             nilai_normal: {
-                laki: '4,0 - 5,5',
-                perempuan: '3,5 - 5,0',
-                anak: '3,5 - 5,2',
+                laki: '4jt - 5,5jt',
+                perempuan: '3,5jt - 5jt',
+                anak: '3,5jt - 5,2jt',
             },
         }
     ],

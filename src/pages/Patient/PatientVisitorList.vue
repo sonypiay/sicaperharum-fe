@@ -270,6 +270,7 @@ async function handleDeleteButton(id, registerNumber) {
                             <th>Jenis Kelamin</th>
                             <th>Nomor Telepon</th>
                             <th>Tanggal Pengambilan</th>
+                            <th>Tanggal Pembuatan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -301,6 +302,7 @@ async function handleDeleteButton(id, registerNumber) {
                             <td>{{ data.patient.gender.name }}</td>
                             <td>{{ data.patient.phone_number }}</td>
                             <td>{{ dayjs(data.pickup_datetime).format('DD MMMM YYYY HH:mm') }}</td>
+                            <td>{{ dayjs(data.created_at).format('DD MMMM YYYY HH:mm') }}</td>
                         </tr>
                     </tbody>
                 </table>
