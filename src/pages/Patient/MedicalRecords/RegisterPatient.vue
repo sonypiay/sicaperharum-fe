@@ -157,8 +157,12 @@ async function fetchDataMetodePembayaran() {
     }
 }
 
-async function fetchGenerateRegisterNumber() {
-    const fetchApi = await patientMedicalRecordAPI.getRegisterNumber();
+async function fetchGenerateRegisterNumber(pickupDate) {
+    if(pickupDate === undefined) {
+        pickupDate = dayjs().format("YYYY-MM-DD");
+    }
+
+    const fetchApi = await patientMedicalRecordAPI.getRegisterNumber(pickupDate);
     const responseBody = fetchApi.data;
 
     formsInput.register_number = responseBody.register_number;
@@ -210,6 +214,11 @@ function onHandleRenderDatePicker() {
             altInput: true,
             enableTime: true,
             time_24hr: true,
+            defaultDate: formsInput.pickup_datetime,
+            onChange: async function(selectedDates) {
+                const pickupDate = dayjs(selectedDates).format("YYYY-MM-DD");
+                await fetchGenerateRegisterNumber(pickupDate);
+            },
         },
         dob: {
             dateFormat: "Y-m-d",
@@ -269,10 +278,10 @@ onBeforeMount(async () => {
 });
 
 onMounted(async() => {
-    await fetchGenerateRegisterNumber();
     await fetchDataKlaster();
     await fetchDataSpesimen();
     await fetchDataMetodePembayaran();
+    await fetchGenerateRegisterNumber();
 
     onHandleFilledForm();
     onHandleRenderDatePicker();
@@ -297,7 +306,7 @@ onMounted(async() => {
                         <div class="uk-width-1-3@m uk-width-1-1@s">
                             <label class="uk-form-label form-label">No. Register Lab</label>
                             <div class="uk-form-controls">
-                                <input type="text" class="uk-width-1-1 uk-input form-input" v-model="formsInput.register_number" />
+                                <input type="text" class="uk-width-1-1 uk-input form-input" v-model="formsInput.register_number" disabled />
                             </div>
                         </div>
 

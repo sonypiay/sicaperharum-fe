@@ -1,10 +1,14 @@
 import apis from "../api.js";
-import dayjs from "dayjs";
 
 const patientMedicalRecordAPI = {
-    getRegisterNumber: async() => {
+    getRegisterNumber: async(pickupDate) => {
         const userToken = localStorage.getItem('user_token') ?? null;
-        const endpoint = `${apis.backendApi}/patients/medical-records/generate-number`;
+        const endpoint = new URL(`${apis.backendApi}/patients/medical-records/generate-number`);
+
+        if( pickupDate ) {
+            endpoint.searchParams.append('pickup_date', pickupDate);
+        }
+
         const fetchApi = await fetch(endpoint, {
             method: apis.method.get,
             headers: {
