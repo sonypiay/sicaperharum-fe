@@ -35,6 +35,11 @@
     }
 }
 
+.form-text-info {
+    @include vars.fontStyling(vars.$fontFamily !important, 13px, 500, #333333);
+    font-style: italic;
+}
+
 .form-input {
     @include vars.fontStyling(vars.$fontFamily !important, 16px, 400, #333333);
     border-radius: 10px;

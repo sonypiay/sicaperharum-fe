@@ -4,6 +4,7 @@ import {toastFailed, toastSuccess} from "../../../utils/alerts.js";
 import {useRoute, useRouter} from "vue-router";
 import userAPI from "../../../utils/api/MasterData/UserAPI.js";
 import {useLocalStorage} from "@vueuse/core";
+import ImageHelper from "../../../utils/ImageHelper.js";
 
 const formsInput = reactive({
     username: '',
@@ -11,11 +12,22 @@ const formsInput = reactive({
     email: '',
     password: '',
     confirm_password: '',
-    image: null,
+    profile_image: {
+        file: null,
+        url: ''
+    },
     active: "1",
+    signature: {
+        file: null,
+        url: ''
+    },
     oldProfileImage: {
         file: null,
         url: ''
+    },
+    oldSignature: {
+        file: null,
+        url: '',
     },
     gelar: '',
     role: '',
@@ -30,10 +42,14 @@ function onValidationForm() {
     errorDetail.name = '';
     errorDetail.email = '';
     errorDetail.password = '';
-    errorDetail.image = '';
+    errorDetail.profile_image = '';
+    errorDetail.signature = '';
     errorDetail.gelar = '';
     errorDetail.role = '';
     errorDetail.isError = false;
+
+    console.log(typeof formsInput.profile_image.file);
+    console.log(typeof formsInput.signature.file);
 
     if( formsInput.role === '' ) {
         errorDetail.role = 'Role wajib diisi';
@@ -55,9 +71,16 @@ function onValidationForm() {
         errorDetail.isError = true;
     }
 
-    if( formsInput.image ) {
-        if( formsInput.image.type !== 'image/png' && formsInput.image.type !== 'image/jpeg' ) {
-            errorDetail.image = 'File harus berupa gambar dengan format PNG atau JPEG';
+    if( formsInput.profile_image.file !== null ) {
+        if( formsInput.profile_image.file.type !== 'image/png' && formsInput.profile_image.file.type !== 'image/jpeg' ) {
+            errorDetail.profile_image = 'File harus berupa gambar dengan format PNG atau JPEG';
+            errorDetail.isError = true;
+        }
+    }
+
+    if( formsInput.signature.file !== null ) {
+        if( formsInput.signature.file.type !== 'image/png' && formsInput.signature.file.type !== 'image/jpeg' ) {
+            errorDetail.signature = 'File harus berupa gambar dengan format PNG atau JPEG';
             errorDetail.isError = true;
         }
     }
@@ -76,9 +99,9 @@ async function fetchUser() {
     formsInput.name = responseBody.name ?? '';
     formsInput.email = responseBody.email ?? '';
     formsInput.password = '';
-    formsInput.image = null;
     formsInput.active = responseBody.active;
     formsInput.oldProfileImage = responseBody.image ?? '';
+    formsInput.oldSignature = responseBody.signature ?? '';
     formsInput.gelar = responseBody.gelar ?? '';
     formsInput.role = responseBody.role.code ?? '';
 }
@@ -130,9 +153,21 @@ async function onHandleSubmit() {
     }
 }
 
-function handleGetFiles(event) {
-    const file = event.target.files[0];
-    formsInput.image = file ?? null;
+function handleGetFiles(event, propName) {
+    if( propName ) {
+        formsInput[propName] = ImageHelper.getFile(event, propName);
+    }
+}
+
+function handleRemovePreviewImage(propName) {
+    if( propName ) {
+        if( formsInput[propName].url ) {
+            URL.revokeObjectURL(formsInput[propName].url);
+        }
+
+        const element = `#input-form-${propName}`;
+        formsInput[propName] = ImageHelper.removeFile(element);
+    }
 }
 
 onMounted(async () => {
@@ -205,17 +240,65 @@ onMounted(async () => {
                 </div>
 
                 <div class="uk-margin">
-                    <label for="input-image" class="uk-form-label form-label">Image</label>
+                    <label for="input-image" class="uk-form-label form-label">Upload Foto Profil</label>
 
-                    <div class="uk-width-1-4 uk-margin-bottom" v-if="formsInput.oldProfileImage.file">
-                        <img class="uk-width-1-2" :src="formsInput.oldProfileImage.url" />
+                    <div v-if="formsInput.profile_image.url">
+                        <div class="form-image-preview" v-if="formsInput.profile_image.url">
+                            <span v-if="formsInput.profile_image.url === ''">Preview</span>
+                            <img v-else :src="formsInput.profile_image.url" alt="Preview" />
+                        </div>
+
+                        <div v-if="formsInput.profile_image.url" class="uk-margin-small">
+                            <a @click="handleRemovePreviewImage('profile_image')" class="uk-button uk-button-primary uk-button-small button button-danger">
+                                <span class="las la-times"></span> Hapus
+                            </a>
+                        </div>
+                    </div>
+
+                    <div v-else>
+                        <div class="form-image-preview" v-if="formsInput.oldProfileImage.file">
+                            <img :src="formsInput.oldProfileImage.url" />
+                        </div>
                     </div>
 
                     <div class="uk-form-controls">
-                        <input type="file" accept="image/*" @change="handleGetFiles($event)" />
+                        <input type="file" id="input-form-profile_image" accept="image/*" @change="handleGetFiles($event, 'profile_image')" />
                     </div>
 
-                    <div v-if="errorDetail.image !== ''" class="uk-text-danger">{{ errorDetail.image }}</div>
+                    <div class="uk-text-small form-text-info">Format file yang diperbolehkan: PNG, JPEG.</div>
+
+                    <div v-if="errorDetail.profile_image !== ''" class="uk-text-danger">{{ errorDetail.profile_image }}</div>
+                </div>
+
+                <div class="uk-margin">
+                    <label for="input-image" class="uk-form-label form-label">Upload Tanda Tangan</label>
+
+                    <div v-if="formsInput.signature.url">
+                        <div class="form-image-preview" v-if="formsInput.signature.url">
+                            <span v-if="formsInput.signature.url === ''">Preview</span>
+                            <img v-else :src="formsInput.signature.url" alt="Preview" />
+                        </div>
+
+                        <div v-if="formsInput.signature.url" class="uk-margin-small">
+                            <a @click="handleRemovePreviewImage('signature')" class="uk-button uk-button-primary uk-button-small button button-danger">
+                                <span class="las la-times"></span> Hapus
+                            </a>
+                        </div>
+                    </div>
+
+                    <div v-else>
+                        <div class="form-image-preview" v-if="formsInput.oldSignature.file">
+                            <img :src="formsInput.oldSignature.url" />
+                        </div>
+                    </div>
+
+                    <div class="uk-form-controls">
+                        <input type="file" id="input-form-signature" accept="image/*" @change="handleGetFiles($event, 'signature')" />
+                    </div>
+
+                    <div class="uk-text-small form-text-info">Format file yang diperbolehkan: PNG, JPEG.</div>
+
+                    <div v-if="errorDetail.signature !== ''" class="uk-text-danger">{{ errorDetail.signature }}</div>
                 </div>
 
                 <div class="uk-margin">

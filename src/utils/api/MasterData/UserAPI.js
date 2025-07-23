@@ -14,7 +14,8 @@ const userAPI = {
         formData.append('gelar', request.gelar);
         formData.append('role', request.role);
 
-        if( request.image ) formData.append('profile_image', request.image);
+        if( request.profile_image.file ) formData.append('profile_image', request.profile_image.file);
+        if( request.signature.file ) formData.append('signature', request.signature.file);
 
         const fetchApi = await fetch(endpoint, {
             method: apis.method.post,
@@ -41,10 +42,12 @@ const userAPI = {
         formData.append('password', request.password ?? null);
         formData.append('active', request.active);
         formData.append('old_profile_image', request.oldProfileImage.file);
+        formData.append('old_signature', request.oldSignature.file);
         formData.append('gelar', request.gelar);
         formData.append('role', request.role);
 
-        if( request.image ) formData.append('profile_image', request.image);
+        if( request.profile_image.file ) formData.append('profile_image', request.profile_image.file);
+        if( request.signature.file ) formData.append('signature', request.signature.file);
 
         const fetchApi = await fetch(endpoint, {
             method: apis.method.post,
