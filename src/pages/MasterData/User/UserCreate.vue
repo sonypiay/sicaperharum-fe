@@ -246,7 +246,7 @@ onMounted(async () => {
                         <input type="file" accept="image/*" id="input-form-signature" @change="handleGetFiles($event, 'signature')" />
                     </div>
 
-                    <div class="uk-text-small form-text-info">Format file yang diperbolehkan: PNG, JPEG.</div>
+                    <div class="uk-text-small form-text-info">Format file yang diperbolehkan: PNG, JPEG. Ukuran yang disarankan 450 x 260</div>
 
                     <div v-if="errorDetail.signature !== ''" class="uk-text-danger">{{ errorDetail.signature }}</div>
                 </div>
