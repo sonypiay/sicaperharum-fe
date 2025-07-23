@@ -337,12 +337,14 @@ mappingMedicalRecord.urinalisa = {
             nilai_normal: "Negatif"
         },
         {
-            label: 'Nitrit',
-            name: 'nitrit',
+            label: 'Blood',
+            name: 'blood',
             hasil: '',
             option: [
                 "Negatif",
-                "Positif",
+                "Positif 1",
+                "Positif 2",
+                "Positif 3",
             ],
             nilai_normal: "Negatif",
             note: '',
@@ -359,14 +361,12 @@ mappingMedicalRecord.urinalisa = {
             note: '',
         },
         {
-            label: 'Blood',
-            name: 'blood',
+            label: 'Nitrit',
+            name: 'nitrit',
             hasil: '',
             option: [
                 "Negatif",
-                "Positif 1",
-                "Positif 2",
-                "Positif 3",
+                "Positif",
             ],
             nilai_normal: "Negatif",
             note: '',
