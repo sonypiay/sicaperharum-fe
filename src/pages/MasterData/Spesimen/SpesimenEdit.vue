@@ -1,6 +1,6 @@
 <script setup>
 import {onMounted, reactive} from 'vue';
-import spesimenAPI from "../../../utils/api/MasterData/spesimenAPI.js";
+import spesimenAPI from "../../../utils/api/MasterData/SpesimenAPI.js";
 import {toastFailed, toastSuccess} from "../../../utils/alerts.js";
 import {useRoute, useRouter} from "vue-router";
 

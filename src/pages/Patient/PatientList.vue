@@ -6,7 +6,9 @@ import dayjs from "dayjs";
 import {alertConfirm, toastFailed, toastSuccess} from "../../utils/alerts.js";
 import {datePicker} from "../../utils/datePickerUtil.js";
 import CheckPermissionAccess from "../../utils/CheckPermissionAccess.js";
+import {useRoute} from "vue-router";
 
+const route = useRoute();
 const searchField = reactive({
     medical_number: '',
     name: '',
@@ -114,9 +116,10 @@ async function handleDeleteButton(medicalNumber) {
 }
 
 function handleGetPermission() {
-    getPermission.value.read = CheckPermissionAccess('read');
-    getPermission.value.write = CheckPermissionAccess('write');
-    getPermission.value.delete = CheckPermissionAccess('delete');
+    const roles = route.meta.roles;
+    getPermission.value.read = CheckPermissionAccess('read', roles);
+    getPermission.value.write = CheckPermissionAccess('write', roles);
+    getPermission.value.delete = CheckPermissionAccess('delete', roles);
 }
 
 onMounted(async () => {

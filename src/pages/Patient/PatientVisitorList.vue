@@ -8,7 +8,9 @@ import {datePicker} from "../../utils/datePickerUtil.js";
 import klasterAPI from "../../utils/api/MasterData/KlasterAPI.js";
 import spesimenAPI from "../../utils/api/MasterData/SpesimenAPI.js";
 import CheckPermissionAccess from "../../utils/CheckPermissionAccess.js";
+import {useRoute} from "vue-router";
 
+const route = useRoute();
 const searchField = reactive({
     register_number: '',
     medical_number: '',
@@ -141,9 +143,11 @@ async function handlePageChange(page) {
 }
 
 function handleGetPermission() {
-    getPermission.value.read = CheckPermissionAccess('read');
-    getPermission.value.write = CheckPermissionAccess('write');
-    getPermission.value.delete = CheckPermissionAccess('delete');
+    const roles = route.meta.roles;
+
+    getPermission.value.read = CheckPermissionAccess('read', roles);
+    getPermission.value.write = CheckPermissionAccess('write', roles);
+    getPermission.value.delete = CheckPermissionAccess('delete', roles);
 }
 
 onBeforeMount(() => {

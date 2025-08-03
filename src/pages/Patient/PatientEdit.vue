@@ -15,6 +15,7 @@ const formsInput = reactive({
     phone_number: '',
     active: "1"
 });
+const route = useRoute();
 const router = useRouter();
 const errorDetail = reactive({});
 const id = useRoute().params.id;
@@ -84,7 +85,7 @@ async function fetchPatient() {
 }
 
 function handleGetPermission() {
-    getPermission.value = CheckPermissionAccess('write');
+    getPermission.value = CheckPermissionAccess('write', route.meta.roles);
 }
 
 onMounted(async () => {

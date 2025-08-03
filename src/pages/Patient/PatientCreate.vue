@@ -1,7 +1,7 @@
 <script setup>
 import {onMounted, reactive} from 'vue';
 import {toastFailed, toastSuccess} from "../../utils/alerts.js";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import patientAPI from "../../utils/api/Patient/PatientAPI.js";
 import {datePickerOnlyDate} from "../../utils/datePickerUtil.js";
 import CheckPermissionAccess from "../../utils/CheckPermissionAccess.js";
@@ -15,6 +15,7 @@ const formsInput = reactive({
     phone_number: '',
     active: "1"
 });
+const route = useRoute();
 const router = useRouter();
 const errorDetail = reactive({});
 
@@ -63,6 +64,10 @@ async function onHandleSubmit() {
 }
 
 async function handleGetPermission() {
+    const roles = route.meta.roles;
+
+    console.log(roles);
+
     if( CheckPermissionAccess('write') === false ) {
         await router.push({ name: 'list-patients'});
     }
@@ -70,7 +75,7 @@ async function handleGetPermission() {
 
 onMounted(async() => {
     datePickerOnlyDate('#input-dob');
-    handleGetPermission();
+    await handleGetPermission();
 });
 </script>
 

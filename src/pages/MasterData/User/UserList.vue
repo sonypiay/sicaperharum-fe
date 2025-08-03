@@ -1,11 +1,17 @@
 <script setup>
 
-import {useRouter} from "vue-router";
+import {useRoute} from "vue-router";
 import {onBeforeMount, reactive, ref} from "vue";
 import userAPI from "../../../utils/api/MasterData/UserAPI.js";
 import dayjs from "dayjs";
+import CheckPermissionAccess from "../../../utils/CheckPermissionAccess.js";
 
-const router = useRouter();
+const route = useRoute();
+const getPermission = ref({
+    read: false,
+    write: false,
+    delete: false,
+});
 const searchField = reactive({
     name: '',
     username: '',
@@ -44,6 +50,13 @@ function handleToggleSearch() {
     isSearchEnable.value = !isSearchEnable.value;
 }
 
+function handleGetPermission() {
+    const roles = route.meta.roles;
+    getPermission.value.read = CheckPermissionAccess('read', roles);
+    getPermission.value.write = CheckPermissionAccess('write', roles);
+    getPermission.value.delete = CheckPermissionAccess('delete', roles);
+}
+
 async function handleSearch() {
     await fetchUser();
 }
@@ -53,6 +66,7 @@ async function handlePageChange(page) {
 }
 
 onBeforeMount(async () => {
+    handleGetPermission();
     await fetchUser();
 });
 

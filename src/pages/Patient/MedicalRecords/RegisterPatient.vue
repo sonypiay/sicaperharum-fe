@@ -1,7 +1,7 @@
 <script setup>
 import {onBeforeMount, onMounted, reactive, ref} from 'vue';
 import {toastFailed} from "../../../utils/alerts.js";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import patientAPI from "../../../utils/api/Patient/PatientAPI.js";
 import {datePicker} from "../../../utils/datePickerUtil.js";
 import klasterAPI from "../../../utils/api/MasterData/KlasterAPI.js";
@@ -33,6 +33,7 @@ const formsInput = reactive({
     patientType: 'child',
 });
 
+const route = useRoute();
 const router = useRouter();
 const errorDetail = reactive({});
 
@@ -266,9 +267,9 @@ function onHandleFilledForm() {
 }
 
 async function handleGetPermission() {
-    if( CheckPermissionAccess('write') === false ) {
+    const roles = route.meta.roles;
+    if( CheckPermissionAccess('write', roles) === false ) {
         toastFailed('Anda tidak memiliki akses untuk mengakses halaman ini');
-
         await router.push({ name: 'list-visitor-patient'});
     }
 }

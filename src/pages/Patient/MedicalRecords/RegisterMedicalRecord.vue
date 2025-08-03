@@ -1,7 +1,7 @@
 <script setup>
 
 import {useSessionStorage} from "@vueuse/core";
-import {onBeforeMount, onBeforeUnmount, onMounted, reactive, ref} from "vue";
+import {onBeforeMount, onMounted, reactive, ref} from "vue";
 import FormHematologi from "./FormHematologi.vue";
 import FormKimiaKlinik from "./FormKimiaKlinik.vue";
 import FormUrinalisa from "./FormUrinalisa.vue";
@@ -220,7 +220,8 @@ function onHandleToggleMenuDropdownTab()
 }
 
 async function handleGetPermission() {
-    if( CheckPermissionAccess('write') === false ) {
+    const roles = route.meta.roles;
+    if( CheckPermissionAccess('write', roles) === false ) {
         toastFailed('Anda tidak memiliki akses untuk mengakses halaman ini');
         await router.push({ name: 'list-visitor-patient'});
     }

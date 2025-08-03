@@ -4,18 +4,10 @@ import {onMounted, reactive, ref} from "vue";
 import dayjs from "dayjs";
 import { datePicker } from "../utils/datePickerUtil.js";
 import patientMedicalRecordAPI from "../utils/api/Patient/PatientMedicalRecordAPI.js";
-import {useRoute} from "vue-router";
-import CheckPermissionAccess from "../utils/CheckPermissionAccess.js";
 
-const route = useRoute();
 const searchField = reactive({
     start_date: '',
     end_date: '',
-});
-const getPermission = ref({
-    read: false,
-    write: false,
-    delete: false,
 });
 
 let instancePickupDatePicker = null;

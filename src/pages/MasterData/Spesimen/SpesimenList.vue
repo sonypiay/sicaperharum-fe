@@ -1,15 +1,20 @@
 <script setup>
 
-import {useRouter} from "vue-router";
-import {onBeforeMount, onMounted, reactive, ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import spesimenAPI from "../../../utils/api/MasterData/SpesimenAPI.js";
 import dayjs from "dayjs";
+import CheckPermissionAccess from "../../../utils/CheckPermissionAccess.js";
+import {useRoute} from "vue-router";
 
-const router = useRouter();
+const route = useRoute();
 const searchField = reactive({
     title: ''
 });
-
+const getPermission = ref({
+    read: false,
+    write: false,
+    delete: false,
+});
 const dataSpesimen = ref([]);
 const isSearchEnable = ref(false);
 
@@ -27,11 +32,19 @@ function handleToggleSearch() {
     isSearchEnable.value = !isSearchEnable.value;
 }
 
+function handleGetPermission() {
+    const roles = route.meta.roles;
+    getPermission.value.read = CheckPermissionAccess('read', roles);
+    getPermission.value.write = CheckPermissionAccess('write', roles);
+    getPermission.value.delete = CheckPermissionAccess('delete', roles);
+}
+
 async function handleSearch() {
     await fetchSpesimen();
 }
 
 onMounted(async () => {
+    handleGetPermission();
     await fetchSpesimen();
 });
 

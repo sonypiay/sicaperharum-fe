@@ -1,12 +1,12 @@
 <script setup>
 
-import {useRouter} from "vue-router";
-import {onBeforeMount, onMounted, reactive, ref} from "vue";
+import {useRoute} from "vue-router";
+import {onMounted, reactive, ref} from "vue";
 import klasterAPI from "../../../utils/api/MasterData/KlasterAPI.js";
 import dayjs from "dayjs";
 import CheckPermissionAccess from "../../../utils/CheckPermissionAccess.js";
 
-const router = useRouter();
+const route = useRoute();
 const searchField = reactive({
     title: ''
 });
@@ -39,9 +39,11 @@ async function handleSearch() {
 }
 
 function handleGetPermission() {
-    getPermission.value.read = CheckPermissionAccess('read');
-    getPermission.value.write = CheckPermissionAccess('write');
-    getPermission.value.delete = CheckPermissionAccess('delete');
+    const roles = route.meta.roles;
+
+    getPermission.value.read = CheckPermissionAccess('read', roles);
+    getPermission.value.write = CheckPermissionAccess('write', roles);
+    getPermission.value.delete = CheckPermissionAccess('delete', roles);
 }
 
 onMounted(async () => {

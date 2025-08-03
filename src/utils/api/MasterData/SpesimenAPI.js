@@ -1,6 +1,6 @@
 import apis from '../api.js';
 
-const spesimenAPI = {
+const SpesimenAPI = {
     create: async ({nama, active}) => {
         const userToken = localStorage.getItem('user_token') ?? null;
         const endpoint = `${apis.backendApi}/master-data/spesimen`;
@@ -90,4 +90,4 @@ const spesimenAPI = {
     }
 };
 
-export default spesimenAPI;
+export default SpesimenAPI;

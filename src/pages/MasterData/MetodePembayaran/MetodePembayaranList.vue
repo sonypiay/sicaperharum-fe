@@ -1,15 +1,20 @@
 <script setup>
 
-import {useRouter} from "vue-router";
-import {onBeforeMount, onMounted, reactive, ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import metodePembayaranAPI from "../../../utils/api/MasterData/MetodePembayaranAPI.js";
 import dayjs from "dayjs";
+import {useRoute} from "vue-router";
+import CheckPermissionAccess from "../../../utils/CheckPermissionAccess.js";
 
-const router = useRouter();
+const route = useRoute();
+const getPermission = ref({
+    read: false,
+    write: false,
+    delete: false,
+});
 const searchField = reactive({
     title: ''
 });
-
 const dataMetodePembayaran = ref([]);
 const isSearchEnable = ref(false);
 
@@ -27,11 +32,19 @@ function handleToggleSearch() {
     isSearchEnable.value = !isSearchEnable.value;
 }
 
+function handleGetPermission() {
+    const roles = route.meta.roles;
+    getPermission.value.read = CheckPermissionAccess('read', roles);
+    getPermission.value.write = CheckPermissionAccess('write', roles);
+    getPermission.value.delete = CheckPermissionAccess('delete', roles);
+}
+
 async function handleSearch() {
     await fetchMetodePembayaran();
 }
 
 onMounted(async () => {
+    handleGetPermission();
     await fetchMetodePembayaran();
 });
 
