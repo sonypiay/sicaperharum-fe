@@ -1,6 +1,6 @@
 <script setup>
 import {onMounted, reactive, ref} from 'vue';
-import {toastFailed, toastSuccess} from "../../../utils/alerts.js";
+import {alertConfirm, toastFailed, toastSuccess} from "../../../utils/alerts.js";
 import {useRoute, useRouter} from "vue-router";
 import userAPI from "../../../utils/api/MasterData/UserAPI.js";
 import {useLocalStorage} from "@vueuse/core";
@@ -170,6 +170,26 @@ function handleRemovePreviewImage(propName) {
     }
 }
 
+async function handleDeleteSignature() {
+    const confirmAction = await alertConfirm("Konfirmasi", "Apakah anda yakin ingin menghapus tanda tangan ini?");
+
+    if( confirmAction ) {
+        const fetchApi = await userAPI.deleteSignature(userId);
+        const statusCode = fetchApi.statusCode;
+
+        if( statusCode === 202 ) {
+            toastSuccess(`Tanda tangan berhasil dihapus.`);
+
+            formsInput.oldSignature = {
+                file: null,
+                url: ''
+            };
+        } else {
+            toastFailed("Gagal menghapus tanda tangan. Silahkan coba lagi nanti.");
+        }
+    }
+}
+
 onMounted(async () => {
     await fetchRoles();
     await fetchUser();
@@ -290,6 +310,10 @@ onMounted(async () => {
                         <div class="form-image-preview" v-if="formsInput.oldSignature.file">
                             <img :src="formsInput.oldSignature.url" />
                         </div>
+
+                        <a v-if="formsInput.oldSignature.file" @click="handleDeleteSignature()" class="uk-button uk-button-danger uk-button-small button button-danger">
+                            <span class="las la-trash-o"></span> Hapus
+                        </a>
                     </div>
 
                     <div class="uk-form-controls">

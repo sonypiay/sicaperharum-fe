@@ -122,7 +122,25 @@ const userAPI = {
             data: await fetchApi.json(),
             statusCode: fetchApi.status
         }
-    }
+    },
+    deleteSignature: async(id) => {
+        const userToken = localStorage.getItem('user_token') ?? null;
+        const endpoint = `${apis.backendApi}/users/${id}/signature`;
+        const fetchApi = await fetch(endpoint, {
+            method: apis.method.delete,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Authorization': `Bearer ${userToken}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            }
+        });
+
+        return {
+            data: await fetchApi.json(),
+            statusCode: fetchApi.status
+        };
+    },
 };
 
 export default userAPI;
